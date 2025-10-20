@@ -1,49 +1,24 @@
 {
-  "homepage": ".",
-  "name": "guia-ao-dispor",
+  "name": "guia-ao-dispor-client",
   "version": "1.0.0",
-  "description": "Projeto final de Lucas e Rhuam, uma plataforma de conexão para cuidados especiais e acessibilidade.",
-  "main": "server/servidor.js",
   "type": "module",
   "scripts": {
-    "server": "node server/servidor.js",
-    "start": "node server/servidor.js",
-    "dev:cliente": "cd client && vite",
-    "dev:servidor": "cd server && nodemon servidor.js",
-    "dev": "concurrently -k \"npm run dev:cliente\"",
-    "dev:1": "concurrently -k \"cd client && vite\" \"cd server && nodemon servidor.js\"",
-    "build": "npm run build:client",
-    "build:client": "npm install && vite build",
-    "build:server": "echo \"Server build complete - no additional build steps needed\"",
-    "lint": "eslint . --fix",
-    "tree:ps": "powershell \"Get-ChildItem -Recurse -Path . | Where-Object { $_.FullName -notlike '*node_modules*' } | Select-Object FullName\"",
-    "preview": "cd client && vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .js,.jsx --fix"
   },
-  "author": "Lucas e Rhuam",
-  "license": "ISC",
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
-    "bcryptjs": "^2.4.3",
-    "concurrently": "^8.2.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.488.0",
-    "mongodb": "^6.18.0",
-    "mongoose": "^8.19.1",
-    "multer": "^2.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-image-crop": "^11.0.10",
     "react-router-dom": "^6.23.1",
-    "sharp": "^0.34.4",
     "terser": "^5.44.0",
-    "v3": "^0.0.0",
-    "Vite": "npm:vite@^7.1.10"
+    "v3": "^0.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
@@ -52,12 +27,7 @@
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "globals": "^15.4.0",
-    "nodemon": "^3.1.2",
     "postcss": "^8.4.38",
     "vite": "^7.1.9"
-  },
-  "engines": {
-    "node": "22.14.0"
   }
 }
