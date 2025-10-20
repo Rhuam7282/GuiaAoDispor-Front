@@ -10,7 +10,7 @@ import Qualificados from "./paginas/qualificados/qualificados.jsx";
 import Cadastro from "./paginas/cadastro/cadastro.jsx";
 import Inicio from "./paginas/inicio/inicio.jsx";
 import PainelControle from "./componentes/acessibilidade/painelcontrole.jsx";
-import VlibrasWidget from "./componentes/acessibilidade/vlibras/vlibraswidget.jsx";
+// import VlibrasWidget from "./componentes/acessibilidade/vlibras/vlibraswidget.jsx";
 
 function App() {
   return (
@@ -78,7 +78,7 @@ function App() {
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-      <VlibrasWidget />
+      {/* <VlibrasWidget /> */}
     </div>
   );
 }
