@@ -49,9 +49,13 @@ export const AuthProvider = ({ children }) => {
     setUsuario(usuarioNormalizado);
     setToken(tokenJWT);
     
+    // Armazenar de forma padronizada
     localStorage.setItem('usuario', JSON.stringify(usuarioNormalizado));
+    localStorage.setItem('user_data', JSON.stringify(usuarioNormalizado));
     localStorage.setItem('token', tokenJWT);
+    localStorage.setItem('auth_token', tokenJWT);
     localStorage.setItem('autenticado', 'true');
+    localStorage.setItem('estaAutenticado', 'true');
     localStorage.setItem('timestampLogin', Date.now().toString());
     
     console.log('✅ Login realizado:', usuarioNormalizado.nome);
@@ -67,9 +71,13 @@ export const AuthProvider = ({ children }) => {
       setUsuario(null);
       setToken(null);
       
+      // Limpar todos os dados de autenticação
       localStorage.removeItem('usuario');
+      localStorage.removeItem('user_data');
       localStorage.removeItem('token');
+      localStorage.removeItem('auth_token');
       localStorage.removeItem('autenticado');
+      localStorage.removeItem('estaAutenticado');
       localStorage.removeItem('timestampLogin');
       localStorage.removeItem('emailLembrado');
       localStorage.removeItem('lembrarMe');
@@ -89,6 +97,7 @@ export const AuthProvider = ({ children }) => {
         const usuarioAtualizado = { ...usuario, ...resposta.data };
         setUsuario(usuarioAtualizado);
         localStorage.setItem('usuario', JSON.stringify(usuarioAtualizado));
+        localStorage.setItem('user_data', JSON.stringify(usuarioAtualizado));
         console.log('✅ Usuário atualizado:', usuarioAtualizado.nome);
         return usuarioAtualizado;
       }
@@ -100,9 +109,9 @@ export const AuthProvider = ({ children }) => {
 
   const obterDadosArmazenados = () => {
     try {
-      const usuarioArmazenado = localStorage.getItem('usuario');
-      const tokenArmazenado = localStorage.getItem('token');
-      const autenticado = localStorage.getItem('autenticado') === 'true';
+      const usuarioArmazenado = localStorage.getItem('usuario') || localStorage.getItem('user_data');
+      const tokenArmazenado = localStorage.getItem('token') || localStorage.getItem('auth_token');
+      const autenticado = localStorage.getItem('autenticado') === 'true' || localStorage.getItem('estaAutenticado') === 'true';
 
       if (usuarioArmazenado && tokenArmazenado && autenticado) {
         return {
@@ -113,9 +122,13 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (erro) {
       console.error('❌ Erro ao obter dados armazenados:', erro);
+      // Limpar dados corrompidos
       localStorage.removeItem('usuario');
+      localStorage.removeItem('user_data');
       localStorage.removeItem('token');
+      localStorage.removeItem('auth_token');
       localStorage.removeItem('autenticado');
+      localStorage.removeItem('estaAutenticado');
       localStorage.removeItem('timestampLogin');
     }
     
@@ -142,8 +155,11 @@ export const AuthProvider = ({ children }) => {
         } catch (erro) {
           console.log('🔒 Sessão inválida - realizando logout silencioso');
           localStorage.removeItem('usuario');
+          localStorage.removeItem('user_data');
           localStorage.removeItem('token');
+          localStorage.removeItem('auth_token');
           localStorage.removeItem('autenticado');
+          localStorage.removeItem('estaAutenticado');
           localStorage.removeItem('timestampLogin');
           setUsuario(null);
           setToken(null);
