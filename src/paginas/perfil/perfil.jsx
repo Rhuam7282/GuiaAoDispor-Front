@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Corpo from "../../componentes/layout/corpo.jsx";
-import InformacoesPerfil from "./componentes/informacoesperfil.jsx";
-import HistoricoAcademicoPerfil from "./componentes/historicoacademicoperfil.jsx";
-import HistoricoProfissionalPerfil from "./componentes/historicoprofissionalperfil.jsx";
+import InformacoesPerfil from "./componentes/informacoesPerfil.jsx";
+import HistoricoAcademicoPerfil from "./componentes/historicoAcademicoPerfil.jsx";
+import HistoricoProfissionalPerfil from "./componentes/historicoProfissionalPerfil.jsx";
 import { servicoProfissional, servicoHCurricular, servicoHProfissional, servicoAuth } from "../../servicos/api.js";
 import { useAuth } from "../../contextos/autenticacao.jsx";
 import "./perfil.css";

@@ -31,15 +31,14 @@ function App() {
             {/* Rotas que redirecionam se autenticado */}
             <Route path="/cadastro" element={<Cadastro />} />
 
-            {/* Rotas protegidas - requerem autenticação */}
             <Route
               path="/qualificados"
               element={
-                <ProtectedRoute>
                   <Qualificados />
-                </ProtectedRoute>
               }
             />
+
+            {/* Rotas protegidas - requerem autenticação */}
             <Route
               path="/perfil"
               element={

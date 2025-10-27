@@ -4,7 +4,7 @@ import Corpo from "../../componentes/layout/corpo.jsx";
 import FormularioLoginGoogle from './componentes/formulariologingoogle.jsx';
 import FormularioLogin from './componentes/formulariologin.jsx';
 import FormularioCadastro from './componentes/formulariocadastro.jsx';
-// import useBuscaCep from "../../../server/apis/buscacep.jsx";
+// import useBuscaCep from "..";
 import { servicoCadastro, servicoAuth } from '../../servicos/api.js';
 import { useAuth } from '../../contextos/autenticacao.jsx';
 import './cadastro.css';
@@ -36,7 +36,7 @@ const Cadastro = () => {
   // <<< CORREÇÃO 1: Declarar o estado 'carregandoSubmit'
   const [carregandoSubmit, setCarregandoSubmit] = useState(false);
 
-  // Usar o hook de busca de CEP
+  // // Usar o hook de busca de CEP
   // const { carregandoCep } = useBuscaCep(dadosFormulario.cep, setDadosFormulario, setErros);
 
   const aoAlterarCampo = (evento) => {

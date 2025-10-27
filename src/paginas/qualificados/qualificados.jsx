@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Corpo from "../../componentes/layout/Corpo.jsx";
-import Filtro from "./componentes/Filtro.jsx";
-import ListaProfissionais from "./componentes/ListaProfissionais.jsx";
-import "./Qualificados.css";
+import Corpo from "../../componentes/layout/corpo.jsx";
+import Filtro from "./componentes/filtro.jsx";
+import ListaProfissionais from "./componentes/listaProfissionais.jsx";
+import "./qualificados.css";
 
 function Qualificados() {
   const [filtroSelecionado, setFiltroSelecionado] = useState("localizacao");
