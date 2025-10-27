@@ -1,20 +1,23 @@
-// Configurações consolidadas da API - Arquivo único
 export const API_CONFIG = {
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001',
+  BASE_URL: import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || 'http://localhost:3001',
+  TIMEOUT: 15000,
+  
   ENDPOINTS: {
-    USERS: "/api/usuarios",
-    AUTH: "/api/auth",
-    PROFILES: "/api/profiles",
-    LOCATIONS: "/api/localizacoes",
-    PROFESSIONALS: "/api/profissionais",
-    EVALUATIONS: "/api/avaliacoes",
-    HCURRICULAR: "/api/hcurriculares",
-    HPROFISSIONAL: "/api/hprofissionais"
-  },
-  TIMEOUT: 10000
+    AUTH: '/api/auth',
+    USERS: '/api/usuarios', 
+    PROFESSIONALS: '/api/profissionais',
+    LOCATIONS: '/api/localizacoes',
+    EVALUATIONS: '/api/avaliacoes',
+    HCURRICULAR: '/api/hcurriculares',
+    HPROFISSIONAL: '/api/hprofissionais'
+  }
 };
 
-// Configurações do Google OAuth
+console.log('🔧 Configuração API carregada:', {
+  BASE_URL: API_CONFIG.BASE_URL,
+  ambiente: import.meta.env.MODE
+});
+
 export const GOOGLE_CONFIG = {
   CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
   SCOPE: "profile email"
