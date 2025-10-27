@@ -181,7 +181,7 @@ const FormularioCadastro = ({
                     placeholder="Sua instituição de ensino ou empresa"
                   />
                 </div>
-                {/* ADICIONE AS SEÇÕES DE HISTÓRICOS AQUI */}
+
                 <HistoricoCurricular
                   historicosCurriculares={historicosCurriculares}
                   adicionarHistoricoCurricular={adicionarHistoricoCurricular}
@@ -202,6 +202,7 @@ const FormularioCadastro = ({
                 />
               </>
             )}
+            
             {/* Seção de Tipo de Perfil */}
             <div className="cartaoDestaque variacao2" id="tipo-perfil">
               <div className="grupo-formulario">
