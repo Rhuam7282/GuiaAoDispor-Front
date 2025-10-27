@@ -1,4 +1,3 @@
-// client/src/servicos/api.js
 import { API_CONFIG } from "../config/apiconfig.js";
 
 const URL_BASE = API_CONFIG.BASE_URL;
@@ -9,8 +8,14 @@ const obterToken = () => {
 };
 
 // Função principal para fazer requisições
-const fazerRequisicao = async (url, metodo, dados = null) => {
+const fazerRequisicao = async (endpoint, metodo, dados = null) => {
   const token = obterToken();
+  
+  // Construir URL corretamente - EVITAR DUPLICAÇÃO
+  const urlCompleta = `${URL_BASE}${endpoint}`;
+  
+  console.log(`🌐 Fazendo requisição ${metodo} para: ${urlCompleta}`);
+
   const opcoes = {
     method: metodo,
     headers: {
@@ -29,13 +34,11 @@ const fazerRequisicao = async (url, metodo, dados = null) => {
   }
 
   try {
-    console.log(`🌐 Fazendo requisição ${metodo} para: ${url}`);
-
     const controlador = new AbortController();
     const idTempo = setTimeout(() => controlador.abort(), API_CONFIG.TIMEOUT);
     opcoes.signal = controlador.signal;
 
-    const resposta = await fetch(url, opcoes);
+    const resposta = await fetch(urlCompleta, opcoes);
     clearTimeout(idTempo);
 
     if (!resposta.ok) {
@@ -93,90 +96,91 @@ const fazerRequisicao = async (url, metodo, dados = null) => {
   }
 };
 
-// Serviços básicos usando os endpoints corretos
+// ========== SERVIÇOS CORRIGIDOS - ENDPOINTS RELATIVOS ==========
+
 export const servicoLocalizacao = {
   criar: (dadosLocalizacao) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.LOCATIONS}`, "POST", dadosLocalizacao),
+    fazerRequisicao('/api/localizacoes', "POST", dadosLocalizacao),
   buscarPorId: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.LOCATIONS}/${id}`, "GET"),
+    fazerRequisicao(`/api/localizacoes/${id}`, "GET"),
   listarTodas: () => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.LOCATIONS}`, "GET"),
+    fazerRequisicao('/api/localizacoes', "GET"),
   atualizar: (id, dadosLocalizacao) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.LOCATIONS}/${id}`, "PUT", dadosLocalizacao),
+    fazerRequisicao(`/api/localizacoes/${id}`, "PUT", dadosLocalizacao),
   deletar: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.LOCATIONS}/${id}`, "DELETE"),
+    fazerRequisicao(`/api/localizacoes/${id}`, "DELETE"),
 };
 
 export const servicoUsuario = {
   criar: (dadosUsuario) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.USERS}`, "POST", dadosUsuario),
+    fazerRequisicao('/api/usuarios', "POST", dadosUsuario),
   buscarPorId: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.USERS}/${id}`, "GET"),
+    fazerRequisicao(`/api/usuarios/${id}`, "GET"),
   listarTodos: () => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.USERS}`, "GET"),
+    fazerRequisicao('/api/usuarios', "GET"),
   atualizar: (id, dadosUsuario) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.USERS}/${id}`, "PUT", dadosUsuario),
+    fazerRequisicao(`/api/usuarios/${id}`, "PUT", dadosUsuario),
   deletar: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.USERS}/${id}`, "DELETE"),
+    fazerRequisicao(`/api/usuarios/${id}`, "DELETE"),
 };
 
 export const servicoProfissional = {
   criar: (dadosProfissional) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.PROFESSIONALS}`, "POST", dadosProfissional),
+    fazerRequisicao('/api/profissionais', "POST", dadosProfissional),
   buscarPorId: (id) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.PROFESSIONALS}/${id}`, "GET"),
+    fazerRequisicao(`/api/profissionais/${id}`, "GET"),
   listarTodos: () => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.PROFESSIONALS}`, "GET"),
+    fazerRequisicao('/api/profissionais', "GET"),
   atualizar: (id, dadosProfissional) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.PROFESSIONALS}/${id}`, "PUT", dadosProfissional),
+    fazerRequisicao(`/api/profissionais/${id}`, "PUT", dadosProfissional),
   deletar: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.PROFESSIONALS}/${id}`, "DELETE"),
+    fazerRequisicao(`/api/profissionais/${id}`, "DELETE"),
 };
 
 export const servicoAvaliacao = {
   criar: (dadosAvaliacao) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.EVALUATIONS}`, "POST", dadosAvaliacao),
+    fazerRequisicao('/api/avaliacoes', "POST", dadosAvaliacao),
   buscarPorId: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.EVALUATIONS}/${id}`, "GET"),
+    fazerRequisicao(`/api/avaliacoes/${id}`, "GET"),
   listarTodas: () => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.EVALUATIONS}`, "GET"),
+    fazerRequisicao('/api/avaliacoes', "GET"),
   atualizar: (id, dadosAvaliacao) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.EVALUATIONS}/${id}`, "PUT", dadosAvaliacao),
+    fazerRequisicao(`/api/avaliacoes/${id}`, "PUT", dadosAvaliacao),
   deletar: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.EVALUATIONS}/${id}`, "DELETE"),
+    fazerRequisicao(`/api/avaliacoes/${id}`, "DELETE"),
 };
 
 export const servicoHCurricular = {
   criar: (dadosHCurricular) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HCURRICULAR}`, "POST", dadosHCurricular),
+    fazerRequisicao('/api/hcurriculares', "POST", dadosHCurricular),
   buscarPorId: (id) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HCURRICULAR}/${id}`, "GET"),
+    fazerRequisicao(`/api/hcurriculares/${id}`, "GET"),
   listarTodos: () => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HCURRICULAR}`, "GET"),
+    fazerRequisicao('/api/hcurriculares', "GET"),
   atualizar: (id, dadosHCurricular) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HCURRICULAR}/${id}`, "PUT", dadosHCurricular),
+    fazerRequisicao(`/api/hcurriculares/${id}`, "PUT", dadosHCurricular),
   deletar: (id) => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HCURRICULAR}/${id}`, "DELETE"),
+    fazerRequisicao(`/api/hcurriculares/${id}`, "DELETE"),
 };
 
 export const servicoHProfissional = {
   criar: (dadosHProfissional) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HPROFISSIONAL}`, "POST", dadosHProfissional),
+    fazerRequisicao('/api/hprofissionais', "POST", dadosHProfissional),
   buscarPorId: (id) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HPROFISSIONAL}/${id}`, "GET"),
+    fazerRequisicao(`/api/hprofissionais/${id}`, "GET"),
   listarTodos: () => 
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HPROFISSIONAL}`, "GET"),
+    fazerRequisicao('/api/hprofissionais', "GET"),
   atualizar: (id, dadosHProfissional) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HPROFISSIONAL}/${id}`, "PUT", dadosHProfissional),
+    fazerRequisicao(`/api/hprofissionais/${id}`, "PUT", dadosHProfissional),
   deletar: (id) =>
-    fazerRequisicao(`${URL_BASE}${API_CONFIG.ENDPOINTS.HPROFISSIONAL}/${id}`, "DELETE"),
+    fazerRequisicao(`/api/hprofissionais/${id}`, "DELETE"),
 };
 
 export const servicoCadastro = {
   validarEmail: async (email) => {
     try {
       const resposta = await fazerRequisicao(
-        `${URL_BASE}${API_CONFIG.ENDPOINTS.AUTH}/validar-email`,
+        '/api/auth/validar-email',
         "POST",
         { email }
       );
@@ -227,7 +231,7 @@ export const servicoAuth = {
       console.log('🔐 Tentando login para:', email);
       
       const resposta = await fazerRequisicao(
-        `${URL_BASE}${API_CONFIG.ENDPOINTS.AUTH}/login`, 
+        '/api/auth/login', 
         "POST", 
         { email, senha }
       );
@@ -275,7 +279,7 @@ export const servicoAuth = {
   buscarPerfilLogado: async (id) => {
     try {
       const resposta = await fazerRequisicao(
-        `${URL_BASE}${API_CONFIG.ENDPOINTS.AUTH}/perfil/${id}`,
+        `/api/auth/perfil/${id}`,
         "GET"
       );
       return resposta;
@@ -287,7 +291,7 @@ export const servicoAuth = {
   editarPerfil: async (id, dadosAtualizacao) => {
     try {
       const resposta = await fazerRequisicao(
-        `${URL_BASE}${API_CONFIG.ENDPOINTS.AUTH}/perfil/${id}`,
+        `/api/auth/perfil/${id}`,
         "PUT",
         dadosAtualizacao
       );
@@ -300,7 +304,7 @@ export const servicoAuth = {
   logout: async () => {
     try {
       const resposta = await fazerRequisicao(
-        `${URL_BASE}${API_CONFIG.ENDPOINTS.AUTH}/logout`, 
+        '/api/auth/logout', 
         "POST"
       );
 
