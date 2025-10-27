@@ -1,5 +1,5 @@
 import React from 'react';
-import './secaocomentarios.css';
+import './SecaoComentarios.css';
 
 const SecaoComentarios = () => {
   // Agora usando a estrutura do schema de Avaliacao
