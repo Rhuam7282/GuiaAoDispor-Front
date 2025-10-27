@@ -162,7 +162,7 @@ const FormularioLogin = () => {
               </label>
               <input
                 type="email"
-                id="email"
+                id="login-email"
                 name="email"
                 value={dadosLogin.email}
                 onChange={aoAlterarCampo}
@@ -182,7 +182,7 @@ const FormularioLogin = () => {
               <div className="container-senha">
                 <input
                   type={mostrarSenha ? "text" : "password"}
-                  id="senha"
+                  id="login-senha"
                   name="senha"
                   value={dadosLogin.senha}
                   onChange={aoAlterarCampo}

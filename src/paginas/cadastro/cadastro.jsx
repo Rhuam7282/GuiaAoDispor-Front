@@ -56,6 +56,9 @@ const Cadastro = () => {
       leitor.onload = (e) =>
         setDadosFormulario((prev) => ({ ...prev, foto: e.target.result }));
       leitor.readAsDataURL(arquivo);
+    } else {
+      // Remove a foto quando o input é limpo
+      setDadosFormulario((prev) => ({ ...prev, foto: null }));
     }
   };
 
@@ -68,12 +71,23 @@ const Cadastro = () => {
 
     setCarregandoSubmit(true);
     setMensagemSucesso("");
+    setErros({}); // Limpa erros anteriores
 
     try {
       console.log("📧 Validando email...");
+
+      // Verifica se o servidor está respondendo
+      const servidorOnline = await verificarConexaoAPI();
+      if (!servidorOnline) {
+        throw new Error(
+          "Servidor indisponível. Verifique se o backend está rodando."
+        );
+      }
+
       const respostaValidacao = await servicoCadastro.validarEmail(
         dadosFormulario.email
       );
+
       if (!respostaValidacao.valido) {
         setErros({ email: "Este email já está em uso" });
         setCarregandoSubmit(false);
@@ -131,7 +145,19 @@ const Cadastro = () => {
       }
     } catch (erro) {
       console.error("❌ Erro no cadastro:", erro);
-      setErros({ submit: erro.message || "Erro ao realizar cadastro" });
+
+      let mensagemErro = erro.message || "Erro ao realizar cadastro";
+
+      if (
+        erro.message.includes("CONNECTION_REFUSED") ||
+        erro.message.includes("Failed to fetch") ||
+        erro.message.includes("Servidor indisponível")
+      ) {
+        mensagemErro =
+          "Servidor indisponível. Verifique se o backend está rodando na porta 3001.";
+      }
+
+      setErros({ submit: mensagemErro });
     } finally {
       setCarregandoSubmit(false);
     }
@@ -223,12 +249,32 @@ const Cadastro = () => {
     return "";
   };
 
+  const verificarConexaoAPI = async () => {
+    try {
+      const resposta = await fetch("http://localhost:3001/api/health", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return resposta.ok;
+    } catch (erro) {
+      console.error("❌ API não está respondendo:", erro);
+      return false;
+    }
+  };
+
   const adicionarHistoricoCurricular = () => {
     setDadosFormulario((prev) => ({
       ...prev,
       historicosCurriculares: [
         ...prev.historicosCurriculares,
-        { nome: "", desc: "" },
+        {
+          nome: "",
+          desc: "",
+          dataInicio: "",
+          dataConclusao: "",
+        },
       ],
     }));
   };
