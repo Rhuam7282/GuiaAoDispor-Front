@@ -1,4 +1,4 @@
-// src/componentes/layout/Corpo.jsx
+// src/componentes/layout/corpo.jsx
 import Menu from './menu/menu.jsx';
 import './corpo.css';
 import { useLocation } from 'react-router-dom';

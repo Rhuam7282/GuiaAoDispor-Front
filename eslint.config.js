@@ -53,7 +53,7 @@ export default [
             ["@Config", "./src/Config"],
             ["@Ganchos", "./src/componentes/Acessibilidade/Ganchos"],
             ["@Contextos", "./src/contextos"],
-            ["@Autenticacao", "./src/componentes/Autenticacao"],
+            ["@Autenticacao", "./src/componentes/autenticacao"],
             ["@Formularios", "./src/componentes/Formularios"],
             ["@Layout", "./src/componentes/layout"],
             ["@Perfil", "./src/componentes/Perfil"],
