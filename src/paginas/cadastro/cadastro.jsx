@@ -4,10 +4,10 @@ import Corpo from "../../componentes/layout/corpo.jsx";
 import FormularioLoginGoogle from './componentes/formulariologingoogle.jsx';
 import FormularioLogin from './componentes/formulariologin.jsx';
 import FormularioCadastro from './componentes/formulariocadastro.jsx';
-import useBuscaCep from "../../componentes/acessibilidade/./ganchos/usebuscacep.jsx";
+// import useBuscaCep from "../../../server/apis/buscacep.jsx";
 import { servicoCadastro, servicoAuth } from '../../servicos/api.js';
 import { useAuth } from '../../contextos/autenticacao.jsx';
-import './Cadastro.css';
+import './cadastro.css';
 
 const Cadastro = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Cadastro = () => {
   const [carregandoSubmit, setCarregandoSubmit] = useState(false);
 
   // Usar o hook de busca de CEP
-  const { carregandoCep } = useBuscaCep(dadosFormulario.cep, setDadosFormulario, setErros);
+  // const { carregandoCep } = useBuscaCep(dadosFormulario.cep, setDadosFormulario, setErros);
 
   const aoAlterarCampo = (evento) => {
     const { name, value } = evento.target;
