@@ -1,67 +1,70 @@
 // eslint.config.js
-import js from '@eslint/js'
-import globals from 'globals'
-import pluginReact from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import js from "@eslint/js";
+import globals from "globals";
+import pluginReact from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ["dist"] },
   {
-    files: ['**/*.{js,jsx}'],
+    files: ["**/*.{js,jsx}"],
     languageOptions: {
-      ecmaVersion: 'latest',
+      ecmaVersion: "latest",
       globals: {
         ...globals.browser,
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        sourceType: "module",
       },
     },
     plugins: {
-      'react': pluginReact,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      react: pluginReact,
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
     },
     rules: {
-      'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
+      "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
       ...js.configs.recommended.rules,
       ...pluginReact.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^[A-Z_]' }],
-      'react-refresh/only-export-components': [
-        'warn',
+      "no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^[A-Z_]" },
+      ],
+      "react-refresh/only-export-components": [
+        "warn",
         { allowConstantExport: true },
       ],
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
     settings: {
-      'import/resolver': {
+      "import/resolver": {
         alias: {
           map: [
-            ['@', './src'],
+            ["@", "./src"],
             // CORREÇÃO: Padronizar os aliases para coincidir com o vite.config.js
-            ['@Componentes', './src/Componentes'],
-            ['@Paginas', './src/Paginas'],
-            ['@Recursos', './src/Recursos'],
-            ['@Servicos', './src/Servicos'],
-            ['@Config', './src/Config'],
-            ['@Ganchos', './src/Componentes/Acessibilidade/Ganchos'],
-            ['@Contextos', './src/Contextos'],
-            ['@Autenticacao', './src/Componentes/Autenticacao'],
-            ['@Formularios', './src/Componentes/Formularios'],
-            ['@Layout', './src/Componentes/Layout'],
-            ['@Perfil', './src/Componentes/Perfil'],
-            ['@Comum', './src/Componentes/Comum'],
-            ['@Acessibilidade', './src/Componentes/Acessibilidade'],
-            ['@Estilos', './src/Estilos'],
-            ['@Utils', './src/Utils']
+            ["@Componentes", "./src/componentes"],
+            ["@Paginas", "./src/Paginas"],
+            ["@Recursos", "./src/Recursos"],
+            ["@Servicos", "./src/servicos"],
+            ["@Config", "./src/Config"],
+            ["@Ganchos", "./src/componentes/Acessibilidade/Ganchos"],
+            ["@Contextos", "./src/contextos"],
+            ["@Autenticacao", "./src/componentes/Autenticacao"],
+            ["@Formularios", "./src/componentes/Formularios"],
+            ["@Layout", "./src/componentes/layout"],
+            ["@Perfil", "./src/componentes/Perfil"],
+            ["@Comum", "./src/componentes/Comum"],
+            ["@Acessibilidade", "./src/componentes/Acessibilidade"],
+            ["@Estilos", "./src/Estilos"],
+            ["@Utils", "./src/Utils"],
           ],
-          extensions: ['.js', '.jsx']
-        }
-      }
+          extensions: [".js", ".jsx"],
+        },
+      },
     },
   },
-]
+];

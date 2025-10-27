@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Corpo from "../../Componentes/Layout/Corpo.jsx";
+import Corpo from "../../componentes/layout/Corpo.jsx";
 import InformacoesPerfil from "./componentes/InformacoesPerfil.jsx";
 import HistoricoAcademicoPerfil from "./componentes/HistoricoAcademicoPerfil.jsx";
 import HistoricoProfissionalPerfil from "./componentes/HistoricoProfissionalPerfil.jsx";
-import { servicoProfissional, servicoHCurricular, servicoHProfissional, servicoAuth } from "../../Servicos/Api.js";
-import { useAuth } from "../../Contextos/Autenticacao.jsx";
+import { servicoProfissional, servicoHCurricular, servicoHProfissional, servicoAuth } from "../../servicos/Api.js";
+import { useAuth } from "../../contextos/Autenticacao.jsx";
 import "./Perfil.css";
 
 import {

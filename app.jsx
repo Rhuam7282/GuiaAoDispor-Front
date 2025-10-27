@@ -1,7 +1,7 @@
 // client/src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./Contextos/Autenticacao.jsx";
-import ProtectedRoute from "./Componentes/Autenticacao/ProtectedRoute.jsx";
+import { AuthProvider } from "./contextos/Autenticacao.jsx";
+import ProtectedRoute from "./componentes/Autenticacao/ProtectedRoute.jsx";
 
 import SobreNos from "./paginas/Sobrenos/SobreNos.jsx";
 import Perfil from "./paginas/Perfil/Perfil.jsx";
@@ -9,8 +9,8 @@ import Mensagem from "./paginas/Mensagem/Mensagem.jsx";
 import Qualificados from "./paginas/Qualificados/Qualificados.jsx";
 import Cadastro from "./paginas/Cadastro/Cadastro.jsx";
 import Inicio from "./paginas/Inicio/Inicio.jsx";
-import PainelControle from "./Componentes/Acessibilidade/PainelControle.jsx";
-import VlibrasWidget from "./Componentes/Acessibilidade/VLibras/VLibrasWidget.jsx";
+import PainelControle from "./componentes/Acessibilidade/PainelControle.jsx";
+import VlibrasWidget from "./componentes/Acessibilidade/VLibras/VLibrasWidget.jsx";
 
 function App() {
   return (
