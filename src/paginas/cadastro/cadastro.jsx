@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Corpo from "../../componentes/layout/corpo.jsx";
-import FormularioLoginGoogle from './componentes/formulariologingoogle.jsx';
-import FormularioLogin from './componentes/formulariologin.jsx';
-import FormularioCadastro from './componentes/formulariocadastro.jsx';
-import useBuscaCep from "../../ganchos/usebuscacep.jsx";
-import { servicoCadastro, servicoAuth } from '../../servicos/api.js';
-import { useAuth } from '../../contextos/autenticacao.jsx';
-import './cadastro.css';
+import Corpo from "../../Componentes/Layout/Corpo.jsx";
+import FormularioLoginGoogle from './Componentes/FormularioLoginGoogle.jsx';
+import FormularioLogin from './Componentes/FormularioLogin.jsx';
+import FormularioCadastro from './Componentes/FormularioCadastro.jsx';
+import useBuscaCep from "../../Componentes/Acessibilidade/./Ganchos/UseBuscaCep.jsx";
+import { servicoCadastro, servicoAuth } from '../../Servicos/Api.js';
+import { useAuth } from '../../Contextos/Autenticacao.jsx';
+import './Cadastro.css';
 
 const Cadastro = () => {
   const navigate = useNavigate();

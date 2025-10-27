@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Corpo from "../../componentes/layout/corpo.jsx";
-import InformacoesPerfil from "./componentes/informacoesperfil.jsx";
-import HistoricoAcademicoPerfil from "./componentes/historicoacademicoperfil.jsx";
-import HistoricoProfissionalPerfil from "./componentes/historicoprofissionalperfil.jsx";
-import { servicoProfissional, servicoHCurricular, servicoHProfissional, servicoAuth } from "../../servicos/api.js";
-import { useAuth } from "../../contextos/autenticacao.jsx";
-import "./perfil.css";
+import Corpo from "../../Componentes/Layout/Corpo.jsx";
+import InformacoesPerfil from "./componentes/InformacoesPerfil.jsx";
+import HistoricoAcademicoPerfil from "./componentes/HistoricoAcademicoPerfil.jsx";
+import HistoricoProfissionalPerfil from "./componentes/HistoricoProfissionalPerfil.jsx";
+import { servicoProfissional, servicoHCurricular, servicoHProfissional, servicoAuth } from "../../Servicos/Api.js";
+import { useAuth } from "../../Contextos/Autenticacao.jsx";
+import "./Perfil.css";
 
 import {
   LogOut,
 } from "lucide-react";
 
-import mariaSilva from "../../recursos/imagens/mulher.png";
-import micheleto from "../../recursos/imagens/hospital.jpg";
-import butantan from "../../recursos/imagens/butantan.webp";
-import portugues from "../../recursos/imagens/portugues.jpg";
+import mariaSilva from "../../Recursos/Imagens/Mulher.png";
+import micheleto from "../../Recursos/Imagens/Hospital.jpg";
+import butantan from "../../Recursos/Imagens/Butantan.webp";
+import portugues from "../../Recursos/Imagens/Portugues.jpg";
 
 const Perfil = () => {
   const { id } = useParams();
