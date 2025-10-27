@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .js,.jsx --fix"
+    "lint": "eslint . --ext .js,.jsx --fix",
+    "tree": "powershell \"Get-ChildItem -Recurse -Path . | Where-Object { $_.FullName -notlike '*node_modules*' } | ForEach-Object { $_.FullName.Replace($PWD, '.') }\""
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
