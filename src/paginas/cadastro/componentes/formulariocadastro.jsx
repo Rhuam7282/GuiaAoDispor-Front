@@ -167,42 +167,6 @@ const FormularioCadastro = ({
               </div>
             </div>
 
-            {/* Campos específicos para perfil Profissional */}
-            {isPerfilProfissional && (
-              <>
-                <div className="grupo-formulario">
-                  <label htmlFor="inst">Instituição/Formação</label>
-                  <input
-                    type="text"
-                    id="inst"
-                    name="inst"
-                    value={dadosFormulario.inst}
-                    onChange={aoAlterarCampo}
-                    placeholder="Sua instituição de ensino ou empresa"
-                  />
-                </div>
-
-                <HistoricoCurricular
-                  historicosCurriculares={historicosCurriculares}
-                  adicionarHistoricoCurricular={adicionarHistoricoCurricular}
-                  removerHistoricoCurricular={removerHistoricoCurricular}
-                  alterarHistoricoCurricular={alterarHistoricoCurricular}
-                />
-
-                <HistoricoProfissional
-                  historicosProfissionais={historicosProfissionais}
-                  adicionarHistoricoProfissional={
-                    adicionarHistoricoProfissional
-                  }
-                  removerHistoricoProfissional={removerHistoricoProfissional}
-                  alterarHistoricoProfissional={alterarHistoricoProfissional}
-                  alterarFotoHistoricoProfissional={
-                    alterarFotoHistoricoProfissional
-                  }
-                />
-              </>
-            )}
-            
             {/* Seção de Tipo de Perfil */}
             <div className="cartaoDestaque variacao2" id="tipo-perfil">
               <div className="grupo-formulario">
@@ -248,28 +212,68 @@ const FormularioCadastro = ({
             </div>
           </div>
 
+          {/* Campos específicos para perfil Profissional */}
+          {isPerfilProfissional && (
+            <>
+              <div className="grupo-formulario">
+                <label htmlFor="inst">Instituição/Formação</label>
+                <input
+                  type="text"
+                  id="inst"
+                  name="inst"
+                  value={dadosFormulario.inst}
+                  onChange={aoAlterarCampo}
+                  placeholder="Sua instituição de ensino ou empresa"
+                />
+              </div>
+
+              <HistoricoCurricular
+                historicosCurriculares={historicosCurriculares}
+                adicionarHistoricoCurricular={adicionarHistoricoCurricular}
+                removerHistoricoCurricular={removerHistoricoCurricular}
+                alterarHistoricoCurricular={alterarHistoricoCurricular}
+              />
+
+              <HistoricoProfissional
+                historicosProfissionais={historicosProfissionais}
+                adicionarHistoricoProfissional={adicionarHistoricoProfissional}
+                removerHistoricoProfissional={removerHistoricoProfissional}
+                alterarHistoricoProfissional={alterarHistoricoProfissional}
+                alterarFotoHistoricoProfissional={
+                  alterarFotoHistoricoProfissional
+                }
+              />
+            </>
+          )}
+
           {/* Seção de Descrição */}
           <div className="grupo-formulario">
             <label htmlFor="desc">
               Descrição {isPerfilProfissional && "*"}
             </label>
-            <textarea
-              id="desc"
-              name="desc"
-              value={dadosFormulario.desc}
-              onChange={aoAlterarCampo}
-              rows="3"
-              placeholder={
-                isPerfilProfissional
-                  ? "Descreva seus serviços, especialidades e experiência profissional..."
-                  : "Conte um pouco sobre você (opcional)"
-              }
-              className={
-                isPerfilProfissional && erros.desc
-                  ? "erro textarea-pequeno"
-                  : "textarea-pequeno"
-              }
-            />
+            <div className="container-descricao-perfil">
+              <textarea
+                id="desc"
+                name="desc"
+                value={dadosFormulario.desc}
+                onChange={aoAlterarCampo}
+                rows="3"
+                placeholder={
+                  isPerfilProfissional
+                    ? "Descreva seus serviços, especialidades e experiência profissional (máx. 200 caracteres)..."
+                    : "Conte um pouco sobre você (opcional, máx. 200 caracteres)"
+                }
+                className={
+                  isPerfilProfissional && erros.desc
+                    ? "erro textarea-pequeno"
+                    : "textarea-pequeno"
+                }
+                maxLength="200"
+              />
+              <span className="contador-caracteres-descricao">
+                {dadosFormulario.desc ? dadosFormulario.desc.length : 0}/200
+              </span>
+            </div>
             {isPerfilProfissional && erros.desc && (
               <span className="mensagem-erro">{erros.desc}</span>
             )}
@@ -349,8 +353,8 @@ const FormularioCadastro = ({
             className="botao-finalizar-completo"
           >
             {carregando
-              ? "⏳ Cadastrando..."
-              : `🎉 Criar Conta ${
+              ? "Cadastrando..."
+              : `Criar Conta ${
                   isPerfilProfissional ? "Profissional" : "Pessoal"
                 }`}
           </button>

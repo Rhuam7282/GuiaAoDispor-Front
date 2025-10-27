@@ -1,64 +1,52 @@
 import React, { useRef } from 'react';
 
 const UploadImagem = ({ foto, aoSelecionarArquivo }) => {
-  const fileInputRef = useRef(null);
+  const inputRef = useRef(null);
 
-  const handleContainerClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      aoSelecionarArquivo(file);
+  const handleRemoverFoto = () => {
+    // Resetar o input file
+    if (inputRef.current) {
+      inputRef.current.value = '';
     }
+    // Chamar a função para remover a foto
+    aoSelecionarArquivo({ target: { name: 'foto', value: null } });
   };
 
   return (
     <div className="secao-upload-imagem">
-      <div 
-        className="area-upload-imagem"
-        onClick={handleContainerClick}
-        style={{ cursor: 'pointer' }}
-      >
-        {foto ? (
-          <div className="container-imagem-quadrada">
-            <img 
-              src={foto} 
-              alt="Preview" 
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '50%'
-              }}
-            />
-          </div>
-        ) : (
-          <div className="placeholder-upload">
-            <span style={{ fontSize: '3rem', marginBottom: '10px' }}>📷</span>
-            <p>Clique para adicionar uma foto</p>
-          </div>
-        )}
-        
+      <div className="container-upload-perfil">
         <input
-          ref={fileInputRef}
+          ref={inputRef}
           type="file"
           id="foto"
           name="foto"
           accept="image/jpeg, image/jpg, image/png, image/webp"
-          onChange={handleFileChange}
-          className="input-arquivo"
+          onChange={aoSelecionarArquivo}
+          className="input-arquivo-perfil"
         />
+        <label 
+          htmlFor="foto" 
+          className={`area-upload-imagem ${foto ? 'com-imagem' : ''}`}
+        >
+          {foto ? (
+            <div className="preview-imagem-perfil">
+              <img src={foto} alt="Preview da foto de perfil" />
+            </div>
+          ) : (
+            <div className="conteudo-sem-imagem">
+              <span className="icone-upload-grande">📁</span>
+              <span className="texto-upload">Adicionar Foto de Perfil</span>
+            </div>
+          )}
+        </label>
       </div>
-      
       {foto && (
         <button 
-          type="button" 
-          className="botao-adicionar"
-          onClick={handleContainerClick}
+          type="button"
+          onClick={handleRemoverFoto}
+          className="botao-remover-foto"
         >
-          Alterar Foto
+          🗑️ Remover Foto
         </button>
       )}
     </div>

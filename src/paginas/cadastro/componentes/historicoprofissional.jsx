@@ -8,49 +8,75 @@ const HistoricoProfissional = ({
   alterarFotoHistoricoProfissional 
 }) => {
   return (
-    <div className="cartaoDestaque variacao3">
-      <h3>Histórico Profissional</h3>
-      {historicosProfissionais.map((hp, indice) => (
-        <div key={indice} className="item-historico">
-          <div className="grupo-formulario">
-            <label htmlFor={`hp-nome-${indice}`}>Título</label>
-            <input
-              type="text"
-              id={`hp-nome-${indice}`}
-              value={hp.nome}
-              onChange={(e) => alterarHistoricoProfissional(indice, 'nome', e.target.value)}
-            />
-          </div>
-          <div className="grupo-formulario">
-            <label htmlFor={`hp-descricao-${indice}`}>Descrição</label>
+    <div className="secao-historico-completa">
+      <div className="cabecalho-secao-historico">
+        <h3 className="titulo-secao-centralizado">Histórico Profissional</h3>
+        <p className="texto-descricao-secao">Adicione suas experiências profissionais</p>
+      </div>
+      
+      <div className="lista-historicos">
+        {historicosProfissionais.map((hp, index) => (
+          <div key={index} className="item-historico-lista">
+            <div className="linha-campos-historico">
+              <div className="container-upload-imagem-historico">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => alterarFotoHistoricoProfissional(index, e.target.files[0])}
+                  className="input-arquivo-historico"
+                  id={`hp-foto-${index}`}
+                />
+                <label 
+                  htmlFor={`hp-foto-${index}`} 
+                  className={`rotulo-upload-imagem-historico ${hp.foto ? 'com-imagem' : ''}`}
+                >
+                  {hp.foto ? (
+                    <div className="preview-imagem-historico">
+                      <img src={hp.foto} alt="Preview do histórico" />
+                    </div>
+                  ) : (
+                    <span className="icone-upload">📁</span>
+                  )}
+                </label>
+              </div>
+              
+              <input
+                type="text"
+                value={hp.nome}
+                onChange={(e) => alterarHistoricoProfissional(index, 'nome', e.target.value)}
+                placeholder="Cargo/Posição *"
+                className="campo-titulo-historico"
+              />
+              
+              <button
+                type="button"
+                onClick={() => removerHistoricoProfissional(index)}
+                className="botao-remover-historico"
+                title="Remover histórico"
+              >
+                ✕
+              </button>
+            </div>
             <textarea
-              id={`hp-descricao-${indice}`}
-              value={hp.descricao}
-              onChange={(e) => alterarHistoricoProfissional(indice, 'descricao', e.target.value)}
+              value={hp.desc}
+              onChange={(e) => alterarHistoricoProfissional(index, 'desc', e.target.value)}
+              placeholder="Descrição (empresa, período, responsabilidades...)"
               rows="2"
+              className="textarea-historico"
             />
           </div>
-          <div className="grupo-formulario">
-            <label htmlFor={`hp-foto-${indice}`}>Imagem</label>
-            <input
-              type="file"
-              id={`hp-foto-${indice}`}
-              accept="image/*"
-              onChange={(e) => alterarFotoHistoricoProfissional(indice, e.target.files[0])}
-            />
-            {hp.foto && <img src={hp.foto} alt="Preview" className="imagemPerfil" />}
-          </div>
-          <button type="button" onClick={() => removerHistoricoProfissional(indice)}>
-            Remover
-          </button>
-        </div>
-      ))}
-      <button type="button" onClick={adicionarHistoricoProfissional}>
-        Adicionar Histórico Profissional
+        ))}
+      </div>
+      
+      <button
+        type="button"
+        onClick={adicionarHistoricoProfissional}
+        className="botao-adicionar-grande"
+      >
+        ➕ Adicionar Histórico Profissional
       </button>
     </div>
   );
 };
 
 export default HistoricoProfissional;
-
