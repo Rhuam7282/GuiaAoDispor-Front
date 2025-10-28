@@ -6,6 +6,7 @@ import FormularioCadastro from "./componentes/formulariocadastro.jsx";
 import useBuscaCep from "../../ganchos/usebuscacep.jsx";
 import { servicoCadastro, servicoAuth } from "../../servicos/api.js";
 import { useAuth } from "../../contextos/autenticacao.jsx";
+import { API_CONFIG } from "../../config/apiconfig.js";
 import "./cadastro.css";
 
 const Cadastro = () => {
@@ -71,19 +72,12 @@ const Cadastro = () => {
 
     setCarregandoSubmit(true);
     setMensagemSucesso("");
-    setErros({}); // Limpa erros anteriores
+    setErros({});
 
     try {
       console.log("📧 Validando email...");
 
-      // Verifica se o servidor está respondendo
-      const servidorOnline = await verificarConexaoAPI();
-      if (!servidorOnline) {
-        throw new Error(
-          "Servidor indisponível. Verifique se o backend está rodando."
-        );
-      }
-
+      // Tenta validar email diretamente - se o servidor estiver offline, cairá no catch
       const respostaValidacao = await servicoCadastro.validarEmail(
         dadosFormulario.email
       );
@@ -115,7 +109,6 @@ const Cadastro = () => {
         foto: dadosFormulario.foto,
         contatos: contatosValidos,
         tipoPerfil: dadosFormulario.tipoPerfil,
-        // ADICIONANDO OS HISTÓRICOS AO ENVIO
         historicosCurriculares: dadosFormulario.historicosCurriculares,
         historicosProfissionais: dadosFormulario.historicosProfissionais,
       };
@@ -140,21 +133,29 @@ const Cadastro = () => {
       if (respostaCadastro.data && respostaCadastro.token) {
         login(respostaCadastro.data, respostaCadastro.token);
         setMensagemSucesso("Cadastro realizado com sucesso! Redirecionando...");
+
+        // Redireciona após 2 segundos
+        setTimeout(() => {
+          navigate("/qualificados");
+        }, 2000);
       } else {
         throw new Error("Erro no login automático após cadastro");
       }
     } catch (erro) {
       console.error("❌ Erro no cadastro:", erro);
 
-      let mensagemErro = erro.message || "Erro ao realizar cadastro";
+      let mensagemErro = "Erro ao realizar cadastro. Tente novamente.";
 
-      if (
-        erro.message.includes("CONNECTION_REFUSED") ||
+      if (erro.message.includes("url is not defined")) {
+        mensagemErro = "Erro de configuração do sistema. Contate o suporte.";
+      } else if (
         erro.message.includes("Failed to fetch") ||
-        erro.message.includes("Servidor indisponível")
+        erro.message.includes("Network Error")
       ) {
         mensagemErro =
-          "Servidor indisponível. Verifique se o backend está rodando na porta 3001.";
+          "Erro de conexão com o servidor. Verifique sua internet.";
+      } else if (erro.message) {
+        mensagemErro = erro.message;
       }
 
       setErros({ submit: mensagemErro });
@@ -247,21 +248,6 @@ const Cadastro = () => {
     }
 
     return "";
-  };
-
-  const verificarConexaoAPI = async () => {
-    try {
-      const resposta = await fetch("http://localhost:3001/api/health", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return resposta.ok;
-    } catch (erro) {
-      console.error("❌ API não está respondendo:", erro);
-      return false;
-    }
   };
 
   const adicionarHistoricoCurricular = () => {
