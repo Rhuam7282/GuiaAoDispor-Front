@@ -1,6 +1,11 @@
 import { API_CONFIG } from "../config/apiconfig.js";
 
+console.log('🔧 API_CONFIG:', API_CONFIG);
+console.log('🔧 BASE_URL:', API_CONFIG.BASE_URL);
+console.log('🔧 Variável de ambiente VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+
 const URL_BASE = API_CONFIG.BASE_URL;
+console.log('🔧 URL_BASE final:', URL_BASE);
 
 // Função auxiliar para obter token
 const obterToken = () => {
@@ -14,7 +19,8 @@ const fazerRequisicao = async (endpoint, metodo, dados = null) => {
   // Construir URL corretamente
   const urlCompleta = `${URL_BASE}${endpoint}`;
 
-  console.log(`🌐 Fazendo requisição ${metodo} para: ${urlCompleta}`); // CORREÇÃO: use urlCompleta
+  console.log(`🔗 URL Completa: ${urlCompleta}`); // LOG ADICIONAL
+  console.log(`📤 Dados enviados:`, dados); // LOG ADICIONAL
 
   const opcoes = {
     method: metodo,
@@ -163,7 +169,7 @@ export const servicoCadastro = {
   validarEmail: async (email) => {
     try {
       const resposta = await fazerRequisicao(
-        `${API_CONFIG.ENDPOINTS.AUTH}/validar-email`, // APENAS ENDPOINT RELATIVO
+        "/api/auth/validar-email", // APENAS ENDPOINT RELATIVO
         "POST",
         { email }
       );
@@ -194,7 +200,8 @@ export const servicoCadastro = {
     }
   },
 
-  cadastrarProfissional: async (dadosProfissional, dadosLocalizacao) => { // CORREÇÃO: remova o "c" extra
+  cadastrarProfissional: async (dadosProfissional, dadosLocalizacao) => {
+    // CORREÇÃO: remova o "c" extra
     try {
       const respostaLocalizacao = await servicoLocalizacao.criar(
         dadosLocalizacao
