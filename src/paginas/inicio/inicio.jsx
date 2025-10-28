@@ -1,12 +1,12 @@
 import React from "react";
-import HeroPrincipal from "./Componentes/HeroPrincipal";
-import BotoesAcao from "./Componentes/BotoesAcao";
-import SecaoSobre from "./Componentes/SecaoSobre";
-import CarrosselAcessibilidade from "./Componentes/CarrosselAcessibilidade";
-import SecaoComentarios from "./Componentes/SecaoComentarios";
-import Corpo from "../../Componentes/Layout/Corpo";
-import Rodape from "./Componentes/Rodape";
-import "./Inicio.css";
+import HeroPrincipal from "./componentes/heroPrincipal";
+import BotoesAcao from "./componentes/botoesAcao";
+import SecaoSobre from "./componentes/secaoSobre";
+import CarrosselAcessibilidade from "./componentes/carrosselAcessibilidade";
+import SecaoComentarios from "./componentes/secaoComentarios";
+import Corpo from "../../componentes/layout/corpo";
+import Rodape from "./componentes/rodape";
+import "./inicio.css";
 
 const Inicio = () => {
   return (
