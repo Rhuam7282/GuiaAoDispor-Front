@@ -1,34 +1,46 @@
 .containerPerfil .containerPrincipal {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  gap: 30px;
+  gap: var(--espacamentoMedio);
 }
 
 /* Cartão de perfil com layout lateral */
 .containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente {
-  margin: 15px;
+  margin: var(--espacamentoPequeno);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 150px;
+  cursor: default !important;
+  justify-content: space-between; /* APLICADO FORA DO MODO EDIÇÃO */
+}
+
+/* Remover hover do cartão de descrição */
+.containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* No modo edição, remove o space-between */
+.containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente.modoEdicao {
+  justify-content: flex-start;
 }
 
 /* Cartões compactos para históricos */
 .containerPerfil .cartaoLateral {
   display: flex;
   align-items: center;
-  gap: 20px;
-  background-color: rgba(127, 204, 212, 1);
-  border-radius: 8px;
-  padding: 15px;
+  gap: var(--espacamentoMedio);
+  background-color: var(--corAzulDestaque);
+  border-radius: var(--bordaArredondada);
+  padding: var(--espacamentoPequeno);
   width: 100%;
   min-height: 80px;
+  flex: 0 0 auto;
 }
 
 .containerPerfil .containerImagemLateral {
   flex: 0 0 80px;
   height: 80px;
-  border-radius: 8px;
+  border-radius: var(--bordaArredondada);
   overflow: hidden;
 }
 
@@ -48,135 +60,168 @@
 
 .containerPerfil .conteudoLateral h3 {
   margin: 0 0 4px 0;
-  font-size: 16px;
+  font-size: var(--tamanhoFonteTextoMenor);
   line-height: 1.2;
 }
 
 .containerPerfil .conteudoLateral p {
   margin: 0;
-  font-size: 14px;
-  color: #54453b;
+  font-size: var(--tamanhoFonteTextoMinimo);
+  color: var(--corMarromEscuro);
 }
 
 /* Cartão acadêmico sem imagem */
 .containerPerfil .cartaoAcademico {
-  background-color: rgba(127, 204, 212, 1);
-  border-radius: 8px;
-  padding: 15px;
+  background-color: var(--corAzulDestaque);
+  border-radius: var(--bordaArredondada);
+  padding: var(--espacamentoPequeno);
   width: 100%;
   min-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 0 0 auto;
 }
 
 .containerPerfil .cartaoAcademico h3 {
   margin: 0 0 4px 0;
-  font-size: 16px;
+  font-size: var(--tamanhoFonteTextoMenor);
 }
 
 .containerPerfil .cartaoAcademico p {
   margin: 0;
-  font-size: 14px;
-  color: #54453b;
+  font-size: var(--tamanhoFonteTextoMinimo);
+  color: var(--corMarromEscuro);
 }
 
 /* Cabeçalho do perfil com botões no topo direito */
-
 .containerPerfil .botoesCabecalho {
   display: flex;
-  gap: 10px;
+  gap: var(--espacamentoPequeno);
   flex-wrap: wrap;
   position: fixed;
   top: 90px;
   right: 30px;
-}
-
-.containerPerfil .colunaFoto .imagemPerfil {
-  width: 235px;
-  height: 235px;
-}
-
-.containerPerfil .detalhesPerfil {
-  display: flex;
-  gap: 15px;
-}
-
-.containerPerfil .icone {
-  display: flex;
-  gap: 2px;
-}
-
-.containerPerfil .colunaContatos {
-  flex: 0 0 250px;
+  z-index: 1000;
 }
 
 /* Seções de histórico */
 .containerPerfil .secaoHistorico {
-  margin-bottom: 30px;
+  margin-bottom: var(--espacamentoGrande);
   width: 100%;
 }
 
 .containerPerfil .secaoHistorico h2 {
-  margin-bottom: 15px;
-  font-size: 24px;
-  color: #54453b;
+  margin-bottom: var(--espacamentoPequeno);
+  font-size: var(--tamanhoFonteTexto);
+  color: var(--corMarromEscuro);
   padding-bottom: 5px;
   border-bottom: 1px solid rgba(84, 69, 59, 0.3);
   text-align: left;
 }
 
-/* Layout dos históricos em grid */
-.containerPerfil .listaAcademica,
-.containerPerfil .listaProfissional {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  width: 100%;
+/* CARROSSEL HORIZONTAL PARA HISTÓRICOS */
+.containerPerfil .carrossel-historico {
+  display: flex;
+  gap: var(--espacamentoMedio);
+  overflow-x: auto;
+  padding: var(--espacamentoPequeno) 0;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(84, 69, 59, 0.3) transparent;
+}
+
+.containerPerfil .carrossel-historico::-webkit-scrollbar {
+  height: 8px;
+}
+
+.containerPerfil .carrossel-historico::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.containerPerfil .carrossel-historico::-webkit-scrollbar-thumb {
+  background: rgba(84, 69, 59, 0.3);
+  border-radius: 4px;
+}
+
+.containerPerfil .carrossel-historico::-webkit-scrollbar-thumb:hover {
+  background: rgba(84, 69, 59, 0.5);
+}
+
+/* Itens do carrossel - tamanho fixo para 3 por página */
+.containerPerfil .item-carrossel {
+  flex: 0 0 calc(33.333% - 14px);
+  min-width: 300px;
+  max-width: 350px;
+}
+
+/* Cartões no carrossel - REMOVIDA altura fixa para modo edição */
+.containerPerfil .cartao-carrossel {
+  background-color: var(--corAzulDestaque);
+  border-radius: var(--bordaArredondada);
+  padding: var(--espacamentoMedio);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  min-height: auto;
+  height: auto;
+}
+
+.containerPerfil .cartao-carrossel h3 {
+  margin: 0 0 8px 0;
+  font-size: var(--tamanhoFonteTextoMenor);
+}
+
+.containerPerfil .cartao-carrossel p {
+  margin: 4px 0;
+  font-size: var(--tamanhoFonteTextoMinimo);
+  color: var(--corMarromEscuro);
 }
 
 /* Sobre - não centralizado */
 .containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente h3 {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: var(--espacamentoPequeno);
 }
 
 .containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente p {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: var(--espacamentoPequeno);
   cursor: default !important;
 }
 
 /* Estados de carregamento e erro */
 .containerPerfil .carregando {
   text-align: center;
-  padding: 60px 20px;
-  color: #54453b;
+  padding: var(--espacamentoExtraGrande) var(--espacamentoMedio);
+  color: var(--corMarromEscuro);
 }
 
 .containerPerfil .carregando h2,
 .containerPerfil .erro h2 {
-  margin-bottom: 15px;
-  font-size: 28px;
+  margin-bottom: var(--espacamentoPequeno);
+  font-size: var(--tamanhoFonteSubtitulo);
 }
 
 .containerPerfil .erro p {
   color: #d32f2f;
-  font-size: 14px;
+  font-size: var(--tamanhoFonteTextoMinimo);
 }
 
 .containerPerfil .aviso-erro {
   background-color: #fff3cd;
   border: 1px solid #ffeaa7;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
+  border-radius: var(--bordaArredondada);
+  padding: var(--espacamentoPequeno);
+  margin-bottom: var(--espacamentoMedio);
   color: #856404;
 }
 
 .containerPerfil .aviso-erro p {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--tamanhoFonteTextoMinimo);
 }
 
 /* Edição de foto */
@@ -213,16 +258,16 @@
 }
 
 .containerPerfil .sobreposicaoFoto span {
-  font-size: 12px;
+  font-size: var(--tamanhoFonteTextoMinimo);
   margin-top: 5px;
 }
 
 /* Mensagens */
 .containerPerfil .mensagem {
-  padding: 10px;
+  padding: var(--espacamentoPequeno);
   border-radius: 5px;
-  margin: 10px 0;
-  font-size: 14px;
+  margin: var(--espacamentoPequeno) 0;
+  font-size: var(--tamanhoFonteTextoMinimo);
 }
 
 .containerPerfil .mensagemSucesso {
@@ -237,38 +282,35 @@
   border: 1px solid #f5c6cb;
 }
 
-/* Formulários e edição */
-.containerPerfil .campoFormulario {
-  margin-bottom: 15px;
-}
 
 .containerPerfil .rotuloCampo {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #54453b;
+  color: var(--corMarromEscuro);
   text-align: left;
 }
 
 .containerPerfil .inputFormulario {
   width: 100%;
-  padding: 8px 12px;
+  padding: var(--espacamentoPequeno);
   border: 1px solid rgba(84, 69, 59, 0.3);
-  border-radius: 8px;
-  font-size: 14px;
-  background: rgba(211, 163, 127, 0.3);
+  border-radius: var(--bordaArredondada);
+  font-size: var(--tamanhoFonteTextoMinimo);
+  background: var(--corMarromDestaqueTransparente);
   border: none;
+  resize: none;
 }
 
 .containerPerfil .areaTexto {
-  resize: vertical;
+  resize: none;
   min-height: 80px;
 }
 
 .containerPerfil .botoesAcao {
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  gap: var(--espacamentoPequeno);
+  margin-top: var(--espacamentoMedio);
 }
 
 /* Componentes específicos */
@@ -283,7 +325,7 @@
 .containerPerfil .bordaInferiorSubtle {
   border-bottom: 1px solid rgba(84, 69, 59, 0.3);
   padding-bottom: 5px;
-  margin-bottom: 15px;
+  margin-bottom: var(--espacamentoPequeno);
   text-align: left;
   width: 100%;
 }
@@ -297,42 +339,6 @@
   cursor: default;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  .containerPerfil .containerPrincipal {
-    grid-template-columns: 1fr;
-  }
-  
-  .containerPerfil .botoesCabecalho {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .containerPerfil .colunaFoto {
-    align-self: center;
-  }
-  
-  .containerPerfil .listaAcademica,
-  .containerPerfil .listaProfissional {
-    grid-template-columns: 1fr;
-  }
-  
-  .containerPerfil .colunaContatos {
-    flex: 1 1 100%;
-  }
-
-  .containerPerfil .cartaoLateral {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .containerPerfil .containerImagemLateral {
-    flex: 0 0 60px;
-    height: 60px;
-    width: 100%;
-  }
-}
 /* Estilos para modo de edição nos históricos */
 .containerPerfil .posicaoRelativa {
   position: relative;
@@ -347,55 +353,33 @@
   right: 10px;
 }
 
-.containerPerfil .cartaoAcademico {
-  background-color: rgba(127, 204, 212, 1);
-  border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  min-height: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-.containerPerfil .cartaoAcademico h3 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-}
-
-.containerPerfil .cartaoAcademico p {
-  margin: 4px 0;
-  font-size: 14px;
-  color: #54453b;
-}
-
 /* Estilos para formulários de edição */
 .containerPerfil .campoFormulario {
-  margin-bottom: 15px;
   text-align: left;
+  width: 100%;
 }
 
 .containerPerfil .rotuloCampo {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #54453b;
-  font-size: 14px;
+  color: var(--corMarromEscuro);
+  font-size: var(--tamanhoFonteTextoMinimo);
 }
 
 .containerPerfil .inputFormulario {
   width: 100%;
-  padding: 10px;
+  padding: var(--espacamentoPequeno);
   border: 1px solid rgba(84, 69, 59, 0.3);
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: var(--bordaArredondada);
+  font-size: var(--tamanhoFonteTextoMinimo);
   background: rgba(255, 255, 255, 0.8);
   box-sizing: border-box;
+  resize: none;
 }
 
 .containerPerfil .areaTexto {
-  resize: vertical;
+  resize: none;
   min-height: 80px;
   font-family: inherit;
 }
@@ -403,8 +387,8 @@
 /* Botões */
 .containerPerfil .botoesAcao {
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  gap: var(--espacamentoPequeno);
+  margin-top: var(--espacamentoMedio);
   flex-wrap: wrap;
 }
 
@@ -418,19 +402,55 @@
   justify-content: space-between;
 }
 
-/* Contatos no estilo do cadastro */
+/* Contatos - modo visualização (lista vertical) */
+.containerPerfil .lista-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacamentoPequeno);
+  width: 100%;
+}
+
+.containerPerfil .item-contato-visual {
+  display: flex;
+  align-items: center;
+  gap: var(--espacamentoPequeno);
+  padding: 8px 0;
+}
+
+/* Contatos - modo edição (mesmo estilo do campo descrição) */
+.containerPerfil .contatos-edicao {
+  background-color: var(--corMarromDestaqueTransparente);
+  border-radius: var(--bordaArredondada);
+  padding: var(--espacamentoMedio);
+  margin-bottom: var(--espacamentoMedio);
+}
+
+.containerPerfil .contatos-empilhados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacamentoPequeno);
+  width: 100%;
+}
+
 .containerPerfil .item-contato {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--espacamentoPequeno);
+  width: 100%;
+}
+
+.containerPerfil .linha-contato {
+  display: flex;
+  gap: var(--espacamentoPequeno);
   align-items: flex-start;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
 .containerPerfil .item-contato select,
 .containerPerfil .item-contato input {
   flex: 1;
-  padding: 10px;
+  padding: var(--espacamentoPequeno);
   border: 1px solid var(--corMarromOfuscado);
   border-radius: var(--bordaArredondada);
   background-color: var(--corNeutraClara);
@@ -439,7 +459,7 @@
 }
 
 .containerPerfil .botao-remover {
-  padding: 10px 12px;
+  padding: var(--espacamentoPequeno) 12px;
   background-color: var(--corMarromEscuro);
   color: var(--corNeutraClara);
   border: none;
@@ -447,6 +467,7 @@
   cursor: pointer;
   font-size: var(--tamanhoFonteTextoMenor);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .containerPerfil .botao-remover:hover {
@@ -465,6 +486,7 @@
   transition: all 0.3s ease;
   width: 100%;
   font-size: var(--tamanhoFonteTextoMenor);
+  margin-top: var(--espacamentoPequeno);
 }
 
 .containerPerfil .botao-adicionar:hover {
@@ -490,47 +512,166 @@
   padding: 5px;
 }
 
-/* Variáveis CSS para consistência com cadastro */
-.containerPerfil {
-  --corMarromOfuscado: #8a7a6a;
-  --corMarromEscuro: #54453b;
-  --corNeutraClara: #ffffff;
-  --corAzulDestaque: #7fccd4;
-  --corAzulEscuro: #5a9fa6;
-  --corMarromDestaque: #a38a7a;
-  --bordaArredondada: 8px;
-  --espacamentoPequeno: 10px;
-  --espacamentoMedio: 15px;
-  --tamanhoFonteTextoMenor: 14px;
-  --tamanhoFonteTextoMinimo: 12px;
-  --tamanhoFonteTextoMicro: 10px;
-}
-
-/* Cartões de destaque */
-.containerPerfil .cartaoDestaque.variacao2 {
-  background-color: rgba(127, 204, 212, 0.2);
-  border: 2px solid var(--corAzulDestaque);
-  border-radius: var(--bordaArredondada);
-  padding: var(--espacamentoMedio);
+/* Upload de imagem */
+.containerPerfil .upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacamentoPequeno);
   margin-bottom: var(--espacamentoPequeno);
 }
 
-.containerPerfil .secao-completa {
+.containerPerfil .container-upload-imagem {
+  position: relative;
+  display: inline-block;
   width: 100%;
+  aspect-ratio: 4 / 3 ;
 }
 
-.containerPerfil .texto-obrigatorio {
+.containerPerfil .imagem-upload {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--bordaArredondada);
+  object-fit: cover;
+}
+
+.containerPerfil .sobreposicao-upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: var(--bordaArredondada);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  aspect-ratio: 4 / 3 ;
+}
+
+.containerPerfil .sobreposicao-upload.opaco {
+  opacity: 1;
+}
+
+.containerPerfil .container-upload-imagem:hover .sobreposicao-upload {
+  opacity: 1;
+}
+
+.containerPerfil .preview-imagem {
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: var(--bordaArredondada);
+  object-fit: cover;
+}
+
+/* Layout específico para Histórico Profissional em modo edição */
+.containerPerfil .layout-profissional-edicao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacamentoPequeno);
+}
+
+.containerPerfil .imagem-profissional {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: var(--bordaArredondada);
+}
+
+/* Layout profissional em modo visualização - 3 linhas */
+.containerPerfil .layout-profissional-visualizacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacamentoPequeno);
+  min-height: auto;
+  height: auto;
+}
+
+.containerPerfil .conteudo-profissional {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.containerPerfil .conteudo-profissional h3 {
+  margin: 0 0 8px 0;
+  font-size: var(--tamanhoFonteTextoMenor);
+  line-height: 1.2;
+}
+
+.containerPerfil .conteudo-profissional p {
+  margin: 0;
   font-size: var(--tamanhoFonteTextoMinimo);
-  color: var(--corMarromOfuscado);
-  font-style: italic;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  color: var(--corMarromEscuro);
 }
 
-/* Estados de erro para inputs */
-.containerPerfil input.erro,
-.containerPerfil select.erro,
-.containerPerfil textarea.erro {
-  border-color: var(--corMarromEscuro);
-  background-color: rgba(211, 163, 127, 0.1);
+/* Garantir que os itens do carrossel tenham altura consistente */
+.containerPerfil .item-carrossel {
+  flex: 0 0 calc(33.333% - 14px);
+  min-width: 300px;
+  max-width: 350px;
+  height: auto;
+}
+
+.containerPerfil .cartao-carrossel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ajuste específico para o layout profissional */
+.containerPerfil .layout-profissional-edicao,
+.containerPerfil .layout-profissional-visualizacao {
+  height: 100%;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .containerPerfil .containerPrincipal {
+    grid-template-columns: 1fr;
+  }
+  
+  .containerPerfil .botoesCabecalho {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: var(--espacamentoMedio);
+  }
+  
+  .containerPerfil .colunaFoto {
+    align-self: center;
+  }
+  
+  .containerPerfil .item-carrossel {
+    flex: 0 0 calc(100% - 20px);
+    min-width: 280px;
+  }
+  
+  .containerPerfil .colunaContatos {
+    flex: 1 1 100%;
+  }
+
+  .containerPerfil .cartaoLateral {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--espacamentoPequeno);
+  }
+
+  .containerPerfil .containerImagemLateral {
+    flex: 0 0 60px;
+    height: 60px;
+    width: 100%;
+  }
+
+  .containerPerfil .linha-contato {
+    flex-direction: column;
+  }
 }

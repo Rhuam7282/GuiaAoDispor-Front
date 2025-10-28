@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Corpo from "../../componentes/layout/corpo.jsx";
 import InformacoesPerfil from "./componentes/informacoesperfil.jsx";
@@ -13,7 +13,7 @@ import {
 import { useAuth } from "../../contextos/autenticacao.jsx";
 import "./perfil.css";
 
-import { LogOut } from "lucide-react";
+import { LogOut, Save, X } from "lucide-react";
 
 import mariaSilva from "../../recursos/imagens/mulher.png";
 import micheleto from "../../recursos/imagens/hospital.jpg";
@@ -31,6 +31,10 @@ const Perfil = () => {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
   const [modoEdicao, setModoEdicao] = useState(false);
+  const [salvando, setSalvando] = useState(false);
+  const [mensagem, setMensagem] = useState('');
+
+  const informacoesPerfilRef = useRef();
 
   // Dados estáticos para fallback
   const dadosEstaticos = {
@@ -78,6 +82,43 @@ const Perfil = () => {
   // Função para logout
   const handleLogout = () => {
     logout();
+  };
+
+  // NOVA FUNÇÃO: Sair do modo edição e recarregar página
+  const sairModoEdicaoERecarregar = () => {
+    setModoEdicao(false);
+    setMensagem('Perfil atualizado com sucesso!');
+    setTimeout(() => {
+      setMensagem('');
+      window.location.reload(); // Recarregar a página para garantir atualização
+    }, 2000);
+  };
+
+  // Função para salvar todas as alterações
+  const handleSalvarTudo = async () => {
+    setSalvando(true);
+    try {
+      if (informacoesPerfilRef.current) {
+        const sucesso = await informacoesPerfilRef.current.salvarEdicoes();
+        if (sucesso) {
+          // CORREÇÃO: Sair do modo edição e recarregar página
+          sairModoEdicaoERecarregar();
+        } else {
+          setMensagem('Erro ao salvar alterações. Verifique os campos obrigatórios.');
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao salvar alterações:", error);
+      setMensagem('Erro ao salvar alterações. Tente novamente.');
+    } finally {
+      setSalvando(false);
+    }
+  };
+
+  const handleCancelarEdicao = () => {
+    setModoEdicao(false);
+    // Recarregar dados para descartar alterações
+    carregarDadosPerfil();
   };
 
   // Função para formatar dados do perfil de forma consistente
@@ -200,6 +241,7 @@ const Perfil = () => {
       instituicao: hc.instituicao || hc.desc || "Instituição não informada",
       periodo: hc.periodo || "Período não informado",
       descricao: hc.descricao || hc.desc || "",
+      imagem: hc.foto || "",
     }));
 
     const profissionalFormatado = hprofissionais.map((hp) => ({
@@ -252,6 +294,7 @@ const carregarHistoricosProfissional = async (profissionalId) => {
       instituicao: hc.instituicao || hc.desc || "Instituição não informada",
       periodo: hc.periodo || "Período não informado",
       descricao: hc.descricao || hc.desc || "",
+      imagem: hc.foto || "",
     }));
 
     const profissionalFormatado = hprofissionais.map((hp) => ({
@@ -390,15 +433,29 @@ const carregarHistoricosProfissional = async (profissionalId) => {
     );
   };
 
+  // NOVAS FUNÇÕES: Gerenciar históricos removidos
+  const [historicosRemovidos, setHistoricosRemovidos] = useState({
+    academicos: [],
+    profissionais: []
+  });
+
   // Funções para gerenciar históricos
   const adicionarHistoricoAcademico = () => {
     setHistoricoAcademico(prev => [
       ...prev,
-      { _id: `temp-${Date.now()}`, nome: "", instituicao: "", periodo: "", descricao: "" }
+      { _id: `temp-${Date.now()}`, nome: "", instituicao: "", periodo: "", descricao: "", imagem: "" }
     ]);
   };
 
   const removerHistoricoAcademico = (index) => {
+    const item = historicoAcademico[index];
+    // Adicionar à lista de removidos se não for um item temporário
+    if (item._id && !item._id.startsWith('temp-')) {
+      setHistoricosRemovidos(prev => ({
+        ...prev,
+        academicos: [...prev.academicos, item._id]
+      }));
+    }
     setHistoricoAcademico(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -418,6 +475,14 @@ const carregarHistoricosProfissional = async (profissionalId) => {
   };
 
   const removerHistoricoProfissional = (index) => {
+    const item = historicoProfissional[index];
+    // Adicionar à lista de removidos se não for um item temporário
+    if (item._id && !item._id.startsWith('temp-')) {
+      setHistoricosRemovidos(prev => ({
+        ...prev,
+        profissionais: [...prev.profissionais, item._id]
+      }));
+    }
     setHistoricoProfissional(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -429,26 +494,35 @@ const carregarHistoricosProfissional = async (profissionalId) => {
     );
   };
 
+  // NOVA FUNÇÃO: Salvar históricos com deleção dos removidos
   const salvarHistoricos = async () => {
     try {
+      // Deletar históricos removidos
+      for (const id of historicosRemovidos.academicos) {
+        await servicoHCurricular.deletar(id);
+      }
+      for (const id of historicosRemovidos.profissionais) {
+        await servicoHProfissional.deletar(id);
+      }
+
       // Salvar históricos curriculares
       for (const hc of historicoAcademico) {
         if (hc._id.startsWith('temp-')) {
-          // Novo item
           await servicoHCurricular.criar({
             nome: hc.nome,
             instituicao: hc.instituicao,
             periodo: hc.periodo,
             desc: hc.descricao,
+            foto: hc.imagem,
             profissional: usuario._id
           });
         } else {
-          // Item existente
           await servicoHCurricular.atualizar(hc._id, {
             nome: hc.nome,
             instituicao: hc.instituicao,
             periodo: hc.periodo,
-            desc: hc.descricao
+            desc: hc.descricao,
+            foto: hc.imagem
           });
         }
       }
@@ -456,7 +530,6 @@ const carregarHistoricosProfissional = async (profissionalId) => {
       // Salvar históricos profissionais
       for (const hp of historicoProfissional) {
         if (hp._id.startsWith('temp-')) {
-          // Novo item
           await servicoHProfissional.criar({
             nome: hp.nome,
             desc: hp.descricao,
@@ -464,7 +537,6 @@ const carregarHistoricosProfissional = async (profissionalId) => {
             profissional: usuario._id
           });
         } else {
-          // Item existente
           await servicoHProfissional.atualizar(hp._id, {
             nome: hp.nome,
             desc: hp.descricao,
@@ -473,7 +545,9 @@ const carregarHistoricosProfissional = async (profissionalId) => {
         }
       }
 
-      // Recarregar dados
+      // Limpar lista de removidos
+      setHistoricosRemovidos({ academicos: [], profissionais: [] });
+
       await carregarHistoricosProfissional(usuario._id);
     } catch (error) {
       console.error("Erro ao salvar históricos:", error);
@@ -556,20 +630,42 @@ const carregarHistoricosProfissional = async (profissionalId) => {
             <h1 className="titulo">{dadosPerfil.nome}</h1>
             <div className="botoesCabecalho">
               {estaAutenticado() && isPerfilProprio() && (
-                <button
-                  className={modoEdicao ? "botaoAtivo" : "botaoPrimario"}
-                  onClick={() => setModoEdicao(!modoEdicao)}
-                >
-                  {modoEdicao ? "Cancelar Edição" : "Editar Perfil"}
-                </button>
-              )}
-              {estaAutenticado() && isPerfilProprio() && (
-                <button
-                  onClick={handleLogout}
-                >
-                  <LogOut size={16} />
-                  <span>Sair</span>
-                </button>
+                <>
+                  {!modoEdicao ? (
+                    <button
+                      className="botao botaoPrimario"
+                      onClick={() => setModoEdicao(true)}
+                    >
+                      Editar Perfil
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        className="botao botaoPrimario"
+                        onClick={handleSalvarTudo}
+                        disabled={salvando}
+                      >
+                        <Save size={16} />
+                        {salvando ? "Salvando..." : "Salvar Alterações"}
+                      </button>
+                      <button
+                        className="botao botaoSecundario"
+                        onClick={handleCancelarEdicao}
+                        disabled={salvando}
+                      >
+                        <X size={16} />
+                        Cancelar
+                      </button>
+                    </>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    className="botao botaoSecundario"
+                  >
+                    <LogOut size={16} />
+                    <span>Sair</span>
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -580,7 +676,14 @@ const carregarHistoricosProfissional = async (profissionalId) => {
             </div>
           )}
 
+          {mensagem && (
+            <div className={`mensagem ${mensagem.includes('Erro') ? 'mensagemErro' : 'mensagemSucesso'} margemInferiorPequena`}>
+              {mensagem}
+            </div>
+          )}
+
           <InformacoesPerfil
+            ref={informacoesPerfilRef}
             dadosPerfil={dadosPerfil}
             estaAutenticado={estaAutenticado}
             usuario={usuario}
@@ -596,6 +699,7 @@ const carregarHistoricosProfissional = async (profissionalId) => {
             removerHistoricoProfissional={removerHistoricoProfissional}
             alterarHistoricoProfissional={alterarHistoricoProfissional}
             salvarHistoricos={salvarHistoricos}
+            historicosRemovidos={historicosRemovidos}
           />
 
           {/* Mostrar históricos apenas para perfis profissionais */}
