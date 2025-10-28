@@ -14,7 +14,7 @@ const ListaMenu = () => {
 
   const itensMenu = [
     { Icone: Home, texto: 'Início', rota: '/' },
-    { Icone: GalleryHorizontal, texto: 'Qualificados', rota: '/qualificados' },
+    { Icone: GalleryHorizontal, texto: 'Profissionais', rota: '/qualificados' },
     { Icone: User, texto: 'Perfil', rota: '/perfil' },
     { Icone: Mail, texto: 'Sobre Nós', rota: '/sobreNos' }
   ];

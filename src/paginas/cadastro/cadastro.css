@@ -480,7 +480,7 @@
 .botao-finalizar-completo {
   width: 100%;
   padding: var(--espacamentoMedio);
-  background: linear-gradient(135deg, var(--corAzulDestaque), var(--corMarromDestaque));
+  background: var(--corAzulDestaque);
   color: var(--corMarromEscuro);
   border: none;
   border-radius: var(--bordaArredondada);
@@ -895,7 +895,7 @@ input.erro, textarea.erro, select.erro {
 
 .botao-login {
   padding: var(--espacamentoMedio);
-  background: linear-gradient(135deg, var(--corAzulDestaque), var(--corMarromDestaque));
+  background: var(--corAzulDestaque);
   color: var(--corMarromEscuro);
   border: none;
   border-radius: var(--bordaArredondada);
@@ -982,7 +982,7 @@ input.erro, textarea.erro, select.erro {
 }
 
 .cartao-info {
-  background: linear-gradient(135deg, var(--corAzulDestaqueTransparente), var(--corMarromDestaqueTransparente));
+  background:  var(--corAzulDestaqueTransparente);
   border-radius: var(--bordaArredondada);
   padding: var(--espacamentoGrande);
   border: 2px solid var(--corAzulDestaque);

@@ -44,22 +44,15 @@
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 8px var(--cor-texto-principal);
-  
-  /* Filtro cinza FORÇADO - não depende do carregamento da imagem */
+}
+
+.qualificados-imagemPerfil.cinza {
   filter: grayscale(100%) contrast(0.8) brightness(0.9);
   opacity: 0.8;
-  
-  /* Garante compatibilidade entre navegadores */
   -webkit-filter: grayscale(100%) contrast(0.8) brightness(0.9);
   -moz-filter: grayscale(100%) contrast(0.8) brightness(0.9);
 }
 
-/* Efeito sutil ao passar o mouse */
-.qualificados-cartaoDestaque:hover .qualificados-imagemPerfil {
-  filter: grayscale(70%) contrast(0.9) brightness(1);
-  opacity: 0.9;
-  transition: all 0.3s ease;
-}
 
 /* Container do texto do perfil */
 .qualificados-profile-text-content {

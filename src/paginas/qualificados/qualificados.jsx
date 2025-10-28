@@ -35,11 +35,9 @@ function Qualificados() {
       setLoading(true);
       setError(null);
 
-      console.log("🔄 Buscando profissionais da API...");
 
       // Use o serviço da API em vez de fetch direto
       const resposta = await servicoProfissional.listarTodos();
-      console.log("✅ Resposta da API:", resposta);
 
       // Verifica diferentes estruturas de resposta
       let dadosProfissionais = [];

@@ -1,35 +1,46 @@
 import React from "react";
+import Logo from "../../../recursos/icones/logo.png"; // Ajuste o caminho conforme necessário
 
 const ListaProfissionais = ({ profissionais, aoClicarPerfil }) => {
   const handleImageError = (e) => {
-    e.target.style.filter = 'grayscale(100%)';
-    e.target.style.opacity = '0.7';
     
-    e.target.style.backgroundColor = '#f5f5f5';
-    
-    console.log('🖼️ Aplicando filtro cinza na imagem com erro');
+    // Substitui pela logo importada
+    if (!e.target.src.includes('logo.png')) {
+      e.target.src = Logo;
+      e.target.style.filter = 'grayscale(100%) contrast(0.8) brightness(0.9)';
+      e.target.style.opacity = '0.8';
+    }
   };
 
-  const profissionaisComImagem = profissionais?.map(profissional => ({
-    ...profissional,
-    imagem: profissional.imagem?.startsWith('/') 
-      ? profissional.imagem 
-      : "/imagens/logo-cinza.png"
-  })) || [];
+  const handleImageLoad = (e) => {
+    // Remove filtro cinza apenas se não for a logo
+    if (!e.target.src.includes('logo.png')) {
+      e.target.style.filter = 'none';
+      e.target.style.opacity = '1';
+    }
+  };
 
-  console.log('📊 Profissionais com imagem processada:', profissionaisComImagem.length);
+  // Processa profissionais - usa logo apenas quando não há imagem
+  const profissionaisProcessados = profissionais?.map(profissional => {
+    const temImagemValida = profissional.imagem && 
+      profissional.imagem.trim() !== '' && 
+      profissional.imagem !== 'undefined' &&
+      profissional.imagem !== 'null';
+    
+    return {
+      ...profissional,
+      imagem: temImagemValida ? profissional.imagem : Logo
+    };
+  }) || [];
 
   return (
     <div className="qualificados-profile-list">
-      {profissionaisComImagem.length === 0 ? (
+      {profissionaisProcessados.length === 0 ? (
         <div className="qualificados-empty-state">
           <p>Nenhum profissional encontrado.</p>
-          <small className="text-muted">
-            Tente recarregar a página ou verificar a conexão.
-          </small>
         </div>
       ) : (
-        profissionaisComImagem.map((profissional) => (
+        profissionaisProcessados.map((profissional) => (
           <div
             key={profissional._id}
             className="qualificados-cartaoDestaque"
@@ -41,6 +52,7 @@ const ListaProfissionais = ({ profissionais, aoClicarPerfil }) => {
                 alt={`Perfil de ${profissional.nome}`}
                 className="qualificados-imagemPerfil"
                 onError={handleImageError}
+                onLoad={handleImageLoad}
                 loading="lazy"
               />
               <div className="qualificados-profile-text-content">
