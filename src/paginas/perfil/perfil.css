@@ -1,70 +1,68 @@
-/* Estilos específicos para a página de perfil */
-.containerPrincipal {
+.containerPerfil .containerPrincipal {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  gap: var(--espacamentoGrande);
-  margin-bottom: var(--espacamentoGrande);
+  gap: 30px;
 }
 
 /* Cartão de perfil com layout lateral */
-.cartaoDestaque.fundoMarromDestaqueTransparente {
-  margin: var(--espacamentoPequeno);
+.containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente {
+  margin: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 150px; /* Reduzida a altura */
+  min-height: 150px;
 }
 
-/* NOVO: Cartão com layout lateral para históricos */
-.cartaoLateral {
+/* Cartões compactos para históricos */
+.containerPerfil .cartaoLateral {
   display: flex;
   align-items: center;
-  gap: var(--espacamentoMedio);
-  background-color: var(--corAzulDestaque);
-  border-radius: var(--bordaArredondada);
-  padding: var(--espacamentoPequeno);
+  gap: 20px;
+  background-color: rgba(127, 204, 212, 1);
+  border-radius: 8px;
+  padding: 15px;
   width: 100%;
-  min-height: 80px; /* Altura reduzida */
+  min-height: 80px;
 }
 
-.containerImagemLateral {
-  flex: 0 0 80px; /* Largura fixa para a imagem */
+.containerPerfil .containerImagemLateral {
+  flex: 0 0 80px;
   height: 80px;
-  border-radius: var(--bordaArredondada);
+  border-radius: 8px;
   overflow: hidden;
 }
 
-.imagemLateral {
+.containerPerfil .imagemLateral {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.conteudoLateral {
+.containerPerfil .conteudoLateral {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.conteudoLateral h3 {
+.containerPerfil .conteudoLateral h3 {
   margin: 0 0 4px 0;
-  font-size: var(--tamanhoFonteTextoBase);
+  font-size: 16px;
   line-height: 1.2;
 }
 
-.conteudoLateral p {
+.containerPerfil .conteudoLateral p {
   margin: 0;
-  font-size: var(--tamanhoFonteTextoMenor);
-  color: var(--corMarromEscuro);
+  font-size: 14px;
+  color: #54453b;
 }
 
 /* Cartão acadêmico sem imagem */
-.cartaoAcademico {
-  background-color: var(--corAzulDestaque);
-  border-radius: var(--bordaArredondada);
-  padding: var(--espacamentoPequeno);
+.containerPerfil .cartaoAcademico {
+  background-color: rgba(127, 204, 212, 1);
+  border-radius: 8px;
+  padding: 15px;
   width: 100%;
   min-height: 80px;
   display: flex;
@@ -72,124 +70,122 @@
   justify-content: center;
 }
 
-.cartaoAcademico h3 {
+.containerPerfil .cartaoAcademico h3 {
   margin: 0 0 4px 0;
-  font-size: var(--tamanhoFonteTextoBase);
+  font-size: 16px;
 }
 
-.cartaoAcademico p {
+.containerPerfil .cartaoAcademico p {
   margin: 0;
-  font-size: var(--tamanhoFonteTextoMenor);
-  color: var(--corMarromEscuro);
+  font-size: 14px;
+  color: #54453b;
 }
 
-/* Estilos para o cabeçalho do perfil */
-.cabecalhoPerfil {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 15px;
-}
+/* Cabeçalho do perfil com botões no topo direito */
 
-.botoesCabecalho {
+.containerPerfil .botoesCabecalho {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  position: fixed;
+  top: 90px;
+  right: 30px;
 }
 
-.colunaFoto .imagemPerfil {
+.containerPerfil .colunaFoto .imagemPerfil {
   width: 235px;
   height: 235px;
 }
 
-.detalhesPerfil {
+.containerPerfil .detalhesPerfil {
   display: flex;
-  gap: var(--espacamentoPequeno);
+  gap: 15px;
 }
 
-.icone {
+.containerPerfil .icone {
   display: flex;
   gap: 2px;
 }
 
-.colunaContatos {
+.containerPerfil .colunaContatos {
   flex: 0 0 250px;
 }
 
-.secaoHistorico {
-  margin-bottom: var(--espacamentoGrande);
+/* Seções de histórico */
+.containerPerfil .secaoHistorico {
+  margin-bottom: 30px;
   width: 100%;
 }
 
-.secaoHistorico h2 {
-  margin-bottom: var(--espacamentoPequeno);
-  font-size: var(--tamanhoFonteSubtitulo);
-  color: var(--corMarromEscuro);
+.containerPerfil .secaoHistorico h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #54453b;
   padding-bottom: 5px;
-  border-bottom: 1px solid var(--corBordaSubtle);
+  border-bottom: 1px solid rgba(84, 69, 59, 0.3);
   text-align: left;
 }
 
-/* HISTÓRICOS - LAYOUT COMPACTO */
-.listaAcademica,
-.listaProfissional {
+/* Layout dos históricos em grid */
+.containerPerfil .listaAcademica,
+.containerPerfil .listaProfissional {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--espacamentoPequeno); /* Gap reduzido */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
   width: 100%;
 }
 
-/* SOBRE - NÃO CENTRALIZADO */
-.cartaoDestaque.fundoMarromDestaqueTransparente h3 {
+/* Sobre - não centralizado */
+.containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente h3 {
   text-align: left;
-  margin-bottom: var(--espacamentoPequeno);
+  margin-bottom: 15px;
 }
 
-.cartaoDestaque.fundoMarromDestaqueTransparente p {
+.containerPerfil .cartaoDestaque.fundoMarromDestaqueTransparente p {
   text-align: left;
-  margin-bottom: var(--espacamentoPequeno);
+  margin-bottom: 15px;
+  cursor: default !important;
 }
 
-/* Estilos para estados de carregamento e erro */
-.carregando {
+/* Estados de carregamento e erro */
+.containerPerfil .carregando {
   text-align: center;
-  padding: var(--espacamentoExtraGrande) var(--espacamentoMedio);
-  color: var(--corMarromEscuro);
+  padding: 60px 20px;
+  color: #54453b;
 }
 
-.carregando h2, .erro h2 {
-  margin-bottom: var(--espacamentoPequeno);
-  font-size: var(--tamanhoFonteSubtitulo);
+.containerPerfil .carregando h2,
+.containerPerfil .erro h2 {
+  margin-bottom: 15px;
+  font-size: 28px;
 }
 
-.erro p {
+.containerPerfil .erro p {
   color: #d32f2f;
-  font-size: var(--tamanhoFonteTextoMenor);
+  font-size: 14px;
 }
 
-.aviso-erro {
+.containerPerfil .aviso-erro {
   background-color: #fff3cd;
   border: 1px solid #ffeaa7;
-  border-radius: var(--bordaArredondada);
-  padding: var(--espacamentoPequeno);
-  margin-bottom: var(--espacamentoMedio);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
   color: #856404;
 }
 
-.aviso-erro p {
+.containerPerfil .aviso-erro p {
   margin: 0;
-  font-size: var(--tamanhoFonteTextoMicro);
+  font-size: 12px;
 }
 
-/* Estilos para edição de foto */
-.containerFoto {
+/* Edição de foto */
+.containerPerfil .containerFoto {
   position: relative;
   display: inline-block;
 }
 
-.sobreposicaoFoto {
+.containerPerfil .sobreposicaoFoto {
   position: absolute;
   top: 0;
   left: 0;
@@ -205,267 +201,336 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
+  aspect-ratio: 1 / 1;
 }
 
-.containerFoto:hover .sobreposicaoFoto {
+.sobreposicaoFoto.opaco{
+  opacity: 1;
+} 
+
+.containerPerfil .containerFoto:hover .sobreposicaoFoto {
   opacity: 1;
 }
 
-.sobreposicaoFoto span {
+.containerPerfil .sobreposicaoFoto span {
   font-size: 12px;
   margin-top: 5px;
 }
 
 /* Mensagens */
-.mensagem {
+.containerPerfil .mensagem {
   padding: 10px;
   border-radius: 5px;
   margin: 10px 0;
-  font-size: var(--tamanhoFonteTextoMenor);
+  font-size: 14px;
 }
 
-.mensagemSucesso {
+.containerPerfil .mensagemSucesso {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
 }
 
-.mensagemErro {
+.containerPerfil .mensagemErro {
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  .containerPrincipal {
-    grid-template-columns: 1fr;
-  }
-  
-  .cabecalhoPerfil {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .botoesCabecalho {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .colunaFoto {
-    align-self: center;
-  }
-  
-  .listaAcademica,
-  .listaProfissional {
-    grid-template-columns: 1fr;
-  }
-  
-  .colunaContatos {
-    flex: 1 1 100%;
-  }
-
-  /* Ajuste para mobile nos cartões laterais */
-  .cartaoLateral {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--espacamentoPequeno);
-  }
-
-  .containerImagemLateral {
-    flex: 0 0 60px;
-    height: 60px;
-    width: 100%;
-  }
+/* Formulários e edição */
+.containerPerfil .campoFormulario {
+  margin-bottom: 15px;
 }
 
-/* Novos estilos para componentes React */
-.flexContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.flexItem {
-  flex: 1;
-  width: 100%;
-}
-
-.flexColuna {
-  display: flex;
-  flex-direction: column;
-}
-
-.flexLinha {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.flexCentro {
-  display: flex;
-  align-items: center;
-}
-
-.justificarCentro {
-  justify-content: center;
-}
-
-.alinharCentro {
-  align-items: center;
-}
-
-.alinharEsticar {
-  align-items: stretch;
-}
-
-.textoCentro {
-  text-align: center;
-}
-
-.textoEsquerda {
-  text-align: left;
-}
-
-.textoCentralizado {
-  text-align: center;
-}
-
-.gapPequeno {
-  gap: var(--espacamentoPequeno);
-}
-
-.gapMedio {
-  gap: var(--espacamentoMedio);
-}
-
-.gapGrande {
-  gap: var(--espacamentoGrande);
-}
-
-.margemInferiorPequena {
-  margin-bottom: var(--espacamentoPequeno);
-}
-
-.margemInferiorMedia {
-  margin-bottom: var(--espacamentoMedio);
-}
-
-.margemInferiorGrande {
-  margin-bottom: var(--espacamentoGrande);
-}
-
-.margemSuperiorPequena {
-  margin-top: var(--espacamentoPequeno);
-}
-
-.margemSuperiorMedia {
-  margin-top: var(--espacamentoMedio);
-}
-
-.paddingGrande {
-  padding: var(--espacamentoGrande);
-}
-
-/* Estilos para grid do React */
-.gridContainer {
-  display: grid;
-}
-
-.gridTresColunas {
-  grid-template-columns: 1fr 2fr 1fr;
-}
-
-.gridColunasAuto {
-  grid-template-columns: 1fr;
-  width: 100%;
-}
-
-/* Estilos para formulários e edição */
-.campoFormulario {
-  margin-bottom: var(--espacamentoPequeno);
-}
-
-.rotuloCampo {
+.containerPerfil .rotuloCampo {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: var(--corMarromEscuro);
+  color: #54453b;
   text-align: left;
 }
 
-.inputFormulario {
+.containerPerfil .inputFormulario {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid var(--corBordaSubtle);
-  border-radius: var(--bordaArredondada);
-  font-size: var(--tamanhoFonteTextoBase);
+  border: 1px solid rgba(84, 69, 59, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  background: rgba(211, 163, 127, 0.3);
+  border: none;
 }
 
-.areaTexto {
+.containerPerfil .areaTexto {
   resize: vertical;
   min-height: 80px;
 }
 
-.botoesAcao {
+.containerPerfil .botoesAcao {
   display: flex;
-  gap: var(--espacamentoPequeno);
-  margin-top: var(--espacamentoMedio);
-}
-
-/* Utilitários de texto */
-.textoPequeno {
-  font-size: var(--tamanhoFonteTextoMenor);
-}
-
-.textoMarromEscuro {
-  color: var(--corMarromEscuro);
-}
-
-.textoMarromOfuscado {
-  color: var(--corMarromClaro);
-}
-
-.textoAmarelo {
-  color: #ffc107;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 /* Componentes específicos */
-.imagemPerfilGrande {
+.containerPerfil .imagemPerfilGrande {
   width: 235px;
   height: 235px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.listaIcones.vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-.listaIcones.vertical > div {
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
-}
-
-.posicaoRelativa {
-  position: relative;
-}
-
-.flexWrap {
-  flex-wrap: wrap;
-}
-
 /* Estilos específicos para os históricos */
-.bordaInferiorSubtle {
-  border-bottom: 1px solid var(--corBordaSubtle);
+.containerPerfil .bordaInferiorSubtle {
+  border-bottom: 1px solid rgba(84, 69, 59, 0.3);
   padding-bottom: 5px;
-  margin-bottom: var(--espacamentoPequeno);
+  margin-bottom: 15px;
   text-align: left;
   width: 100%;
 }
 
-.margemSuperiorZero {
+.containerPerfil .margemSuperiorZero {
   margin-top: 0;
+}
+
+/* Ajuste para cursor na descrição - remove pointer */
+.containerPerfil .cartaoDestaque p {
+  cursor: default;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .containerPerfil .containerPrincipal {
+    grid-template-columns: 1fr;
+  }
+  
+  .containerPerfil .botoesCabecalho {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .containerPerfil .colunaFoto {
+    align-self: center;
+  }
+  
+  .containerPerfil .listaAcademica,
+  .containerPerfil .listaProfissional {
+    grid-template-columns: 1fr;
+  }
+  
+  .containerPerfil .colunaContatos {
+    flex: 1 1 100%;
+  }
+
+  .containerPerfil .cartaoLateral {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .containerPerfil .containerImagemLateral {
+    flex: 0 0 60px;
+    height: 60px;
+    width: 100%;
+  }
+}
+/* Estilos para modo de edição nos históricos */
+.containerPerfil .posicaoRelativa {
+  position: relative;
+}
+
+.containerPerfil .posicaoAbsoluta {
+  position: absolute;
+}
+
+.containerPerfil .topoDireito {
+  top: 10px;
+  right: 10px;
+}
+
+.containerPerfil .cartaoAcademico {
+  background-color: rgba(127, 204, 212, 1);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.containerPerfil .cartaoAcademico h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.containerPerfil .cartaoAcademico p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #54453b;
+}
+
+/* Estilos para formulários de edição */
+.containerPerfil .campoFormulario {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.containerPerfil .rotuloCampo {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #54453b;
+  font-size: 14px;
+}
+
+.containerPerfil .inputFormulario {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(84, 69, 59, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+}
+
+.containerPerfil .areaTexto {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+/* Botões */
+.containerPerfil .botoesAcao {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* Layout flex */
+.containerPerfil .flexCentro {
+  display: flex;
+  align-items: center;
+}
+
+.containerPerfil .espaçoEntre {
+  justify-content: space-between;
+}
+
+/* Contatos no estilo do cadastro */
+.containerPerfil .item-contato {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.containerPerfil .item-contato select,
+.containerPerfil .item-contato input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--corMarromOfuscado);
+  border-radius: var(--bordaArredondada);
+  background-color: var(--corNeutraClara);
+  color: var(--corMarromEscuro);
+  min-width: 120px;
+}
+
+.containerPerfil .botao-remover {
+  padding: 10px 12px;
+  background-color: var(--corMarromEscuro);
+  color: var(--corNeutraClara);
+  border: none;
+  border-radius: var(--bordaArredondada);
+  cursor: pointer;
+  font-size: var(--tamanhoFonteTextoMenor);
+  transition: all 0.3s ease;
+}
+
+.containerPerfil .botao-remover:hover {
+  background-color: var(--corMarromDestaque);
+  transform: scale(1.1);
+}
+
+.containerPerfil .botao-adicionar {
+  padding: var(--espacamentoPequeno) var(--espacamentoMedio);
+  background-color: var(--corAzulDestaque);
+  color: var(--corMarromEscuro);
+  border: none;
+  border-radius: var(--bordaArredondada);
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-size: var(--tamanhoFonteTextoMenor);
+}
+
+.containerPerfil .botao-adicionar:hover {
+  background-color: var(--corAzulEscuro);
+  color: var(--corNeutraClara);
+  transform: translateY(-2px);
+}
+
+.containerPerfil .mensagem-erro {
+  color: var(--corMarromEscuro);
+  background-color: rgba(211, 163, 127, 0.2);
+  font-size: var(--tamanhoFonteTextoMinimo);
+  display: block;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  border-left: 3px solid var(--corMarromEscuro);
+  width: 100%;
+}
+
+.containerPerfil .mensagem-erro.pequena {
+  font-size: var(--tamanhoFonteTextoMicro);
+  padding: 5px;
+}
+
+/* Variáveis CSS para consistência com cadastro */
+.containerPerfil {
+  --corMarromOfuscado: #8a7a6a;
+  --corMarromEscuro: #54453b;
+  --corNeutraClara: #ffffff;
+  --corAzulDestaque: #7fccd4;
+  --corAzulEscuro: #5a9fa6;
+  --corMarromDestaque: #a38a7a;
+  --bordaArredondada: 8px;
+  --espacamentoPequeno: 10px;
+  --espacamentoMedio: 15px;
+  --tamanhoFonteTextoMenor: 14px;
+  --tamanhoFonteTextoMinimo: 12px;
+  --tamanhoFonteTextoMicro: 10px;
+}
+
+/* Cartões de destaque */
+.containerPerfil .cartaoDestaque.variacao2 {
+  background-color: rgba(127, 204, 212, 0.2);
+  border: 2px solid var(--corAzulDestaque);
+  border-radius: var(--bordaArredondada);
+  padding: var(--espacamentoMedio);
+  margin-bottom: var(--espacamentoPequeno);
+}
+
+.containerPerfil .secao-completa {
+  width: 100%;
+}
+
+.containerPerfil .texto-obrigatorio {
+  font-size: var(--tamanhoFonteTextoMinimo);
+  color: var(--corMarromOfuscado);
+  font-style: italic;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+/* Estados de erro para inputs */
+.containerPerfil input.erro,
+.containerPerfil select.erro,
+.containerPerfil textarea.erro {
+  border-color: var(--corMarromEscuro);
+  background-color: rgba(211, 163, 127, 0.1);
 }
