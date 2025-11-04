@@ -1165,23 +1165,6 @@ input.erro, textarea.erro, select.erro {
   gap: var(--espacamentoMedio);
 }
 
-.login-google-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--espacamentoMedio);
-  border-left: 2px solid var(--corMarromOfuscado);
-  min-height: 300px;
-}
-
-.separador-login-google {
-  margin: var(--espacamentoMedio) 0;
-  text-align: center;
-  color: var(--corMarromOfuscado);
-  font-size: var(--tamanhoFonteTextoMenor);
-}
-
 .imagemPerfil.imagem-default {
   filter: grayscale(100%);
   opacity: 0.7;
@@ -1279,13 +1262,6 @@ input.erro, textarea.erro, select.erro {
   .conteudo-login-unificado {
     grid-template-columns: 1fr;
     gap: var(--espacamentoMedio);
-  }
-  
-  .login-google-container {
-    border-left: none;
-    border-top: 2px solid var(--corMarromOfuscado);
-    padding-top: var(--espacamentoMedio);
-    min-height: auto;
   }
   
   .cartao-login-unificado {

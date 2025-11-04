@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../../contextos/autenticacao.jsx';
 import { servicoAuth } from '../../../servicos/api.js';
-import GoogleLoginButton from '../../../componentes/autenticacao/botaologingoogle.jsx';
 import { Eye, EyeOff } from 'lucide-react';
 
 const FormularioLogin = () => {
@@ -130,21 +129,10 @@ const FormularioLogin = () => {
   //   console.log('Redirecionar para recuperação de senha');
   // };
 
-  const aoSucessoLoginGoogle = (userData) => {
-    console.log('Login Google realizado:', userData);
-  };
-
-  const aoErroLoginGoogle = () => {
-    console.error('Erro no login com Google');
-  };
-
   return (
     <div className="cartao-login-unificado">
       <div className="cabecalho-login-unificado">
         <h1 className="titulo-login-unificado">Entre na sua conta</h1>
-        <p className="subtitulo-login-unificado">
-          Acesse com suas credenciais ou usando sua conta Google
-        </p>
       </div>
 
       <div className="conteudo-login-unificado">
@@ -240,22 +228,6 @@ const FormularioLogin = () => {
               )}
             </button>
           </form>
-        </div>
-
-        <div className="login-google-container">
-          <div className="separador-login-google">
-            <span>Ou entre com</span>
-          </div>
-          
-          <GoogleLoginButton 
-            text="Entrar com Google"
-            onSuccess={aoSucessoLoginGoogle}
-            onError={aoErroLoginGoogle}
-          />
-          
-          <p className="texto-apoio">
-            Entre rapidamente com sua conta Google
-          </p>
         </div>
       </div>
     </div>

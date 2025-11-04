@@ -18,11 +18,6 @@ console.log('🔧 Configuração API carregada:', {
   ambiente: import.meta.env.MODE
 });
 
-export const GOOGLE_CONFIG = {
-  CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-  SCOPE: "profile email"
-};
-
 // Configurações de autenticação
 export const AUTH_CONFIG = {
   TOKEN_KEY: "auth_token",
@@ -46,7 +41,6 @@ export const API_STATUS = {
 
 export default {
   API_CONFIG,
-  GOOGLE_CONFIG,
   AUTH_CONFIG,
   TIPOS_PERFIL,
   API_STATUS
