@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contextos/autenticacao';
-import './BotoesAcao.css';
+import './botoesacao.css';
 
 const BotoesAcao = () => {
   const navigate = useNavigate();
