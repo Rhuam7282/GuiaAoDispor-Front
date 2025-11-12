@@ -325,13 +325,21 @@ export const servicoAuth = {
   },
 };
 
-// Health check da API
 export const verificarConexaoAPI = async () => {
   try {
-    const resposta = await fetch(`${URL_BASE}/api/health`);
+    console.log("🔍 Testando conexão com:", `${URL_BASE}/api/health`);
+    const resposta = await fetch(`${URL_BASE}/api/health`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors'
+    });
+    
+    console.log("🏥 Health Check Status:", resposta.status, resposta.ok);
     return resposta.ok;
   } catch (erro) {
-    console.error("❌ API não está respondendo:", erro);
+    console.error("❌ Health Check Failed:", erro.message);
     return false;
   }
 };

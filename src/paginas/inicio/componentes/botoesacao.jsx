@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contextos/autenticacao';
+import { Rocket, Lock } from 'lucide-react'; // ✅ Ícones Lucide
 import './botoesacao.css';
 
 const BotoesAcao = () => {
   const navigate = useNavigate();
-  const { estaAutenticado } = useAuth?.() || {}; // ✅ DEFENSIVO
+  const { estaAutenticado } = useAuth?.() || {};
 
-  // Ou verificar se o hook existe
   if (!useAuth) {
     console.warn('Hook useAuth não disponível');
     return null;
@@ -36,7 +36,7 @@ const BotoesAcao = () => {
             className="botaoAcesso botaoSecundario"
           >
             <div className="conteudoBotao">
-              <span className="iconeBotao">🚀</span>
+              <Rocket size={20} className="iconeBotao" /> {/* ✅ Ícone Lucide */}
               <div className="textoBotao">
                 <span className="tituloBotao">Acessar Diretamente</span>
                 <span className="descricaoBotao">Explore sem compromisso</span>
@@ -49,7 +49,7 @@ const BotoesAcao = () => {
             className="botaoAcesso botaoPrimario"
           >
             <div className="conteudoBotao">
-              <span className="iconeBotao">🔐</span>
+              <Lock size={20} className="iconeBotao" /> {/* ✅ Ícone Lucide */}
               <div className="textoBotao">
                 <span className="tituloBotao">Fazer Login</span>
                 <span className="descricaoBotao">Acesso completo</span>

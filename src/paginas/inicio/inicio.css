@@ -8,9 +8,16 @@
   text-align: center;
 }
 
+.secaoComentarios h2 {
+  color: var(--corMarromEscuro);
+  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo)); /* ✅ Título responsivo */
+  margin-bottom: var(--espacamentoMedio);
+  font-weight: 700;
+}
+
 .secaoVantagens h2 {
   color: var(--corMarromEscuro);
-  font-size: var(--tamanhoFonteTitulo);
+  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo)); /* ✅ Título responsivo */
   margin-bottom: var(--espacamentoExtraGrande);
   font-weight: 700;
 }
@@ -52,6 +59,8 @@
   margin: 0;
 }
 
+
+
 @media (max-width: 768px) {
   .containerVantagens {
     grid-template-columns: 1fr;
@@ -89,16 +98,31 @@
   justify-content: center;
   align-items: center;
   padding: var(--espacamentoExtraGrande) 0;
+  position: relative;
+  z-index: 2; /* ✅ Garante que o conteúdo fique acima do fundo */
 }
 
-/* Remove o gradiente antigo e ajusta o fundo */
 .paginaInicial {
   width: 100%;
   background-color: transparent;
-  background-image: none;
+  background-image: url('../../recursos/icones/logo.png'); /* ✅ Logo como fundo */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 30% auto; /* ✅ Tamanho ajustável */
+  background-attachment: fixed;
   position: relative;
   overflow: auto;
-  background-image: url('../../../recursos/icones/logo.png');
+}
+
+.paginaInicial::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85); /* ✅ Overlay branco semi-transparente */
+  z-index: 1;
 }
 
 .conteudoPrincipalInicio {
@@ -115,6 +139,13 @@
   margin-bottom: var(--espacamentoGrande);
   max-width: 600px;
   margin: auto;
+}
+
+.carrosselAcessibilidade h2 {
+  color: var(--corMarromEscuro);
+  margin-bottom: var(--espacamentoMedio);
+  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo)); /* ✅ Título responsivo */
+  font-weight: 700;
 }
 
 .cartaoDestaque.variacao1 {
@@ -168,4 +199,5 @@
     padding: var(--espacamentoPequeno);
   }
 }
+
 

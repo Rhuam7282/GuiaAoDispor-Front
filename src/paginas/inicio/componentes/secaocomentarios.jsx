@@ -1,5 +1,6 @@
 import React from 'react';
 import './secaocomentarios.css';
+import { User } from 'lucide-react'; // ✅ Ícone Lucide
 
 const SecaoComentarios = () => {
   // Agora usando a estrutura do schema de Avaliacao
@@ -57,7 +58,7 @@ const SecaoComentarios = () => {
             <div className="cabecalhoComentario">
               <div className="infoUsuario">
                 <div className="avatarUsuario">
-                  {avaliacao.nome.charAt(0)}
+                  <User size={20} color="white" /> {/* ✅ Ícone Lucide em vez de inicial */}
                 </div>
                 <div className="dadosUsuario">
                   <h4 className="nomeUsuario">{avaliacao.nome}</h4>
@@ -71,17 +72,6 @@ const SecaoComentarios = () => {
           </div>
         ))}
       </div>
-      
-      {/* <div className="chamadaContato">
-        <p>
-          <strong>
-            Gostaria de sugerir mais alguma ferramenta ou melhorias? Contacte-nos.
-          </strong>
-        </p>
-        <button className="botaoContato">
-          Entre em Contato
-        </button>
-      </div> */}
     </section>
   );
 };

@@ -55,7 +55,7 @@ const SecaoVisao = ({ configuracoes, atualizarConfiguracao }) => {
             onClick={() => atualizarConfiguracao('modoDaltonico', 0)}
             className={configuracoes.modoDaltonico === 0 ? 'ativo' : ''}
           >
-            Normal
+            Não daltônico
           </button>
           <button 
             onClick={() => atualizarConfiguracao('modoDaltonico', 1)}

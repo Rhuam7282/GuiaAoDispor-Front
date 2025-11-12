@@ -26,12 +26,27 @@ const Rodape = () => {
     navigate(rota);
   };
 
+  // TODO: Implementar handlers para os botões legais
+  // Estas funções devem ser implementadas quando as páginas correspondentes forem criadas
+  const handlePoliticaPrivacidade = () => {
+    console.log("Redirecionar para política de privacidade");
+    // navigate('/politica-privacidade');
+  };
+
+  const handleTermosUso = () => {
+    console.log("Redirecionar para termos de uso");
+    // navigate('/termos-uso');
+  };
+
+  const handleNossoArtigo = () => {
+    console.log("Redirecionar para nosso artigo");
+    // navigate('/nosso-artigo');
+  };
+
   return (
     <footer className="footer">
       <div className="containerFooter">
-        {/* Seção Superior do Footer */}
         <div className="footerSuperior">
-          {/* Links Rápidos */}
           <div className="footerSection">
             <h4 className="tituloFooter">Links Rápidos</h4>
             <ul className="listaFooter">
@@ -51,7 +66,6 @@ const Rodape = () => {
             </ul>
           </div>
 
-          {/* Contato */}
           <div className="footerSection">
             <h4 className="tituloFooter">Contato</h4>
             <div className="infoContato">
@@ -71,10 +85,8 @@ const Rodape = () => {
           </div>
         </div>
 
-        {/* Linha Divisória */}
         <div className="linhaDivisoria"></div>
 
-        {/* Seção Inferior do Footer */}
         <div className="footerInferior">
           <div className="copyright">
             <p>
@@ -83,9 +95,16 @@ const Rodape = () => {
             </p>
           </div>
           <div className="linksLegais">
-            <button className="botaoLegal">Política de Privacidade</button>
-            <button className="botaoLegal">Termos de Uso</button>
-            <button className="botaoLegal">Nosso Artigo</button>
+            {/* TODO: Implementar páginas de política de privacidade e termos de uso */}
+            <button className="botaoLegal" onClick={handlePoliticaPrivacidade}>
+              Política de Privacidade
+            </button>
+            <button className="botaoLegal" onClick={handleTermosUso}>
+              Termos de Uso
+            </button>
+            <button className="botaoLegal" onClick={handleNossoArtigo}>
+              Nosso Artigo
+            </button>
           </div>
         </div>
       </div>

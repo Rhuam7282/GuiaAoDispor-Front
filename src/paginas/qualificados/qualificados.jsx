@@ -16,28 +16,31 @@ function Qualificados() {
   const profissionaisMock = [
     {
       _id: "mock-1",
-      imagem: Logo,
+      imagem: <img src={Logo} alt="Logo" />,
       nome: "Ana Silva",
       localizacao: "São Paulo, SP",
       experiencia: "Enfermeira com 5 anos de experiência",
     },
     {
       _id: "mock-2",
-      imagem: Logo,
+      imagem: <img src={Logo} alt="Logo" />,
       nome: "Carlos Santos",
       localizacao: "Rio de Janeiro, RJ",
       experiencia: "Cuidador especializado",
     },
   ];
 
-  const fetchProfissionais = async () => {
+    const fetchProfissionais = async () => {
     try {
       setLoading(true);
       setError(null);
 
+      console.log("🔄 Iniciando busca por profissionais...");
 
       // Use o serviço da API em vez de fetch direto
       const resposta = await servicoProfissional.listarTodos();
+      
+      console.log("📨 Resposta da API:", resposta);
 
       // Verifica diferentes estruturas de resposta
       let dadosProfissionais = [];
@@ -46,16 +49,31 @@ function Qualificados() {
         dadosProfissionais = resposta;
       } else if (resposta && Array.isArray(resposta.data)) {
         dadosProfissionais = resposta.data;
+      } else if (resposta && resposta.data && Array.isArray(resposta.data.data)) {
+        // Nova verificação para estrutura aninhada
+        dadosProfissionais = resposta.data.data;
+      } else if (resposta && resposta.data) {
+        // Se resposta.data for um objeto único
+        dadosProfissionais = [resposta.data];
       } else {
         console.warn("⚠️ Estrutura de resposta inesperada, usando dados mock");
         dadosProfissionais = profissionaisMock;
       }
 
+      // Verifica se há profissionais válidos
+      if (!dadosProfissionais || dadosProfissionais.length === 0) {
+        console.warn("📭 Nenhum profissional encontrado na API, usando dados mock");
+        dadosProfissionais = profissionaisMock;
+      }
+
+      console.log("✅ Profissionais carregados:", dadosProfissionais.length);
       setProfissionais(dadosProfissionais);
+      
     } catch (error) {
       console.error("❌ Erro ao carregar profissionais:", error);
       // Use dados mock silenciosamente sem mostrar erro
       setProfissionais(profissionaisMock);
+      setError("Erro ao carregar dados. Mostrando informações de exemplo.");
     } finally {
       setLoading(false);
     }
@@ -83,20 +101,12 @@ function Qualificados() {
     }
   };
 
-  const aoSelecionarArquivo = (arquivo) => {
-    if (arquivo) {
-      // Cria uma URL temporária para preview
-      const urlTemporaria = URL.createObjectURL(arquivo);
-
-      // Atualiza o estado com a URL temporária E o arquivo original
-      setDadosFormulario((prev) => ({
-        ...prev,
-        foto: urlTemporaria,
-        arquivoFoto: arquivo, // Guarda o arquivo original para enviar depois
-      }));
-    }
+  // Função para recarregar os dados
+  const recarregarDados = () => {
+    fetchProfissionais();
   };
 
+  
   return (
     <Corpo>
       <div className="container">
