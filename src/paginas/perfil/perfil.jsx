@@ -4,6 +4,9 @@ import Corpo from "../../componentes/layout/corpo.jsx";
 import InformacoesPerfil from "./componentes/informacoesperfil.jsx";
 import HistoricoAcademicoPerfil from "./componentes/historicoacademicoperfil.jsx";
 import HistoricoProfissionalPerfil from "./componentes/historicoprofissionalperfil.jsx";
+import SolicitarAvaliacao from "./componentes/solicitaravaliacao.jsx";
+import ListaAvaliacoes from "./componentes/listaaavaliacoes.jsx";
+import AvaliacoesPendentes from "./componentes/avaliacoespendenetes.jsx";
 import {
   servicoProfissional,
   servicoHCurricular,
@@ -722,6 +725,30 @@ const carregarHistoricosProfissional = async (profissionalId) => {
               />
             </div>
           )}
+
+          {/* Adicione esta seção após as seções de histórico profissional */}
+
+          {/* Seção de Avaliações para profissionais */}
+          {isPerfilProfissional() && (
+            <>
+              {/* O profissional pode solicitar avaliações apenas no próprio perfil */}
+              {isPerfilProprio() && (
+                <SolicitarAvaliacao 
+                  profissionalId={id || usuario._id} 
+                  profissionalNome={dadosPerfil.nome}
+                />
+              )}
+              
+              {/* Lista de avaliações confirmadas */}
+              <ListaAvaliacoes profissionalId={id || usuario._id} />
+            </>
+          )}
+
+          {/* Avaliações pendentes para usuários comuns */}
+          {isPerfilProprio() && !isPerfilProfissional() && (
+            <AvaliacoesPendentes usuarioId={usuario._id} />
+          )}
+
         </div>
       </div>
     </Corpo>
