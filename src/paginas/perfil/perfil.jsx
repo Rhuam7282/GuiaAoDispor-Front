@@ -177,7 +177,7 @@ const Perfil = () => {
       avaliacao: dadosUsuario.avaliacao || dadosUsuario.nota || 0,
       email: dadosUsuario.email || "",
       contatos: contatosFormatados,
-      tipoPerfil: dadosUsuario.tipoPerfil || "Pessoal",
+      tipoPerfil: dadosUsuario.tipoPerfil || (dadosUsuario.desc ? "Profissional" : "Pessoal"),
     };
   };
 
@@ -338,10 +338,7 @@ const carregarHistoricosProfissional = async (profissionalId) => {
             console.log("✅ Perfil carregado da API:", perfilFormatado);
 
             // Se for profissional, carregar históricos
-            if (
-              resposta.data.tipoPerfil === "Profissional" ||
-              resposta.data.desc
-            ) {
+            if (perfilFormatado.tipoPerfil === "Profissional") {
               await carregarHistoricosProfissional(usuario._id);
             } else {
               setHistoricoAcademico([]);
@@ -361,7 +358,7 @@ const carregarHistoricosProfissional = async (profissionalId) => {
           setDadosPerfil(perfilFormatado);
 
           // Tentar carregar históricos mesmo no fallback
-          if (usuario.tipoPerfil === "Profissional" || usuario.desc) {
+          if (perfilFormatado.tipoPerfil === "Profissional") {
             await carregarHistoricosProfissional(usuario._id);
           } else {
             setHistoricoAcademico([]);
@@ -427,13 +424,7 @@ const carregarHistoricosProfissional = async (profissionalId) => {
 
   // Função para verificar se é um perfil profissional
   const isPerfilProfissional = () => {
-    return (
-      id ||
-      dadosPerfil?.tipoPerfil === "Profissional" ||
-      (dadosPerfil?.descricao && dadosPerfil.descricao !== "Descrição não informada") ||
-      historicoAcademico.length > 0 ||
-      historicoProfissional.length > 0
-    );
+    return dadosPerfil?.tipoPerfil === "Profissional";
   };
 
   // NOVAS FUNÇÕES: Gerenciar históricos removidos
@@ -725,8 +716,6 @@ const carregarHistoricosProfissional = async (profissionalId) => {
               />
             </div>
           )}
-
-          {/* Adicione esta seção após as seções de histórico profissional */}
 
           {/* Seção de Avaliações para profissionais */}
           {isPerfilProfissional() && (
