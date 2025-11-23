@@ -20,32 +20,58 @@ const PainelControle = () => {
   const { configuracoes, atualizarConfiguracao } = useConfiguracaoAcessibilidade();
   useGuiasLeitura(configuracoes.guiaLeitura);
 
-  // Aplicar estilos de texto em TODOS os elementos
+  // Aplicar estilos de texto em TODOS os elementos (incluindo o painel) proporcionalmente
   useEffect(() => {
     const aplicarEstilosTexto = () => {
       let estiloDinamico = document.getElementById('estiloAcessibilidadeTexto');
+      
+      // Calcular fatores de escala base mantendo proporções
+      const fatorBase = configuracoes.tamanhoFonte / 100;
+      
       const conteudoEstilo = `
+        /* Aplicar escala proporcional a TODOS os elementos */
         :root {
-          --fatorEscala: ${configuracoes.tamanhoFonte / 100};
-          --espacamentoLetras: ${configuracoes.espacamentoLetras}px;
-          --alturaLinha: ${configuracoes.alturaLinha};
+          --fator-escala-global: ${fatorBase};
+          --espacamento-letras-global: ${configuracoes.espacamentoLetras}px;
+          --altura-linha-global: ${configuracoes.alturaLinha};
         }
         
-        /* Aplicar a TODOS os elementos, incluindo headers, buttons, inputs, etc */
-        *:not(.painelAcessibilidade):not(.painelAcessibilidade *) {
-          font-size: calc(var(--tamanho-fonte-base, 16px) * var(--fatorEscala)) !important; 
-          letter-spacing: var(--espacamentoLetras) !important;
-          line-height: var(--alturaLinha) !important;
+        /* Escalar elementos de texto mantendo hierarquia */
+        body {
+          font-size: calc(1rem * var(--fator-escala-global)) !important;
+          letter-spacing: var(--espacamento-letras-global) !important;
+          line-height: var(--altura-linha-global) !important;
         }
         
-        /* Garantir que elementos específicos herdem corretamente */
-        h1, h2, h3, h4, h5, h6 {
-          font-size: calc(var(--tamanho-fonte-base, 16px) * var(--fatorEscala) * 1.2) !important;
-        }
+        /* Manter proporções hierárquicas para diferentes elementos */
+        h1 { font-size: calc(2rem * var(--fator-escala-global)) !important; }
+        h2 { font-size: calc(1.5rem * var(--fator-escala-global)) !important; }
+        h3 { font-size: calc(1.3rem * var(--fator-escala-global)) !important; }
+        h4 { font-size: calc(1.1rem * var(--fator-escala-global)) !important; }
+        h5 { font-size: calc(1rem * var(--fator-escala-global)) !important; }
+        h6 { font-size: calc(0.9rem * var(--fator-escala-global)) !important; }
         
+        small { font-size: calc(0.8rem * var(--fator-escala-global)) !important; }
+        .texto-pequeno { font-size: calc(0.8rem * var(--fator-escala-global)) !important; }
+        .texto-grande { font-size: calc(1.2rem * var(--fator-escala-global)) !important; }
+        
+        /* Botões e inputs também escalam */
         button, input, textarea, select {
-          font-size: calc(var(--tamanho-fonte-base, 16px) * var(--fatorEscala)) !important;
-          letter-spacing: var(--espacamentoLetras) !important;
+          font-size: calc(1rem * var(--fator-escala-global)) !important;
+          letter-spacing: var(--espacamento-letras-global) !important;
+        }
+        
+        /* O próprio painel de acessibilidade também escala */
+        .painelAcessibilidade {
+          font-size: calc(14px * var(--fator-escala-global)) !important;
+        }
+        
+        .painelAcessibilidade .tituloSecao {
+          font-size: calc(13px * var(--fator-escala-global)) !important;
+        }
+        
+        .painelAcessibilidade .botoesControle button {
+          font-size: calc(12px * var(--fator-escala-global)) !important;
         }
       `;
 
@@ -72,38 +98,34 @@ const PainelControle = () => {
         break;
       case 2: 
         raiz.classList.add('contrasteIntenso');
-        // Forçar contraste máximo
-        document.body.style.setProperty('--corNeutraClara', '#000000', 'important');
-        document.body.style.setProperty('--corMarromEscuro', '#ffffff', 'important');
-        document.body.style.setProperty('--corAzulDestaque', '#ffff00', 'important');
         break;
       default: 
-        // Reset para cores originais
-        document.body.style.removeProperty('--corNeutraClara');
-        document.body.style.removeProperty('--corMarromEscuro');
-        document.body.style.removeProperty('--corAzulDestaque');
         break;
     }
   }, [configuracoes.modoContraste]);
 
-  // Aplicar modo escuro com contraste adequado
+  // Aplicar modo escuro seguindo a paleta do site
   useEffect(() => {
     const raiz = document.documentElement;
     
     if (configuracoes.modoEscuro === 1) {
       raiz.classList.add('temaEscuro');
-      // Garantir contraste no modo escuro
-      document.body.style.setProperty('--corNeutraClara', '#1a1a1a', 'important');
-      document.body.style.setProperty('--corMarromEscuro', '#e8e8e8', 'important');
-      document.body.style.setProperty('--corMarromDestaque', '#bb86fc', 'important');
-      document.body.style.setProperty('--corAzulDestaque', '#03dac6', 'important');
+      // Aplicar cores do tema escuro mantendo identidade visual
+      document.documentElement.style.setProperty('--corNeutraClara', '#1a1a1a');
+      document.documentElement.style.setProperty('--corNeutraEscura', '#f5f5f5');
+      document.documentElement.style.setProperty('--corMarromEscuro', '#e8e8e8');
+      document.documentElement.style.setProperty('--corMarromDestaque', '#8B4513');
+      document.documentElement.style.setProperty('--corMarromDestaqueTransparente', 'rgba(139, 69, 19, 0.3)');
+      document.documentElement.style.setProperty('--corAzulDestaque', '#1e90ff');
     } else {
       raiz.classList.remove('temaEscuro');
-      // Restaurar cores originais
-      document.body.style.removeProperty('--corNeutraClara');
-      document.body.style.removeProperty('--corMarromEscuro');
-      document.body.style.removeProperty('--corMarromDestaque');
-      document.body.style.removeProperty('--corAzulDestaque');
+      // Restaurar cores originais (elas serão pegas do index.css)
+      document.documentElement.style.removeProperty('--corNeutraClara');
+      document.documentElement.style.removeProperty('--corNeutraEscura');
+      document.documentElement.style.removeProperty('--corMarromEscuro');
+      document.documentElement.style.removeProperty('--corMarromDestaque');
+      document.documentElement.style.removeProperty('--corMarromDestaqueTransparente');
+      document.documentElement.style.removeProperty('--corAzulDestaque');
     }
   }, [configuracoes.modoEscuro]);
 
@@ -117,11 +139,13 @@ const PainelControle = () => {
     raiz.classList.toggle('cursorGrande', configuracoes.cursorGrande);
 
     // Destacar elementos clicáveis baseado no modo
-    raiz.classList.remove('destacarLinks1', 'destacarLinks2');
+    raiz.classList.remove('destacarLinks1', 'destacarLinks2', 'destacarLinks3');
     if (configuracoes.destacarLinks === 1) {
       raiz.classList.add('destacarLinks1');
     } else if (configuracoes.destacarLinks === 2) {
       raiz.classList.add('destacarLinks2');
+    } else if (configuracoes.destacarLinks === 3) {
+      raiz.classList.add('destacarLinks3');
     }
 
     // Modos daltônicos
@@ -275,10 +299,12 @@ const PainelControle = () => {
                   setGuiaLeituraAtiva(false);
                   
                   // Resetar estilos forçados
-                  document.body.style.removeProperty('--corNeutraClara');
-                  document.body.style.removeProperty('--corMarromEscuro');
-                  document.body.style.removeProperty('--corAzulDestaque');
-                  document.body.style.removeProperty('--corMarromDestaque');
+                  document.documentElement.style.removeProperty('--corNeutraClara');
+                  document.documentElement.style.removeProperty('--corNeutraEscura');
+                  document.documentElement.style.removeProperty('--corMarromEscuro');
+                  document.documentElement.style.removeProperty('--corMarromDestaque');
+                  document.documentElement.style.removeProperty('--corMarromDestaqueTransparente');
+                  document.documentElement.style.removeProperty('--corAzulDestaque');
                 }}
               >
                 Redefinir Tudo

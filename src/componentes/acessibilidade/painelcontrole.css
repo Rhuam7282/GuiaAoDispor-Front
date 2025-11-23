@@ -81,19 +81,12 @@
   padding: 10px;
 }
 
+/* Remover estilos fixos para permitir escalabilidade */
 .painelAcessibilidade,
 .painelAcessibilidade * {
-  font-size: 14px !important;
+  /* As fontes agora são escaláveis via JavaScript */
   letter-spacing: normal !important;
   line-height: 1.4 !important;
-}
-
-.botoesControle button {
-  font-size: 12px !important;
-}
-
-.tituloSecao {
-  font-size: 13px !important;
 }
 
 .botoesControle button:active {
@@ -106,10 +99,14 @@
 }
 
 .botoesControle button {
-  font-size: 16px !important;
   padding: 10px;
   min-width: 90px !important;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+  min-height: 32px;
 }
 
 .botaoAlternarAcessibilidade {
@@ -165,6 +162,9 @@
   text-align: center;
   font-weight: bold;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .secao {
@@ -211,6 +211,9 @@
   font-size: 12px;
   font-weight: 500;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .botoesControle button.ativo {
@@ -230,6 +233,9 @@
   min-width: 50px;
   text-align: center;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Modos de contraste - CORRIGIDOS */
@@ -259,33 +265,41 @@
   border: 2px solid #ffffff !important;
 }
 
-/* Modo escuro - CORRIGIDO para melhor contraste */
+/* Modo escuro - SEGUINDO A IDENTIDADE VISUAL DO SITE */
 .temaEscuro {
-  background-color: #1a1a1a !important;
-  color: #e8e8e8 !important;
+  /* Cores são aplicadas via JavaScript para seguir a paleta do site */
 }
 
 .temaEscuro body {
-  background-color: #1a1a1a !important;
-  color: #e8e8e8 !important;
-}
-
-.temaEscuro * {
-  background-color: #1a1a1a !important;
-  color: #e8e8e8 !important;
-  border-color: #bb86fc !important;
-}
-
-.temaEscuro a,
-.temaEscuro button {
-  background-color: #bb86fc !important;
-  color: #1a1a1a !important;
+  background-color: var(--corNeutraClara) !important;
+  color: var(--corMarromEscuro) !important;
 }
 
 .temaEscuro .painelAcessibilidade {
-  background-color: #2d2d2d !important;
-  color: #e8e8e8 !important;
-  border-color: #bb86fc !important;
+  background-color: var(--corNeutraClara) !important;
+  color: var(--corMarromEscuro) !important;
+  border-color: var(--corMarromDestaque) !important;
+}
+
+.temaEscuro .grupo-opcoes {
+  border-color: var(--corMarromDestaqueTransparente) !important;
+}
+
+.temaEscuro .titulo-grupo,
+.temaEscuro .tituloSecao {
+  color: var(--corMarromEscuro) !important;
+  border-color: var(--corMarromDestaqueTransparente) !important;
+}
+
+.temaEscuro .botoesControle button {
+  background: var(--corNeutraClara) !important;
+  color: var(--corMarromEscuro) !important;
+  border-color: var(--corMarromDestaqueTransparente) !important;
+}
+
+.temaEscuro .botoesControle button.ativo {
+  background: var(--corAzulDestaque) !important;
+  color: var(--corMarromEscuro) !important;
 }
 
 /* Remover imagens e cabeçalhos */
@@ -305,7 +319,9 @@
   display: none !important;
 }
 
-/* Destacar TODOS os elementos clicáveis - CORRIGIDO */
+/* Destaque de elementos clicáveis - MODOS ATUALIZADOS */
+
+/* Modo 1 (Suave): Cores menos agressivas */
 .destacarLinks1 a,
 .destacarLinks1 button,
 .destacarLinks1 [role="button"],
@@ -314,6 +330,23 @@
 .destacarLinks1 input[type="reset"],
 .destacarLinks1 [onclick],
 .destacarLinks1 [tabindex]:not([tabindex="-1"]) {
+  background-color: rgba(30, 144, 255, 0.1) !important;
+  color: inherit !important;
+  text-decoration: underline !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+  border: 1px solid rgba(30, 144, 255, 0.3) !important;
+}
+
+/* Modo 2 (Médio): Um pouco mais visível */
+.destacarLinks2 a,
+.destacarLinks2 button,
+.destacarLinks2 [role="button"],
+.destacarLinks2 input[type="button"],
+.destacarLinks2 input[type="submit"],
+.destacarLinks2 input[type="reset"],
+.destacarLinks2 [onclick],
+.destacarLinks2 [tabindex]:not([tabindex="-1"]) {
   background-color: #ffff00 !important;
   color: #000000 !important;
   text-decoration: underline !important;
@@ -323,15 +356,15 @@
   border: 2px solid #ff0000 !important;
 }
 
-/* Modo 2: Destacar com borda - CORRIGIDO */
-.destacarLinks2 a,
-.destacarLinks2 button,
-.destacarLinks2 [role="button"],
-.destacarLinks2 input[type="button"],
-.destacarLinks2 input[type="submit"],
-.destacarLinks2 input[type="reset"],
-.destacarLinks2 [onclick],
-.destacarLinks2 [tabindex]:not([tabindex="-1"]) {
+/* Modo 3 (Forte): Borda destacada */
+.destacarLinks3 a,
+.destacarLinks3 button,
+.destacarLinks3 [role="button"],
+.destacarLinks3 input[type="button"],
+.destacarLinks3 input[type="submit"],
+.destacarLinks3 input[type="reset"],
+.destacarLinks3 [onclick],
+.destacarLinks3 [tabindex]:not([tabindex="-1"]) {
   border: 3px dashed #ff6600 !important;
   padding: 2px 4px !important;
   border-radius: 5px !important;

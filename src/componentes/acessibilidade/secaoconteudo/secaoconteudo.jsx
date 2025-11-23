@@ -5,7 +5,7 @@ const SecaoConteudo = ({ configuracoes, atualizarConfiguracao }) => {
   const [modoDestacarLinks, setModoDestacarLinks] = useState(0);
 
   const alternarModoDestacarLinks = () => {
-    const novoModo = (modoDestacarLinks + 1) % 3;
+    const novoModo = (modoDestacarLinks + 1) % 4; // 0-3
     setModoDestacarLinks(novoModo);
     atualizarConfiguracao('destacarLinks', novoModo);
   };
@@ -13,8 +13,9 @@ const SecaoConteudo = ({ configuracoes, atualizarConfiguracao }) => {
   const obterTextoDestacarLinks = () => {
     switch (modoDestacarLinks) {
       case 0: return 'Desativado';
-      case 1: return 'Modo Cores';
-      case 2: return 'Modo Borda';
+      case 1: return 'Modo Suave';
+      case 2: return 'Modo Cores';
+      case 3: return 'Modo Borda';
       default: return 'Desativado';
     }
   };
@@ -65,7 +66,9 @@ const SecaoConteudo = ({ configuracoes, atualizarConfiguracao }) => {
           </button>
         </div>
         <p style={{fontSize: '11px', margin: '5px 0 0 0', color: '#666'}}>
-          Destaca links, botões e elementos clicáveis
+          {modoDestacarLinks === 1 && 'Azul suave com borda sutil'}
+          {modoDestacarLinks === 2 && 'Amarelo forte com borda vermelha'}
+          {modoDestacarLinks === 3 && 'Borda laranja tracejada'}
         </p>
       </div>
     </>
