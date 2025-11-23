@@ -38,44 +38,7 @@ const Perfil = () => {
 
   // Dados estáticos para fallback
   const dadosEstaticos = {
-    nome: "Maria Silva",
-    foto: mariaSilva,
-    localizacao: "Assis Chateaibriand, PR",
-    descricao: "Enfermeira especializada in geriatria com 10 anos de experiência.",
-    avaliacao: 4.8,
-    email: "",
-    face: "",
-    inst: "",
-    linkedin: "",
-    historicoProfissional: [
-      {
-        nome: "Hospital Micheletto - Assis Chateaubriand",
-        imagem: micheleto,
-        alt: "Hospital Micheletto",
-      },
-      {
-        nome: "Instituto Butantan - São Paulo",
-        imagem: butantan,
-        alt: "Instituto Butantan",
-      },
-      {
-        nome: "Hospital Beneficente Português - Belém",
-        imagem: portugues,
-        alt: "Hospital Beneficente Português",
-      },
-    ],
-    historicoAcademico: [
-      {
-        nome: "Graduação em Enfermagem",
-        instituicao: "USP",
-        periodo: "2010-2014",
-      },
-      {
-        nome: "Pós-graduação em Geriatria",
-        instituicao: "UNIFESP",
-        periodo: "2015-2017",
-      },
-    ],
+    foto: logo
   };
 
   // Função para verificar se é o perfil do próprio usuário
