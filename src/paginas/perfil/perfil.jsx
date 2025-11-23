@@ -127,7 +127,7 @@ const Perfil = () => {
     return {
       _id: dadosUsuario._id,
       nome: dadosUsuario.nome || "Nome não informado",
-      foto: dadosUsuario.foto || dadosUsuario.picture || mariaSilva,
+      foto: dadosUsuario.foto || dadosUsuario.picture || logo,
       localizacao: localizacaoFormatada,
       descricao:
         dadosUsuario.desc ||
