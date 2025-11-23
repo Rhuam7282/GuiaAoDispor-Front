@@ -83,10 +83,12 @@ const Perfil = () => {
   const isPerfilProprio = () => {
     if (!estaAutenticado() || !usuario) return false;
 
+    // Se há ID na URL, compara com o ID do usuário logado
     if (id) {
       return usuario._id === id;
     }
 
+    // Se não há ID, está no próprio perfil
     return true;
   };
 
@@ -247,7 +249,7 @@ const Perfil = () => {
       const profissionalFormatado = hprofissionais.map((hp) => ({
         _id: hp._id,
         nome: hp.nome || "Empresa não informada",
-        imagem: hp.foto || hp.imagem || logo, // ✅ Usa a logo importada
+        imagem: hp.foto || hp.imagem || logo, // ✅ CORRIGIDO: usar logo em vez de micheleto
         alt: hp.nome || "Empresa",
         descricao: hp.descricao || hp.desc || "",
       }));

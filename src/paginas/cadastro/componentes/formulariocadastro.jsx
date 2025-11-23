@@ -35,6 +35,9 @@ const FormularioCadastro = ({
         <div className="campos-formulario">
           {/* Seção de campos básicos */}
           <div className="secao-campos-basicos">
+            <div className="cabecalho-login-unificado">
+              <h1 className="titulo-login-unificado">Cadastre-se:</h1>
+            </div>
             <aside>
               <div className="grupo-formulario">
                 <label htmlFor="nome">Nome Completo *</label>

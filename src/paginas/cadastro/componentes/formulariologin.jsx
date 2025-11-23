@@ -125,10 +125,6 @@ const FormularioLogin = () => {
     setMostrarSenha(!mostrarSenha);
   };
 
-  // const lidarEsqueciSenha = () => {
-  //   console.log('Redirecionar para recuperação de senha');
-  // };
-
   return (
     <div className="cartao-login-unificado">
       <div className="cabecalho-login-unificado">
@@ -144,73 +140,55 @@ const FormularioLogin = () => {
               </div>
             )}
 
-            <div className="grupo-formulario">
-              <label htmlFor="email" className="rotulo-campo">
-                Email
-              </label>
-              <input
-                type="email"
-                id="login-email"
-                name="email"
-                value={dadosLogin.email}
-                onChange={aoAlterarCampo}
-                className={`campo-input ${erros.email ? 'erro' : ''}`}
-                placeholder="seu@email.com"
-                disabled={carregando}
-              />
-              {erros.email && (
-                <span className="mensagem-erro-campo">{erros.email}</span>
-              )}
-            </div>
-
-            <div className="grupo-formulario">
-              <label htmlFor="senha" className="rotulo-campo">
-                Senha
-              </label>
-              <div className="container-senha">
+            {/* NOVO: Container para email e senha na mesma linha */}
+            <div className="linha-campos-login">
+              <div className="grupo-formulario grupo-email">
+                <label htmlFor="email" className="rotulo-campo">
+                  Email
+                </label>
                 <input
-                  type={mostrarSenha ? "text" : "password"}
-                  id="login-senha"
-                  name="senha"
-                  value={dadosLogin.senha}
+                  type="email"
+                  id="login-email"
+                  name="email"
+                  value={dadosLogin.email}
                   onChange={aoAlterarCampo}
-                  className={`campo-input ${erros.senha ? 'erro' : ''}`}
-                  placeholder="Sua senha"
+                  className={`campo-input ${erros.email ? 'erro' : ''}`}
+                  placeholder="seu@email.com"
                   disabled={carregando}
                 />
-                <button
-                  type="button"
-                  className="botao-visibilidade"
-                  onClick={toggleMostrarSenha}
-                  disabled={carregando}
-                >
-                  {mostrarSenha ? <Eye /> : <EyeOff/>}
-                </button>
+                {erros.email && (
+                  <span className="mensagem-erro-campo pequena">{erros.email}</span>
+                )}
               </div>
-              {erros.senha && (
-                <span className="mensagem-erro-campo">{erros.senha}</span>
-              )}
-            </div>
 
-            <div className="linha-opcoes">
-              {/* <label className="opcao-lembrar">
-                <input
-                  type="checkbox"
-                  checked={lembrarMe}
-                  onChange={(e) => setLembrarMe(e.target.checked)}
-                  disabled={carregando}
-                />
-                <span className="texto-lembrar">Lembrar-me</span>
-              </label> */}
-              
-              {/* <button
-                type="button"
-                className="link-esqueci-senha"
-                onClick={lidarEsqueciSenha}
-                disabled={carregando}
-              >
-                Esqueci minha senha
-              </button> */}
+              <div className="grupo-formulario grupo-senha">
+                <label htmlFor="senha" className="rotulo-campo">
+                  Senha
+                </label>
+                <div className="container-senha">
+                  <input
+                    type={mostrarSenha ? "text" : "password"}
+                    id="login-senha"
+                    name="senha"
+                    value={dadosLogin.senha}
+                    onChange={aoAlterarCampo}
+                    className={`campo-input ${erros.senha ? 'erro' : ''}`}
+                    placeholder="Sua senha"
+                    disabled={carregando}
+                  />
+                  <button
+                    type="button"
+                    className="botao-visibilidade"
+                    onClick={toggleMostrarSenha}
+                    disabled={carregando}
+                  >
+                    {mostrarSenha ? <Eye size={18} /> : <EyeOff size={18} />}
+                  </button>
+                </div>
+                {erros.senha && (
+                  <span className="mensagem-erro-campo pequena">{erros.senha}</span>
+                )}
+              </div>
             </div>
 
             <button

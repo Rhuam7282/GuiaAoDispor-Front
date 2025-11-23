@@ -8,10 +8,14 @@ const HistoricoProfissionalPerfil = ({
   adicionarHistoricoProfissional,
   removerHistoricoProfissional,
   alterarHistoricoProfissional,
+  isPerfilProprio
 }) => {
+
+  const modoEdicaoPermitido = modoEdicao && isPerfilProprio;
+
   const fileInputRefs = useRef([]);
 
-  if (modoEdicao && !isPerfilProprio) {
+  if (modoEdicaoPermitido && !isPerfilProprio) {
     // Se tentarem forçar modoEdicao sem ser o próprio perfil, desativa
     modoEdicao = false;
   }
@@ -49,7 +53,7 @@ const HistoricoProfissionalPerfil = ({
         <h2 className="bordaInferiorSubtle margemSuperiorZero">
           Histórico Profissional
         </h2>
-        {modoEdicao && (
+        {modoEdicaoPermitido && (
           <button
             type="button"
             onClick={adicionarHistoricoProfissional}

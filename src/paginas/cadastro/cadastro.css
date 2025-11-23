@@ -847,6 +847,91 @@ input.erro, textarea.erro, select.erro {
   border-left: 3px solid var(--corMarromEscuro);
 }
 
+@media (max-width: 768px) {
+  .linha-campos-login {
+    flex-direction: column;
+    gap: var(--espacamentoPequeno);
+  }
+  
+  .grupo-email,
+  .grupo-senha {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .linha-campos-login {
+    gap: var(--espacamentoPequeno);
+  }
+  
+  .grupo-senha .container-senha .campo-input {
+    padding-right: 40px;
+  }
+  
+  .grupo-senha .botao-visibilidade {
+    width: 28px;
+    height: 28px;
+    right: 6px;
+  }
+}
+
+.mensagem-erro-campo.pequena {
+  font-size: var(--tamanhoFonteTextoMicro);
+  padding: 4px 8px;
+  margin-top: 4px;
+}
+
+.linha-campos-login {
+  display: flex;
+  gap: var(--espacamentoPequeno);
+  align-items: flex-start;
+  margin-bottom: var(--espacamentoPequeno);
+}
+
+.grupo-email {
+  flex: 2; /* Email ocupa mais espaço */
+}
+
+.grupo-senha {
+  flex: 1.5; /* Senha ocupa um pouco menos */
+}
+
+.grupo-senha .container-senha {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.grupo-senha .container-senha .campo-input {
+  padding-right: 45px;
+  width: 100%;
+}
+
+.grupo-senha .botao-visibilidade {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--corMarromOfuscado);
+}
+
+.grupo-senha .botao-visibilidade:hover:not(:disabled) {
+  background-color: var(--corAzulDestaqueTransparente);
+  color: var(--corAzulDestaque);
+}
+
 .linha-opcoes {
   display: flex;
   justify-content: space-between;
@@ -1150,13 +1235,6 @@ input.erro, textarea.erro, select.erro {
   color: var(--corMarromOfuscado);
   font-size: var(--tamanhoFonteTexto);
   line-height: 1.5;
-}
-
-.conteudo-login-unificado {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--espacamentoGrande);
-  align-items: start;
 }
 
 .formulario-login-container {

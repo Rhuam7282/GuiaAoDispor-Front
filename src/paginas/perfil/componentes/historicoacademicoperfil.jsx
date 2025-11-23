@@ -7,6 +7,7 @@ const HistoricoAcademicoPerfil = ({
   adicionarHistoricoAcademico,
   removerHistoricoAcademico,
   alterarHistoricoAcademico,
+  isPerfilProprio,
 }) => {
   const fileInputRefs = useRef([]);
 
@@ -14,6 +15,8 @@ const HistoricoAcademicoPerfil = ({
     // Se tentarem forçar modoEdicao sem ser o próprio perfil, desativa
     modoEdicao = false;
   }
+
+  const modoEdicaoPermitido = modoEdicao && isPerfilProprio;
 
   const handleImageUpload = (index, event) => {
     const file = event.target.files[0];
@@ -48,7 +51,7 @@ const HistoricoAcademicoPerfil = ({
         <h2 className="bordaInferiorSubtle margemSuperiorZero">
           Histórico Acadêmico
         </h2>
-        {modoEdicao && (
+        {modoEdicaoPermitido && (
           <button
             type="button"
             onClick={adicionarHistoricoAcademico}
