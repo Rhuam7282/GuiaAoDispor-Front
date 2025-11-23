@@ -138,11 +138,24 @@ export const servicoProfissional = {
 export const servicoAvaliacao = {
   criar: (dadosAvaliacao) =>
     fazerRequisicao("/api/avaliacoes", "POST", dadosAvaliacao),
-  buscarPorId: (id) => fazerRequisicao(`/api/avaliacoes/${id}`, "GET"),
-  listarTodas: () => fazerRequisicao("/api/avaliacoes", "GET"),
-  atualizar: (id, dadosAvaliacao) =>
-    fazerRequisicao(`/api/avaliacoes/${id}`, "PUT", dadosAvaliacao),
-  deletar: (id) => fazerRequisicao(`/api/avaliacoes/${id}`, "DELETE"),
+  
+  buscarPorProfissional: (profissionalId) =>
+    fazerRequisicao(`/api/avaliacoes/profissional/${profissionalId}`, "GET"),
+  
+  buscarPendentes: (usuarioId) =>
+    fazerRequisicao(`/api/avaliacoes/pendentes/${usuarioId}`, "GET"),
+  
+  solicitar: (dadosSolicitacao) =>
+    fazerRequisicao("/api/avaliacoes/solicitar", "POST", dadosSolicitacao),
+  
+  confirmar: (id, dadosConfirmacao) =>
+    fazerRequisicao(`/api/avaliacoes/confirmar/${id}`, "PUT", dadosConfirmacao),
+  
+  recusar: (id) =>
+    fazerRequisicao(`/api/avaliacoes/recusar/${id}`, "PUT"),
+  
+  deletar: (id) =>
+    fazerRequisicao(`/api/avaliacoes/${id}`, "DELETE"),
 };
 
 export const servicoHCurricular = {

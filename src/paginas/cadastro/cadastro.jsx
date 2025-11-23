@@ -137,7 +137,7 @@ const Cadastro = () => {
         // Redireciona após 2 segundos
         setTimeout(() => {
           navigate("/qualificados");
-        }, 2000);
+        }, 25000);
       } else {
         throw new Error("Erro no login automático após cadastro");
       }

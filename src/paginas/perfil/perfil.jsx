@@ -4,6 +4,9 @@ import Corpo from "../../componentes/layout/corpo.jsx";
 import InformacoesPerfil from "./componentes/informacoesperfil.jsx";
 import HistoricoAcademicoPerfil from "./componentes/historicoacademicoperfil.jsx";
 import HistoricoProfissionalPerfil from "./componentes/historicoprofissionalperfil.jsx";
+import SolicitarAvaliacao from "./componentes/solicitaravaliacao.jsx";
+import ListaAvaliacoes from "./componentes/listaaavaliacoes.jsx";
+import AvaliacoesPendentes from "./componentes/avaliacoespendenetes.jsx";
 import {
   servicoProfissional,
   servicoHCurricular,
@@ -15,10 +18,7 @@ import "./perfil.css";
 
 import { LogOut, Save, X } from "lucide-react";
 
-import mariaSilva from "../../recursos/imagens/mulher.png";
-import micheleto from "../../recursos/imagens/hospital.jpg";
-import butantan from "../../recursos/imagens/butantan.webp";
-import portugues from "../../recursos/imagens/portugues.jpg";
+import logo from "../../recursos/icones/logo.png";
 
 const Perfil = () => {
   const { id } = useParams();
@@ -171,13 +171,13 @@ const Perfil = () => {
     return {
       _id: dadosUsuario._id,
       nome: dadosUsuario.nome || "Nome não informado",
-      foto: dadosUsuario.foto || dadosUsuario.picture || mariaSilva,
+      foto: dadosUsuario.foto || dadosUsuario.picture || logo,
       localizacao: localizacaoFormatada,
       descricao: dadosUsuario.desc || dadosUsuario.descricao || "Descrição não informada",
       avaliacao: dadosUsuario.avaliacao || dadosUsuario.nota || 0,
       email: dadosUsuario.email || "",
       contatos: contatosFormatados,
-      tipoPerfil: dadosUsuario.tipoPerfil || "Pessoal",
+      tipoPerfil: dadosUsuario.tipoPerfil || (dadosUsuario.desc ? "Profissional" : "Pessoal"),
     };
   };
 
@@ -695,6 +695,28 @@ const Perfil = () => {
               />
             </div>
           )}
+
+          {/* Seção de Avaliações para profissionais */}
+          {isPerfilProfissional() && (
+            <>
+              {/* O profissional pode solicitar avaliações apenas no próprio perfil */}
+              {isPerfilProprio() && (
+                <SolicitarAvaliacao 
+                  profissionalId={id || usuario._id} 
+                  profissionalNome={dadosPerfil.nome}
+                />
+              )}
+              
+              {/* Lista de avaliações confirmadas */}
+              <ListaAvaliacoes profissionalId={id || usuario._id} />
+            </>
+          )}
+
+          {/* Avaliações pendentes para usuários comuns */}
+          {isPerfilProprio() && !isPerfilProfissional() && (
+            <AvaliacoesPendentes usuarioId={usuario._id} />
+          )}
+
         </div>
       </div>
     </Corpo>

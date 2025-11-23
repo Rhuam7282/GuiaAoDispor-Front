@@ -641,6 +641,31 @@
   height: 100%;
 }
 
+/* Estilos para avaliações */
+.containerPerfil .textoAmarelo {
+  color: #ffc107;
+}
+
+.containerPerfil .textoPequeno {
+  font-size: var(--tamanhoFonteTextoMinimo);
+}
+
+.containerPerfil .preenchido {
+  fill: currentColor;
+}
+
+.containerPerfil .margemInferiorPequena {
+  margin-bottom: var(--espacamentoPequeno);
+}
+
+.containerPerfil .margemSuperiorPequena {
+  margin-top: var(--espacamentoPequeno);
+}
+
+.containerPerfil .gapPequeno {
+  gap: 8px;
+}
+
 /* Ajustes responsivos */
 @media (max-width: 768px) {
   .containerPerfil .containerPrincipal {
