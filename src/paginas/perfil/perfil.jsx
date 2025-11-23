@@ -39,9 +39,10 @@ const Perfil = () => {
   // Dados estáticos para fallback
   const dadosEstaticos = {
     nome: "Maria Silva",
-    foto: mariaSilva,
+    foto: logo, // ✅ Usa a logo importada
     localizacao: "Assis Chateaibriand, PR",
-    descricao: "Enfermeira especializada in geriatria com 10 anos de experiência.",
+    descricao:
+      "Enfermeira especializada in geriatria com 10 anos de experiência.",
     avaliacao: 4.8,
     email: "",
     face: "",
@@ -50,17 +51,17 @@ const Perfil = () => {
     historicoProfissional: [
       {
         nome: "Hospital Micheletto - Assis Chateaubriand",
-        imagem: micheleto,
+        imagem: logo, // ✅ Usa a logo importada
         alt: "Hospital Micheletto",
       },
       {
         nome: "Instituto Butantan - São Paulo",
-        imagem: butantan,
+        imagem: logo, // ✅ Usa a logo importada
         alt: "Instituto Butantan",
       },
       {
         nome: "Hospital Beneficente Português - Belém",
-        imagem: portugues,
+        imagem: logo, // ✅ Usa a logo importada
         alt: "Hospital Beneficente Português",
       },
     ],
@@ -81,11 +82,11 @@ const Perfil = () => {
   // Função para verificar se é o perfil do próprio usuário
   const isPerfilProprio = () => {
     if (!estaAutenticado() || !usuario) return false;
-    
+
     if (id) {
       return usuario._id === id;
     }
-    
+
     return true;
   };
 
@@ -118,7 +119,9 @@ const Perfil = () => {
         if (sucesso) {
           sairModoEdicaoERecarregar();
         } else {
-          setMensagem("Erro ao salvar alterações. Verifique os campos obrigatórios.");
+          setMensagem(
+            "Erro ao salvar alterações. Verifique os campos obrigatórios."
+          );
         }
       }
     } catch (error) {
@@ -145,7 +148,9 @@ const Perfil = () => {
       } else if (typeof dadosUsuario.localizacao === "object") {
         localizacaoFormatada =
           dadosUsuario.localizacao.nome ||
-          `${dadosUsuario.localizacao.cidade || ""} ${dadosUsuario.localizacao.estado || ""}`.trim() ||
+          `${dadosUsuario.localizacao.cidade || ""} ${
+            dadosUsuario.localizacao.estado || ""
+          }`.trim() ||
           "Localização não informada";
       }
     }
@@ -161,10 +166,16 @@ const Perfil = () => {
         contatosFormatados.push({ tipo: "Facebook", valor: dadosUsuario.face });
       }
       if (dadosUsuario.inst) {
-        contatosFormatados.push({ tipo: "Instagram", valor: dadosUsuario.inst });
+        contatosFormatados.push({
+          tipo: "Instagram",
+          valor: dadosUsuario.inst,
+        });
       }
       if (dadosUsuario.linkedin) {
-        contatosFormatados.push({ tipo: "LinkedIn", valor: dadosUsuario.linkedin });
+        contatosFormatados.push({
+          tipo: "LinkedIn",
+          valor: dadosUsuario.linkedin,
+        });
       }
     }
 
@@ -173,25 +184,33 @@ const Perfil = () => {
       nome: dadosUsuario.nome || "Nome não informado",
       foto: dadosUsuario.foto || dadosUsuario.picture || logo,
       localizacao: localizacaoFormatada,
-      descricao: dadosUsuario.desc || dadosUsuario.descricao || "Descrição não informada",
+      descricao:
+        dadosUsuario.desc ||
+        dadosUsuario.descricao ||
+        "Descrição não informada",
       avaliacao: dadosUsuario.avaliacao || dadosUsuario.nota || 0,
       email: dadosUsuario.email || "",
       contatos: contatosFormatados,
-      tipoPerfil: dadosUsuario.tipoPerfil || (dadosUsuario.desc ? "Profissional" : "Pessoal"),
+      tipoPerfil:
+        dadosUsuario.tipoPerfil ||
+        (dadosUsuario.desc ? "Profissional" : "Pessoal"),
     };
   };
 
   // Função para carregar perfil profissional
   const carregarPerfilProfissional = async (profissionalId) => {
     try {
-      const [perfilResposta, hcurricularResposta, hprofissionalResposta] = await Promise.all([
-        servicoProfissional.buscarPorId(profissionalId).catch(() => null),
-        servicoHCurricular.listarTodos().catch(() => ({ data: [] })),
-        servicoHProfissional.listarTodos().catch(() => ({ data: [] })),
-      ]);
+      const [perfilResposta, hcurricularResposta, hprofissionalResposta] =
+        await Promise.all([
+          servicoProfissional.buscarPorId(profissionalId).catch(() => null),
+          servicoHCurricular.listarTodos().catch(() => ({ data: [] })),
+          servicoHProfissional.listarTodos().catch(() => ({ data: [] })),
+        ]);
 
       if (!perfilResposta || !perfilResposta.data) {
-        const respostaUsuario = await servicoAuth.buscarPerfilLogado(profissionalId);
+        const respostaUsuario = await servicoAuth.buscarPerfilLogado(
+          profissionalId
+        );
         if (respostaUsuario && respostaUsuario.data) {
           const perfilFormatado = formatarDadosPerfil(respostaUsuario.data);
           setDadosPerfil(perfilFormatado);
@@ -205,11 +224,15 @@ const Perfil = () => {
       setDadosPerfil(perfilFormatado);
 
       const hcurriculares = Array.isArray(hcurricularResposta?.data)
-        ? hcurricularResposta.data.filter((hc) => hc.profissional && hc.profissional._id === profissionalId)
+        ? hcurricularResposta.data.filter(
+            (hc) => hc.profissional && hc.profissional._id === profissionalId
+          )
         : [];
 
       const hprofissionais = Array.isArray(hprofissionalResposta?.data)
-        ? hprofissionalResposta.data.filter((hp) => hp.profissional && hp.profissional._id === profissionalId)
+        ? hprofissionalResposta.data.filter(
+            (hp) => hp.profissional && hp.profissional._id === profissionalId
+          )
         : [];
 
       const academicoFormatado = hcurriculares.map((hc) => ({
@@ -224,14 +247,13 @@ const Perfil = () => {
       const profissionalFormatado = hprofissionais.map((hp) => ({
         _id: hp._id,
         nome: hp.nome || "Empresa não informada",
-        imagem: hp.foto || hp.imagem || micheleto,
+        imagem: hp.foto || hp.imagem || logo, // ✅ Usa a logo importada
         alt: hp.nome || "Empresa",
         descricao: hp.descricao || hp.desc || "",
       }));
 
       setHistoricoAcademico(academicoFormatado);
       setHistoricoProfissional(profissionalFormatado);
-
     } catch (error) {
       console.error("❌ Erro ao carregar perfil profissional:", error);
       throw error;
@@ -247,11 +269,15 @@ const Perfil = () => {
       ]);
 
       const hcurriculares = Array.isArray(hcurricularResposta?.data)
-        ? hcurricularResposta.data.filter((hc) => hc.profissional && hc.profissional._id === profissionalId)
+        ? hcurricularResposta.data.filter(
+            (hc) => hc.profissional && hc.profissional._id === profissionalId
+          )
         : [];
 
       const hprofissionais = Array.isArray(hprofissionalResposta?.data)
-        ? hprofissionalResposta.data.filter((hp) => hp.profissional && hp.profissional._id === profissionalId)
+        ? hprofissionalResposta.data.filter(
+            (hp) => hp.profissional && hp.profissional._id === profissionalId
+          )
         : [];
 
       const academicoFormatado = hcurriculares.map((hc) => ({
@@ -294,7 +320,10 @@ const Perfil = () => {
             const perfilFormatado = formatarDadosPerfil(resposta.data);
             setDadosPerfil(perfilFormatado);
 
-            if (resposta.data.tipoPerfil === "Profissional" || resposta.data.desc) {
+            if (
+              resposta.data.tipoPerfil === "Profissional" ||
+              resposta.data.desc
+            ) {
               await carregarHistoricosProfissional(usuario._id);
             } else {
               setHistoricoAcademico([]);
@@ -314,7 +343,9 @@ const Perfil = () => {
             setHistoricoProfissional([]);
           }
 
-          setErro(`Dados carregados localmente. Erro da API: ${erroApi.message}`);
+          setErro(
+            `Dados carregados localmente. Erro da API: ${erroApi.message}`
+          );
         }
       }
       // CASO 2: Perfil específico por ID
@@ -358,7 +389,7 @@ const Perfil = () => {
   const isPerfilProfissional = () => {
     if (id) return true;
     if (dadosPerfil?.tipoPerfil === "Profissional") return true;
-    
+
     const temDescricaoPersonalizada =
       dadosPerfil?.descricao &&
       dadosPerfil.descricao !== "Descrição não informada" &&
@@ -377,7 +408,14 @@ const Perfil = () => {
   const adicionarHistoricoAcademico = () => {
     setHistoricoAcademico((prev) => [
       ...prev,
-      { _id: `temp-${Date.now()}`, nome: "", instituicao: "", periodo: "", descricao: "", imagem: "" },
+      {
+        _id: `temp-${Date.now()}`,
+        nome: "",
+        instituicao: "",
+        periodo: "",
+        descricao: "",
+        imagem: "",
+      },
     ]);
   };
 
@@ -518,7 +556,10 @@ const Perfil = () => {
           <div className="container textoCentro paddingGrande">
             <div className="erro">
               <h2>Perfil não disponível</h2>
-              <p>Faça login para ver seu perfil ou selecione um profissional na página de Qualificados.</p>
+              <p>
+                Faça login para ver seu perfil ou selecione um profissional na
+                página de Qualificados.
+              </p>
               <div className="botoesAcao">
                 <button
                   onClick={() => navigate("/qualificados")}
@@ -628,10 +669,13 @@ const Perfil = () => {
                   </button>
                 </>
               )}
-              
+
               {estaAutenticado() && !isPerfilProprio() && (
                 <div className="alert alert-info">
-                  <small>Você está visualizando o perfil de outro usuário. A edição não está disponível.</small>
+                  <small>
+                    Você está visualizando o perfil de outro usuário. A edição
+                    não está disponível.
+                  </small>
                 </div>
               )}
             </div>
@@ -701,12 +745,12 @@ const Perfil = () => {
             <>
               {/* O profissional pode solicitar avaliações apenas no próprio perfil */}
               {isPerfilProprio() && (
-                <SolicitarAvaliacao 
-                  profissionalId={id || usuario._id} 
+                <SolicitarAvaliacao
+                  profissionalId={id || usuario._id}
                   profissionalNome={dadosPerfil.nome}
                 />
               )}
-              
+
               {/* Lista de avaliações confirmadas */}
               <ListaAvaliacoes profissionalId={id || usuario._id} />
             </>
@@ -716,7 +760,6 @@ const Perfil = () => {
           {isPerfilProprio() && !isPerfilProfissional() && (
             <AvaliacoesPendentes usuarioId={usuario._id} />
           )}
-
         </div>
       </div>
     </Corpo>

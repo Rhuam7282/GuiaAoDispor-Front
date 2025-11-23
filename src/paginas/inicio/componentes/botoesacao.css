@@ -10,18 +10,22 @@
 }
 
 .textoMotivacional {
-  margin-bottom: var(--espacamentoMedio);
+  margin-bottom: var(--espacamentoGrande);
 }
 
 .textoMotivacional h3 {
   color: var(--corMarromEscuro);
   font-size: var(--tamanhoFonteSubtitulo);
   margin-bottom: var(--espacamentoPequeno);
+  font-weight: 700;
 }
 
 .textoMotivacional p {
   color: var(--corTextoEscuro);
   font-size: var(--tamanhoFonteTextoMedio);
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .grupoBotoes {
@@ -36,35 +40,37 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--espacamentoPequeno) var(--espacamentoMedio); /* ✅ Padding reduzido */
+  padding: var(--espacamentoMedio);
   border: none;
   border-radius: var(--raioBorda);
   cursor: pointer;
   font-size: var(--tamanhoFonteTextoMedio);
   transition: all 0.3s ease;
-  min-width: 160px; /* ✅ Largura reduzida */
-  min-height: 60px; /* ✅ Altura reduzida */
+  min-width: 180px;
+  min-height: 70px;
   text-align: center;
 }
 
 .botaoSecundario {
-  background-color: var(--corAzulClaro);
-  color: var(--corBranco);
+  background-color: var(--corAzulDestaque);
+  color: var(--corNeutraClara);
 }
 
 .botaoSecundario:hover {
-  background-color: var(--corAzulDestaque);
+  background-color: var(--corAzulEscuro);
   transform: translateY(-2px);
+  color: var(--corNeutraClara);
 }
 
 .botaoPrimario {
   background-color: var(--corMarromDestaque);
-  color: var(--corBranco);
+  color: var(--corNeutraClara);
 }
 
 .botaoPrimario:hover {
   background-color: var(--corMarromEscuro);
   transform: translateY(-2px);
+  color: var(--corNeutraClara);
 }
 
 .conteudoBotao {
@@ -108,5 +114,13 @@
   .botaoAcesso {
     width: 100%;
     max-width: 300px;
+  }
+  
+  .textoMotivacional h3 {
+    font-size: var(--tamanhoFonteTexto);
+  }
+  
+  .textoMotivacional p {
+    font-size: var(--tamanhoFonteTextoMenor);
   }
 }

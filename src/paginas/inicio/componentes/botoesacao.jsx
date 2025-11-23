@@ -26,7 +26,6 @@ const BotoesAcao = () => {
     <div className="secaoBotoesAcao">
       <div className="containerBotoesAcao">
         <div className="textoMotivacional">
-          <h3>Pronto para começar?</h3>
           <p>Escolha como deseja acessar nossa plataforma e descubra as possibilidades</p>
         </div>
         

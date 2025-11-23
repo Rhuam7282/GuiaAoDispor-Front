@@ -1,5 +1,3 @@
-
-
 .secaoVantagens {
   padding: var(--espacamentoExtraGrande);
   background: linear-gradient(135deg, var(--corBranco) 0%, #f8f9fa 100%);
@@ -10,14 +8,14 @@
 
 .secaoComentarios h2 {
   color: var(--corMarromEscuro);
-  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo)); /* ✅ Título responsivo */
+  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo));
   margin-bottom: var(--espacamentoMedio);
   font-weight: 700;
 }
 
 .secaoVantagens h2 {
   color: var(--corMarromEscuro);
-  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo)); /* ✅ Título responsivo */
+  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo));
   margin-bottom: var(--espacamentoExtraGrande);
   font-weight: 700;
 }
@@ -59,77 +57,35 @@
   margin: 0;
 }
 
-
-
-@media (max-width: 768px) {
-  .containerVantagens {
-    grid-template-columns: 1fr;
-  }
-  
-  .secaoVantagens {
-    padding: var(--espacamentoGrande) var(--espacamentoMedio);
-  }
-  
-  .vantagemItem {
-    padding: var(--espacamentoGrande);
-  }
-}
-
-@media (max-width: 600px) {
-  .paginaInicial {
-    background-size: 50% auto;
-  }
-  
-  .slogan {
-    font-size: var(--tamanhoFonteTextoMenor);
-  }
-  
-  .textoExplicativo {
-    margin: var(--espacamentoPequeno);
-    padding: var(--espacamentoPequeno);
-  }
-}
-
 .conteudoInicial {
-  background-image: linear-gradient(to bottom, var(--corAzulDestaque), var(--corNeutraClara));
+  background: 
+    linear-gradient(to bottom, var(--corAzulDestaque), var(--corNeutraClara)),
+    url('../../recursos/icones/logo.png');
+  background-size: cover, 30%;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-blend-mode: normal;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--espacamentoExtraGrande) 0;
   position: relative;
-  z-index: 2; /* ✅ Garante que o conteúdo fique acima do fundo */
+  z-index: 2;
 }
 
 .paginaInicial {
   width: 100%;
   background-color: transparent;
-  background-image: url('../../recursos/icones/logo.png'); /* ✅ Logo como fundo */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 30% auto; /* ✅ Tamanho ajustável */
-  background-attachment: fixed;
   position: relative;
-  overflow: auto;
-}
-
-.paginaInicial::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.85); /* ✅ Overlay branco semi-transparente */
-  z-index: 1;
+  overflow: hidden;
 }
 
 .conteudoPrincipalInicio {
   background-color: var(--corNeutraClara);
   width: 100%;
-  margin-left: 0;
-  padding: var(--espacamentoExtraGrande) 0;
+  margin: 0;
+  padding: 0;
 }
 
 .slogan {
@@ -144,7 +100,7 @@
 .carrosselAcessibilidade h2 {
   color: var(--corMarromEscuro);
   margin-bottom: var(--espacamentoMedio);
-  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo)); /* ✅ Título responsivo */
+  font-size: clamp(1.5rem, 4vw, var(--tamanhoFonteTitulo));
   font-weight: 700;
 }
 
@@ -171,9 +127,26 @@
   text-align: justify;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  .containerVantagens {
+    grid-template-columns: 1fr;
+  }
+  
+  .secaoVantagens {
+    padding: var(--espacamentoGrande) var(--espacamentoMedio);
+  }
+  
+  .vantagemItem {
+    padding: var(--espacamentoGrande);
+  }
+  
+  .conteudoInicial {
+    background-size: cover, 50%;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
   .conteudoPrincipalInicio {
-    padding: var(--espacamentoExtraGrande) var(--espacamentoMedio) var(--espacamentoMedio);
     align-items: center;
     text-align: center;
     width: 100%;
@@ -190,6 +163,11 @@
 }
 
 @media (max-width: 600px) {
+  .conteudoInicial {
+    background-size: cover, 60%;
+    padding: var(--espacamentoGrande) var(--espacamentoMedio);
+  }
+  
   .slogan {
     font-size: var(--tamanhoFonteTextoMenor);
   }
@@ -199,5 +177,3 @@
     padding: var(--espacamentoPequeno);
   }
 }
-
-

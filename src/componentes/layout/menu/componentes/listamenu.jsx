@@ -3,7 +3,6 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../contextos/autenticacao';
 import { Home, User, MessageSquare, Mail, GalleryHorizontal } from 'lucide-react';
-import Interrogacao from '../../../acessibilidade/interrogacao/interrogacao.jsx';
 import ItemMenu from './itemmenu';
 import './listamenu.css';
 
@@ -45,9 +44,6 @@ const ListaMenu = ({ onItemClick }) => {
 
   return (
     <ul className="listaIcones vertical listaSemEstilo">
-      <Interrogacao>
-        Texto auxiliar muito legal 👍
-      </Interrogacao>
       
       {itensMenu.map((item) => (
         <ItemMenu

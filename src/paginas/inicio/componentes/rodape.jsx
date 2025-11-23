@@ -26,23 +26,6 @@ const Rodape = () => {
     navigate(rota);
   };
 
-  // TODO: Implementar handlers para os botões legais
-  // Estas funções devem ser implementadas quando as páginas correspondentes forem criadas
-  const handlePoliticaPrivacidade = () => {
-    console.log("Redirecionar para política de privacidade");
-    // navigate('/politica-privacidade');
-  };
-
-  const handleTermosUso = () => {
-    console.log("Redirecionar para termos de uso");
-    // navigate('/termos-uso');
-  };
-
-  const handleNossoArtigo = () => {
-    console.log("Redirecionar para nosso artigo");
-    // navigate('/nosso-artigo');
-  };
-
   return (
     <footer className="footer">
       <div className="containerFooter">
@@ -93,18 +76,6 @@ const Rodape = () => {
               &copy; {new Date().getFullYear()} Guia ao Dispor. Todos os
               direitos reservados.
             </p>
-          </div>
-          <div className="linksLegais">
-            {/* TODO: Implementar páginas de política de privacidade e termos de uso */}
-            <button className="botaoLegal" onClick={handlePoliticaPrivacidade}>
-              Política de Privacidade
-            </button>
-            <button className="botaoLegal" onClick={handleTermosUso}>
-              Termos de Uso
-            </button>
-            <button className="botaoLegal" onClick={handleNossoArtigo}>
-              Nosso Artigo
-            </button>
           </div>
         </div>
       </div>
