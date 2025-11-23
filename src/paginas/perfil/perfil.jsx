@@ -18,10 +18,7 @@ import "./perfil.css";
 
 import { LogOut, Save, X } from "lucide-react";
 
-import mariaSilva from "../../recursos/imagens/mulher.png";
-import micheleto from "../../recursos/imagens/hospital.jpg";
-import butantan from "../../recursos/imagens/butantan.webp";
-import portugues from "../../recursos/imagens/portugues.jpg";
+import logo from "../../recursos/icones/logo.png";
 
 const Perfil = () => {
   const { id } = useParams();
@@ -41,45 +38,7 @@ const Perfil = () => {
 
   // Dados estáticos para fallback
   const dadosEstaticos = {
-    nome: "Maria Silva",
-    foto: mariaSilva,
-    localizacao: "Assis Chateaibriand, PR",
-    descricao:
-      "Enfermeira especializada in geriatria com 10 anos de experiência.",
-    avaliacao: 4.8,
-    email: "",
-    face: "",
-    inst: "",
-    linkedin: "",
-    historicoProfissional: [
-      {
-        nome: "Hospital Micheletto - Assis Chateaubriand",
-        imagem: micheleto,
-        alt: "Hospital Micheletto",
-      },
-      {
-        nome: "Instituto Butantan - São Paulo",
-        imagem: butantan,
-        alt: "Instituto Butantan",
-      },
-      {
-        nome: "Hospital Beneficente Português - Belém",
-        imagem: portugues,
-        alt: "Hospital Beneficente Português",
-      },
-    ],
-    historicoAcademico: [
-      {
-        nome: "Graduação em Enfermagem",
-        instituicao: "USP",
-        periodo: "2010-2014",
-      },
-      {
-        nome: "Pós-graduação em Geriatria",
-        instituicao: "UNIFESP",
-        periodo: "2015-2017",
-      },
-    ],
+    foto: logo,
   };
 
   // Função para logout
@@ -94,7 +53,7 @@ const Perfil = () => {
     setTimeout(() => {
       setMensagem('');
       window.location.reload(); // Recarregar a página para garantir atualização
-    }, 2000);
+    }, 25000);
   };
 
   // Função para salvar todas as alterações
@@ -250,7 +209,7 @@ const Perfil = () => {
     const profissionalFormatado = hprofissionais.map((hp) => ({
       _id: hp._id,
       nome: hp.nome || "Empresa não informada",
-      imagem: hp.foto || hp.imagem || micheleto,
+      imagem: hp.foto || hp.imagem,
       alt: hp.nome || "Empresa",
       descricao: hp.descricao || hp.desc || "",
     }));
@@ -303,7 +262,7 @@ const carregarHistoricosProfissional = async (profissionalId) => {
     const profissionalFormatado = hprofissionais.map((hp) => ({
       _id: hp._id,
       nome: hp.nome || "Empresa não informada",
-      imagem: hp.foto || hp.imagem || micheleto,
+      imagem: hp.foto || hp.imagem,
       alt: hp.nome || "Empresa",
       descricao: hp.descricao || hp.desc || "",
     }));

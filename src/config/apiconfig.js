@@ -1,6 +1,6 @@
 export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || 'http://localhost:3001',
-  TIMEOUT: 15000,
+  TIMEOUT: 25000,
   
   ENDPOINTS: {
     AUTH: '/api/auth',
