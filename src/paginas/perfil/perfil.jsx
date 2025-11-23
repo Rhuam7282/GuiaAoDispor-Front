@@ -38,7 +38,7 @@ const Perfil = () => {
 
   // Dados estáticos para fallback
   const dadosEstaticos = {
-    foto: logo,
+    foto: logo
   };
 
   // Função para logout
