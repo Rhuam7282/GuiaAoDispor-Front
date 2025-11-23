@@ -25,53 +25,40 @@ const PainelControle = () => {
     const aplicarEstilosTexto = () => {
       let estiloDinamico = document.getElementById('estiloAcessibilidadeTexto');
       
-      // Calcular fatores de escala base mantendo proporções
       const fatorBase = configuracoes.tamanhoFonte / 100;
       
       const conteudoEstilo = `
-        /* Aplicar escala proporcional a TODOS os elementos */
-        :root {
-          --fator-escala-global: ${fatorBase};
-          --espacamento-letras-global: ${configuracoes.espacamentoLetras}px;
-          --altura-linha-global: ${configuracoes.alturaLinha};
+        /* Aplicar escala GLOBAL a TODOS os elementos */
+        * {
+          font-size: calc(1em * ${fatorBase}) !important;
+          letter-spacing: ${configuracoes.espacamentoLetras}px !important;
+          line-height: ${configuracoes.alturaLinha} !important;
         }
         
-        /* Escalar elementos de texto mantendo hierarquia */
-        body {
-          font-size: calc(1rem * var(--fator-escala-global)) !important;
-          letter-spacing: var(--espacamento-letras-global) !important;
-          line-height: var(--altura-linha-global) !important;
-        }
+        /* Manter proporções hierárquicas */
+        h1 { font-size: calc(2em * ${fatorBase}) !important; }
+        h2 { font-size: calc(1.5em * ${fatorBase}) !important; }
+        h3 { font-size: calc(1.3em * ${fatorBase}) !important; }
+        h4 { font-size: calc(1.1em * ${fatorBase}) !important; }
+        h5 { font-size: calc(1em * ${fatorBase}) !important; }
+        h6 { font-size: calc(0.9em * ${fatorBase}) !important; }
         
-        /* Manter proporções hierárquicas para diferentes elementos */
-        h1 { font-size: calc(2rem * var(--fator-escala-global)) !important; }
-        h2 { font-size: calc(1.5rem * var(--fator-escala-global)) !important; }
-        h3 { font-size: calc(1.3rem * var(--fator-escala-global)) !important; }
-        h4 { font-size: calc(1.1rem * var(--fator-escala-global)) !important; }
-        h5 { font-size: calc(1rem * var(--fator-escala-global)) !important; }
-        h6 { font-size: calc(0.9rem * var(--fator-escala-global)) !important; }
-        
-        small { font-size: calc(0.8rem * var(--fator-escala-global)) !important; }
-        .texto-pequeno { font-size: calc(0.8rem * var(--fator-escala-global)) !important; }
-        .texto-grande { font-size: calc(1.2rem * var(--fator-escala-global)) !important; }
-        
-        /* Botões e inputs também escalam */
+        /* Elementos específicos que podem ter tamanhos fixos */
         button, input, textarea, select {
-          font-size: calc(1rem * var(--fator-escala-global)) !important;
-          letter-spacing: var(--espacamento-letras-global) !important;
+          font-size: calc(1em * ${fatorBase}) !important;
         }
         
-        /* O próprio painel de acessibilidade também escala */
+        /* O painel de acessibilidade também escala */
         .painelAcessibilidade {
-          font-size: calc(14px * var(--fator-escala-global)) !important;
+          font-size: calc(14px * ${fatorBase}) !important;
         }
         
         .painelAcessibilidade .tituloSecao {
-          font-size: calc(13px * var(--fator-escala-global)) !important;
+          font-size: calc(13px * ${fatorBase}) !important;
         }
         
         .painelAcessibilidade .botoesControle button {
-          font-size: calc(12px * var(--fator-escala-global)) !important;
+          font-size: calc(12px * ${fatorBase}) !important;
         }
       `;
 
@@ -98,34 +85,128 @@ const PainelControle = () => {
         break;
       case 2: 
         raiz.classList.add('contrasteIntenso');
+        // Forçar contraste máximo
+        document.body.style.setProperty('--corNeutraClara', '#000000', 'important');
+        document.body.style.setProperty('--corMarromEscuro', '#ffffff', 'important');
+        document.body.style.setProperty('--corAzulDestaque', '#ffff00', 'important');
         break;
       default: 
+        // Reset para cores originais
+        document.body.style.removeProperty('--corNeutraClara');
+        document.body.style.removeProperty('--corMarromEscuro');
+        document.body.style.removeProperty('--corAzulDestaque');
         break;
     }
   }, [configuracoes.modoContraste]);
 
-  // Aplicar modo escuro seguindo a paleta do site
+  // Aplicar modo escuro com a paleta fornecida
   useEffect(() => {
     const raiz = document.documentElement;
     
     if (configuracoes.modoEscuro === 1) {
       raiz.classList.add('temaEscuro');
-      // Aplicar cores do tema escuro mantendo identidade visual
-      document.documentElement.style.setProperty('--corNeutraClara', '#1a1a1a');
-      document.documentElement.style.setProperty('--corNeutraEscura', '#f5f5f5');
-      document.documentElement.style.setProperty('--corMarromEscuro', '#e8e8e8');
-      document.documentElement.style.setProperty('--corMarromDestaque', '#8B4513');
-      document.documentElement.style.setProperty('--corMarromDestaqueTransparente', 'rgba(139, 69, 19, 0.3)');
-      document.documentElement.style.setProperty('--corAzulDestaque', '#1e90ff');
+      
+      // Aplicar paleta de cores do modo escuro COM CONTRASTE
+      document.documentElement.style.setProperty('--corNeutraEscura', '#fdf9ee');
+      document.documentElement.style.setProperty('--corNeutraClara', '#1b3133'); // Fundo mais escuro para melhor contraste
+      document.documentElement.style.setProperty('--corMarromDestaque', '#d3a27f');
+      document.documentElement.style.setProperty('--corMarromOfuscado', '#94877e');
+      document.documentElement.style.setProperty('--corMarromEscuro', '#fdf9ee'); // Texto claro
+      document.documentElement.style.setProperty('--corAzulDestaque', '#7fccd4');
+      document.documentElement.style.setProperty('--corAzulOfuscado', '#6e7d7f');
+      document.documentElement.style.setProperty('--corAzulEscuro', '#7fccd4'); // Azul mais visível
+      document.documentElement.style.setProperty('--corMarromDestaqueTransparente', 'rgba(211, 162, 127, 0.4)');
+      document.documentElement.style.setProperty('--corAzulDestaqueTransparente', 'rgba(127, 204, 212, 0.4)');
+      
+      // Forçar contraste adequado em elementos críticos
+      const estiloContraste = `
+        .temaEscuro body {
+          background-color: #1b3133 !important;
+          color: #fdf9ee !important;
+        }
+        
+        .temaEscuro .painelAcessibilidade {
+          background-color: #303538 !important;
+          color: #fdf9ee !important;
+          border-color: #d3a27f !important;
+        }
+        
+        .temaEscuro .titulo-grupo,
+        .temaEscuro .tituloSecao {
+          color: #d3a27f !important;
+          border-color: rgba(211, 162, 127, 0.5) !important;
+        }
+        
+        .temaEscuro .botoesControle button {
+          background: #54453b !important;
+          color: #fdf9ee !important;
+          border-color: #d3a27f !important;
+        }
+        
+        .temaEscuro .botoesControle button.ativo {
+          background: #7fccd4 !important;
+          color: #1b3133 !important;
+          font-weight: bold !important;
+        }
+        
+        .temaEscuro .grupo-opcoes {
+          border-color: rgba(211, 162, 127, 0.3) !important;
+          background: rgba(48, 53, 56, 0.8) !important;
+        }
+        
+        /* Garantir contraste em textos */
+        .temaEscuro h1,
+        .temaEscuro h2,
+        .temaEscuro h3,
+        .temaEscuro h4,
+        .temaEscuro h5,
+        .temaEscuro h6,
+        .temaEscuro p,
+        .temaEscuro span,
+        .temaEscuro div:not(.botoesControle button):not(.botaoAlternarAcessibilidade) {
+          color: #fdf9ee !important;
+        }
+        
+        /* Links no modo escuro */
+        .temaEscuro a {
+          color: #7fccd4 !important;
+          text-decoration: underline !important;
+        }
+        
+        .temaEscuro a:hover {
+          color: #d3a27f !important;
+        }
+      `;
+      
+      let estiloExistente = document.getElementById('estiloModoEscuroContraste');
+      if (!estiloExistente) {
+        const style = document.createElement('style');
+        style.id = 'estiloModoEscuroContraste';
+        document.head.appendChild(style);
+        estiloExistente = style;
+      }
+      estiloExistente.textContent = estiloContraste;
+      
     } else {
       raiz.classList.remove('temaEscuro');
-      // Restaurar cores originais (elas serão pegas do index.css)
-      document.documentElement.style.removeProperty('--corNeutraClara');
+      
+      // Remover estilos forçados
       document.documentElement.style.removeProperty('--corNeutraEscura');
-      document.documentElement.style.removeProperty('--corMarromEscuro');
+      document.documentElement.style.removeProperty('--corNeutraClara');
       document.documentElement.style.removeProperty('--corMarromDestaque');
-      document.documentElement.style.removeProperty('--corMarromDestaqueTransparente');
+      document.documentElement.style.removeProperty('--corMarromOfuscado');
+      document.documentElement.style.removeProperty('--corMarromEscuro');
       document.documentElement.style.removeProperty('--corAzulDestaque');
+      document.documentElement.style.removeProperty('--corAzulOfuscado');
+      document.documentElement.style.removeProperty('--corAzulEscuro');
+      document.documentElement.style.removeProperty('--corMarromDestaqueTransparente');
+      document.documentElement.style.removeProperty('--corAzulDestaqueTransparente');
+      
+      // Remover estilo de contraste
+      const estiloContraste = document.getElementById('estiloModoEscuroContraste');
+      if (estiloContraste) {
+        estiloContraste.remove();
+      }
     }
   }, [configuracoes.modoEscuro]);
 
@@ -299,12 +380,16 @@ const PainelControle = () => {
                   setGuiaLeituraAtiva(false);
                   
                   // Resetar estilos forçados
-                  document.documentElement.style.removeProperty('--corNeutraClara');
                   document.documentElement.style.removeProperty('--corNeutraEscura');
-                  document.documentElement.style.removeProperty('--corMarromEscuro');
+                  document.documentElement.style.removeProperty('--corNeutraClara');
                   document.documentElement.style.removeProperty('--corMarromDestaque');
-                  document.documentElement.style.removeProperty('--corMarromDestaqueTransparente');
+                  document.documentElement.style.removeProperty('--corMarromOfuscado');
+                  document.documentElement.style.removeProperty('--corMarromEscuro');
                   document.documentElement.style.removeProperty('--corAzulDestaque');
+                  document.documentElement.style.removeProperty('--corAzulOfuscado');
+                  document.documentElement.style.removeProperty('--corAzulEscuro');
+                  document.documentElement.style.removeProperty('--corMarromDestaqueTransparente');
+                  document.documentElement.style.removeProperty('--corAzulDestaqueTransparente');
                 }}
               >
                 Redefinir Tudo

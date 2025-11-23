@@ -329,7 +329,8 @@
 .destacarLinks1 input[type="submit"],
 .destacarLinks1 input[type="reset"],
 .destacarLinks1 [onclick],
-.destacarLinks1 [tabindex]:not([tabindex="-1"]) {
+.destacarLinks1 [tabindex]:not([tabindex="-1"]),
+.destacarLinks1 [style*="cursor: pointer"]:not(.botoesControle button):not(.botaoAlternarAcessibilidade):not(.botao-redefinir-tudo) {
   background-color: rgba(30, 144, 255, 0.1) !important;
   color: inherit !important;
   text-decoration: underline !important;
@@ -346,7 +347,8 @@
 .destacarLinks2 input[type="submit"],
 .destacarLinks2 input[type="reset"],
 .destacarLinks2 [onclick],
-.destacarLinks2 [tabindex]:not([tabindex="-1"]) {
+.destacarLinks2 [tabindex]:not([tabindex="-1"]),
+.destacarLinks2 [style*="cursor: pointer"]:not(.botoesControle button):not(.botaoAlternarAcessibilidade):not(.botao-redefinir-tudo) {
   background-color: #ffff00 !important;
   color: #000000 !important;
   text-decoration: underline !important;
@@ -364,7 +366,8 @@
 .destacarLinks3 input[type="submit"],
 .destacarLinks3 input[type="reset"],
 .destacarLinks3 [onclick],
-.destacarLinks3 [tabindex]:not([tabindex="-1"]) {
+.destacarLinks3 [tabindex]:not([tabindex="-1"]),
+.destacarLinks3 [style*="cursor: pointer"]:not(.botoesControle button):not(.botaoAlternarAcessibilidade):not(.botao-redefinir-tudo) {
   border: 3px dashed #ff6600 !important;
   padding: 2px 4px !important;
   border-radius: 5px !important;
