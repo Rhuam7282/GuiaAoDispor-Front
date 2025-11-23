@@ -4,9 +4,11 @@ import Filtro from "./componentes/filtro.jsx";
 import ListaProfissionais from "./componentes/listaprofissionais.jsx";
 import "./qualificados.css";
 import { servicoProfissional } from "../../servicos/api.js";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../recursos/icones/logo.png";
 
 function Qualificados() {
+  const navigate = useNavigate();
   const [filtroSelecionado, setFiltroSelecionado] = useState("localizacao");
   const [profissionais, setProfissionais] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,7 +32,7 @@ function Qualificados() {
     },
   ];
 
-    const fetchProfissionais = async () => {
+  const fetchProfissionais = async () => {
     try {
       setLoading(true);
       setError(null);
@@ -39,7 +41,7 @@ function Qualificados() {
 
       // Use o serviço da API em vez de fetch direto
       const resposta = await servicoProfissional.listarTodos();
-      
+
       console.log("📨 Resposta da API:", resposta);
 
       // Verifica diferentes estruturas de resposta
@@ -49,7 +51,11 @@ function Qualificados() {
         dadosProfissionais = resposta;
       } else if (resposta && Array.isArray(resposta.data)) {
         dadosProfissionais = resposta.data;
-      } else if (resposta && resposta.data && Array.isArray(resposta.data.data)) {
+      } else if (
+        resposta &&
+        resposta.data &&
+        Array.isArray(resposta.data.data)
+      ) {
         // Nova verificação para estrutura aninhada
         dadosProfissionais = resposta.data.data;
       } else if (resposta && resposta.data) {
@@ -62,13 +68,14 @@ function Qualificados() {
 
       // Verifica se há profissionais válidos
       if (!dadosProfissionais || dadosProfissionais.length === 0) {
-        console.warn("📭 Nenhum profissional encontrado na API, usando dados mock");
+        console.warn(
+          "📭 Nenhum profissional encontrado na API, usando dados mock"
+        );
         dadosProfissionais = profissionaisMock;
       }
 
       console.log("✅ Profissionais carregados:", dadosProfissionais.length);
       setProfissionais(dadosProfissionais);
-      
     } catch (error) {
       console.error("❌ Erro ao carregar profissionais:", error);
       // Use dados mock silenciosamente sem mostrar erro
@@ -91,13 +98,22 @@ function Qualificados() {
   ];
 
   const aoClicarPerfil = (perfil) => {
-    console.log(`Perfil selecionado: ${perfil.nome}`);
-    if (perfil._id.includes("mock")) {
+    console.log(`Perfil selecionado: ${perfil.nome}`, perfil);
+    console.log(`ID do perfil: ${perfil._id}`);
+
+    // Debug: verificar se o navigate está funcionando
+    console.log("Antes do navigate...");
+
+    // Redireciona para a página de perfil do profissional
+    if (perfil._id && !perfil._id.includes("mock")) {
+      console.log(`Navegando para: /perfil/${perfil._id}`);
+      navigate(`/perfil/${perfil._id}`);
+      console.log("Navigate executado");
+    } else {
+      console.log("Perfil mock, mostrando alerta");
       alert(
         `📋 Dados de exemplo: ${perfil.nome}\n\nO backend está offline no momento.`
       );
-    } else {
-      alert(`Perfil de ${perfil.nome}`);
     }
   };
 
@@ -106,7 +122,6 @@ function Qualificados() {
     fetchProfissionais();
   };
 
-  
   return (
     <Corpo>
       <div className="container">

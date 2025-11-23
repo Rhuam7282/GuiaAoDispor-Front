@@ -1,33 +1,38 @@
-import React, { useRef } from 'react';
-import { Plus, Trash2, Upload } from 'lucide-react';
+import React, { useRef } from "react";
+import { Plus, Trash2, Upload } from "lucide-react";
 
-const HistoricoProfissionalPerfil = ({ 
-  historicoProfissional, 
-  nomePerfil, 
-  modoEdicao, 
-  adicionarHistoricoProfissional, 
-  removerHistoricoProfissional, 
-  alterarHistoricoProfissional 
+const HistoricoProfissionalPerfil = ({
+  historicoProfissional,
+  nomePerfil,
+  modoEdicao,
+  adicionarHistoricoProfissional,
+  removerHistoricoProfissional,
+  alterarHistoricoProfissional,
 }) => {
   const fileInputRefs = useRef([]);
+
+  if (modoEdicao && !isPerfilProprio) {
+    // Se tentarem forçar modoEdicao sem ser o próprio perfil, desativa
+    modoEdicao = false;
+  }
 
   const handleImageUpload = (index, event) => {
     const file = event.target.files[0];
     if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
-      alert('Por favor, selecione um arquivo de imagem válido.');
+    if (!file.type.startsWith("image/")) {
+      alert("Por favor, selecione um arquivo de imagem válido.");
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('A imagem deve ter no máximo 5MB.');
+      alert("A imagem deve ter no máximo 5MB.");
       return;
     }
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      alterarHistoricoProfissional(index, 'imagem', e.target.result);
+      alterarHistoricoProfissional(index, "imagem", e.target.result);
     };
     reader.readAsDataURL(file);
   };
@@ -41,7 +46,9 @@ const HistoricoProfissionalPerfil = ({
   return (
     <div className="margemInferiorGrande">
       <div className="flexCentro espaçoEntre margemInferiorMedia">
-        <h2 className="bordaInferiorSubtle margemSuperiorZero">Histórico Profissional</h2>
+        <h2 className="bordaInferiorSubtle margemSuperiorZero">
+          Histórico Profissional
+        </h2>
         {modoEdicao && (
           <button
             type="button"
@@ -53,13 +60,19 @@ const HistoricoProfissionalPerfil = ({
           </button>
         )}
       </div>
-      
+
       <div className="carrossel-historico">
         {historicoProfissional.length > 0 ? (
           historicoProfissional.map((item, index) => (
             <div key={item._id || index} className="item-carrossel">
-              <div className={modoEdicao ? "cartao-carrossel posicaoRelativa layout-profissional-edicao" : "cartao-carrossel layout-profissional-visualizacao"} 
-                   style={modoEdicao ? {height: 'auto', minHeight: '400px'} : {}}>
+              <div
+                className={
+                  modoEdicao
+                    ? "cartao-carrossel posicaoRelativa layout-profissional-edicao"
+                    : "cartao-carrossel layout-profissional-visualizacao"
+                }
+                style={modoEdicao ? { height: "auto", minHeight: "400px" } : {}}
+              >
                 {modoEdicao ? (
                   <>
                     {/* Linha 1: Imagem com ratio 3/4 */}
@@ -67,47 +80,64 @@ const HistoricoProfissionalPerfil = ({
                       <div className="container-upload-imagem">
                         <img
                           className="imagem-upload imagem-profissional"
-                          src={item.imagem || '/placeholder-company.jpg'}
+                          src={item.imagem || "/placeholder-company.jpg"}
                           alt="Preview da empresa"
                         />
-                        <div className="sobreposicao-upload opaco" onClick={() => triggerFileInput(index)}>
+                        <div
+                          className="sobreposicao-upload opaco"
+                          onClick={() => triggerFileInput(index)}
+                        >
                           <Upload size={24} />
                           <span>Alterar imagem</span>
                         </div>
                         <input
                           type="file"
                           accept="image/*"
-                          ref={el => fileInputRefs.current[index] = el}
+                          ref={(el) => (fileInputRefs.current[index] = el)}
                           onChange={(e) => handleImageUpload(index, e)}
-                          style={{ display: 'none' }}
+                          style={{ display: "none" }}
                         />
                       </div>
                     </div>
-                    
+
                     {/* Linha 2: Título */}
                     <div className="campoFormulario">
-                      <label className="rotuloCampo">Empresa/Instituição *</label>
+                      <label className="rotuloCampo">
+                        Empresa/Instituição *
+                      </label>
                       <input
                         type="text"
                         value={item.nome}
-                        onChange={(e) => alterarHistoricoProfissional(index, 'nome', e.target.value)}
+                        onChange={(e) =>
+                          alterarHistoricoProfissional(
+                            index,
+                            "nome",
+                            e.target.value
+                          )
+                        }
                         className="inputFormulario"
                         placeholder="Ex: Hospital Micheletto"
                       />
                     </div>
-                    
+
                     {/* Linha 3: Descrição */}
                     <div className="campoFormulario">
                       <label className="rotuloCampo">Descrição</label>
                       <textarea
                         value={item.descricao}
-                        onChange={(e) => alterarHistoricoProfissional(index, 'descricao', e.target.value)}
+                        onChange={(e) =>
+                          alterarHistoricoProfissional(
+                            index,
+                            "descricao",
+                            e.target.value
+                          )
+                        }
                         className="inputFormulario areaTexto"
                         rows="3"
                         placeholder="Descrição da experiência profissional"
                       />
                     </div>
-                    
+
                     <button
                       type="button"
                       onClick={() => removerHistoricoProfissional(index)}
@@ -122,7 +152,7 @@ const HistoricoProfissionalPerfil = ({
                     <div className="container-upload-imagem">
                       <img
                         className="imagem-upload imagem-profissional"
-                        src={item.imagem || '/placeholder-company.jpg'}
+                        src={item.imagem || "/placeholder-company.jpg"}
                         alt={`${item.nome} - Local de trabalho de ${nomePerfil}`}
                       />
                     </div>
@@ -140,7 +170,8 @@ const HistoricoProfissionalPerfil = ({
             <div className="cartao-carrossel">
               {modoEdicao ? (
                 <p className="textoCentro textoMarromOfuscado">
-                  Nenhum histórico profissional cadastrado. Clique em "Adicionar" para incluir.
+                  Nenhum histórico profissional cadastrado. Clique em
+                  "Adicionar" para incluir.
                 </p>
               ) : (
                 <p className="textoCentro textoMarromOfuscado">

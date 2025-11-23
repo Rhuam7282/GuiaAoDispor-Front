@@ -38,6 +38,11 @@ const InformacoesPerfil = forwardRef(({
   // NOVO ESTADO: Contatos removidos
   const [contatosRemovidos, setContatosRemovidos] = useState([]);
 
+  if (modoEdicao && !isPerfilProprio) {
+    // Se tentarem forçar modoEdicao sem ser o próprio perfil, desativa
+    modoEdicao = false;
+  }
+  
   // Expor função de salvar via ref
   useImperativeHandle(ref, () => ({
     salvarEdicoes: handleSalvarEdicao

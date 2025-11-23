@@ -28,14 +28,12 @@ function App() {
             {/* Rotas que redirecionam se autenticado */}
             <Route path="/cadastro" element={<Cadastro />} />
 
-            <Route
-              path="/qualificados"
-              element={
-                  <Qualificados />
-              }
-            />
+            <Route path="/qualificados" element={<Qualificados />} />
+
+            <Route path="/perfil/:id" element={<Perfil />} />
 
             {/* Rotas protegidas - requerem autenticação */}
+
             <Route
               path="/perfil"
               element={
@@ -44,22 +42,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/perfil/:id"
-              element={
-                <ProtectedRoute>
-                  <Perfil />
-                </ProtectedRoute>
-              }
-            />
-            {/* <Route
-              path="/mensagem"
-              element={
-                <ProtectedRoute>
-                  <Mensagem />
-                </ProtectedRoute>
-              }
-            /> */}
 
             {/* Rota 404 */}
             <Route
@@ -74,7 +56,6 @@ function App() {
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-      {/* <VlibrasWidget /> */}
     </div>
   );
 }
