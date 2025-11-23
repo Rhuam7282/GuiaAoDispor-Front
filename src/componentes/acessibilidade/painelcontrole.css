@@ -8,7 +8,6 @@
   font-family: var(--fontePrincipal);
 }
 
-
 .botaoAlternarAcessibilidade {
   width: 56px;
   height: 56px;
@@ -82,19 +81,12 @@
   padding: 10px;
 }
 
+/* Remover estilos fixos para permitir escalabilidade */
 .painelAcessibilidade,
 .painelAcessibilidade * {
-  font-size: 14px !important;
+  /* As fontes agora são escaláveis via JavaScript */
   letter-spacing: normal !important;
   line-height: 1.4 !important;
-}
-
-  .botoesControle button {
-  font-size: 12px !important;
-}
-
-.tituloSecao {
-  font-size: 13px !important;
 }
 
 .botoesControle button:active {
@@ -107,18 +99,18 @@
 }
 
 .botoesControle button {
-  font-size: 16px !important; /* Aumentar fonte dos botões */
-  padding: 10px; /* Aumentar padding */
-  min-width: 90px !important; /* Largura mínima maior */
+  padding: 10px;
+  min-width: 90px !important;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+  min-height: 32px;
 }
 
 .botaoAlternarAcessibilidade {
   font-size: 24px !important;
-}
-
-.botaoAlternarAcessibilidade {
-  font-size: 24px !important; /* Manter tamanho do ícone */
 }
 
 .cabecalhoAcessibilidade {
@@ -139,7 +131,7 @@
 
 .tituloHeader h3 {
   margin: 0;
-  font-size: 16px; /* Título menor */
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -170,6 +162,9 @@
   text-align: center;
   font-weight: bold;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .secao {
@@ -216,6 +211,9 @@
   font-size: 12px;
   font-weight: 500;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .botoesControle button.ativo {
@@ -235,26 +233,73 @@
   min-width: 50px;
   text-align: center;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Modos de contraste */
+/* Modos de contraste - CORRIGIDOS */
 .contrasteLeve {
-  filter: contrast(1.2) brightness(1.1);
+  filter: contrast(1.3) brightness(1.1) !important;
 }
 
 .contrasteIntenso {
-  --corNeutraClara: #000;
-  --corMarromEscuro: #fff;
-  --corMarromDestaqueTransparente: #333;
-  --corAzulDestaque: #ff0;
+  filter: contrast(2) brightness(1.2) !important;
 }
 
-/* Modo escuro */
+.contrasteIntenso body {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.contrasteIntenso * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.contrasteIntenso a,
+.contrasteIntenso button {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+/* Modo escuro - SEGUINDO A IDENTIDADE VISUAL DO SITE */
 .temaEscuro {
-  --corNeutraClara: #1a1a1a;
-  --corMarromEscuro: #fff;
-  --corMarromDestaqueTransparente: #333;
-  --corAzulDestaque: #3b82f6;
+  /* Cores são aplicadas via JavaScript para seguir a paleta do site */
+}
+
+.temaEscuro body {
+  background-color: var(--corNeutraClara) !important;
+  color: var(--corMarromEscuro) !important;
+}
+
+.temaEscuro .painelAcessibilidade {
+  background-color: var(--corNeutraClara) !important;
+  color: var(--corMarromEscuro) !important;
+  border-color: var(--corMarromDestaque) !important;
+}
+
+.temaEscuro .grupo-opcoes {
+  border-color: var(--corMarromDestaqueTransparente) !important;
+}
+
+.temaEscuro .titulo-grupo,
+.temaEscuro .tituloSecao {
+  color: var(--corMarromEscuro) !important;
+  border-color: var(--corMarromDestaqueTransparente) !important;
+}
+
+.temaEscuro .botoesControle button {
+  background: var(--corNeutraClara) !important;
+  color: var(--corMarromEscuro) !important;
+  border-color: var(--corMarromDestaqueTransparente) !important;
+}
+
+.temaEscuro .botoesControle button.ativo {
+  background: var(--corAzulDestaque) !important;
+  color: var(--corMarromEscuro) !important;
 }
 
 /* Remover imagens e cabeçalhos */
@@ -264,7 +309,6 @@
   display: none !important;
 }
 
-/* Substitua a regra existente por esta */
 .removerCabecalhos h1:not(.manter-cabecalho, .titulo-grupo, .tituloSecao, .tituloHeader h3),
 .removerCabecalhos h2:not(.manter-cabecalho, .titulo-grupo, .tituloSecao, .tituloHeader h3),
 .removerCabecalhos h3:not(.manter-cabecalho, .titulo-grupo, .tituloSecao, .tituloHeader h3),
@@ -275,38 +319,66 @@
   display: none !important;
 }
 
-.destacarLinks1 a {
+/* Destaque de elementos clicáveis - MODOS ATUALIZADOS */
+
+/* Modo 1 (Suave): Cores menos agressivas */
+.destacarLinks1 a,
+.destacarLinks1 button,
+.destacarLinks1 [role="button"],
+.destacarLinks1 input[type="button"],
+.destacarLinks1 input[type="submit"],
+.destacarLinks1 input[type="reset"],
+.destacarLinks1 [onclick],
+.destacarLinks1 [tabindex]:not([tabindex="-1"]),
+.destacarLinks1 [style*="cursor: pointer"]:not(.botoesControle button):not(.botaoAlternarAcessibilidade):not(.botao-redefinir-tudo) {
+  background-color: rgba(30, 144, 255, 0.1) !important;
+  color: inherit !important;
+  text-decoration: underline !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+  border: 1px solid rgba(30, 144, 255, 0.3) !important;
+}
+
+/* Modo 2 (Médio): Um pouco mais visível */
+.destacarLinks2 a,
+.destacarLinks2 button,
+.destacarLinks2 [role="button"],
+.destacarLinks2 input[type="button"],
+.destacarLinks2 input[type="submit"],
+.destacarLinks2 input[type="reset"],
+.destacarLinks2 [onclick],
+.destacarLinks2 [tabindex]:not([tabindex="-1"]),
+.destacarLinks2 [style*="cursor: pointer"]:not(.botoesControle button):not(.botaoAlternarAcessibilidade):not(.botao-redefinir-tudo) {
   background-color: #ffff00 !important;
   color: #000000 !important;
   text-decoration: underline !important;
   font-weight: bold !important;
   padding: 2px 4px !important;
   border-radius: 3px !important;
+  border: 2px solid #ff0000 !important;
 }
 
-/* Modo 2: Destacar com borda */
-.destacarLinks2 a {
-  border: 2px dashed #ff6600 !important;
+/* Modo 3 (Forte): Borda destacada */
+.destacarLinks3 a,
+.destacarLinks3 button,
+.destacarLinks3 [role="button"],
+.destacarLinks3 input[type="button"],
+.destacarLinks3 input[type="submit"],
+.destacarLinks3 input[type="reset"],
+.destacarLinks3 [onclick],
+.destacarLinks3 [tabindex]:not([tabindex="-1"]),
+.destacarLinks3 [style*="cursor: pointer"]:not(.botoesControle button):not(.botaoAlternarAcessibilidade):not(.botao-redefinir-tudo) {
+  border: 3px dashed #ff6600 !important;
   padding: 2px 4px !important;
-  border-radius: 3px !important;
+  border-radius: 5px !important;
   background-color: transparent !important;
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.5) !important;
 }
 
 /* Estilo para botões ativos */
 .botoesControle button.ativo {
   background-color: var(--corAzulDestaque) !important;
   color: white !important;
-}
-
-/* Destacar links */
-.destacarLinks a {
-  background-color: #ffff00 !important;
-  color: #000000 !important;
-  text-decoration: underline !important;
-  font-weight: bold !important;
-  padding: 2px 4px !important;
-  border-radius: 3px !important;
-  border: 2px solid #ff6600 !important;
 }
 
 /* Pausar animações */
@@ -345,11 +417,6 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
-.botoesControle button.ativo {
-  background-color: var(--corAzulDestaque) !important;
-  color: white !important;
-}
-
 /* Cursor grande */
 .cursorGrande * {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M2 2l28 12-12 2-4 14z" fill="black" stroke="white" stroke-width="2"/></svg>'), auto !important;
@@ -357,15 +424,15 @@
 
 /* Modos daltônicos */
 .daltonicoProtanopia {
-  filter: hue-rotate(10deg) saturate(0.8);
+  filter: hue-rotate(10deg) saturate(0.8) !important;
 }
 
 .daltonicoDeuteranopia {
-  filter: hue-rotate(-15deg) saturate(0.7);
+  filter: hue-rotate(-15deg) saturate(0.7) !important;
 }
 
 .daltonicoTritanopia {
-  filter: hue-rotate(180deg) saturate(0.6);
+  filter: hue-rotate(180deg) saturate(0.6) !important;
 }
 
 /* Guia de leitura */
@@ -387,7 +454,7 @@
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-bottom: 20px solid var(--corNeutraClara); /* Corpo principal preto */
+  border-bottom: 20px solid var(--corNeutraClara);
   transform: translate(-50%, -35%);
   z-index: 10002;
   pointer-events: none;
@@ -414,7 +481,7 @@
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 17px solid var(--corAzulEscuro); /* Interior branco */
+  border-bottom: 17px solid var(--corAzulEscuro);
 }
 
 .mascaraLeitura {
@@ -422,94 +489,9 @@
   pointer-events: none;
   z-index: 10001;
   width: 1500px;
-  /* Tamanho aumentado conforme solicitado */
   height: 200px;
-  /* Tamanho aumentado conforme solicitado */
   border: 3px solid var(--cor-destaque-secundaria);
   border-radius: 12px;
   background: transparent;
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
 }
-
-/* Estilos específicos para VLibras */
-.vlibras-status-toggle-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.toggle-vlibras-btn {
-  background: var(--corAzulDestaque);
-  color: var(--corMarromEscuro);
-  border: none;
-  border-radius: var(--bordaArredondada);
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-weight: 500;
-}
-
-.toggle-vlibras-btn:hover {
-  filter: brightness(0.95);
-}
-
-.toggle-vlibras-btn.active {
-  background: var(--corVerdeDestaque);
-}
-
-.vlibras-status-display {
-  background: var(--corNeutraClara);
-  border: 1px solid var(--corMarromDestaqueTransparente);
-  border-radius: var(--bordaArredondada);
-  padding: 12px;
-}
-
-.vlibras-status-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.vlibras-retry-btn {
-  background: var(--corMarromDestaqueTransparente);
-  color: var(--corMarromEscuro);
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.vlibras-retry-btn:hover:not(:disabled) {
-  background: var(--corAzulDestaque);
-}
-
-.vlibras-retry-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background: var(--corMarromDestaqueTransparente);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--corAzulDestaque);
-  transition: width 0.3s ease;
-}
-
-.vlibras-error-message {
-  color: var(--corVermelhoDestaque);
-  font-size: 12px;
-  margin-top: 8px;
-  margin-bottom: 0;
-}
-
