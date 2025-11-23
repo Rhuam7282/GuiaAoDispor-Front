@@ -3,11 +3,11 @@ import { Type, AlignJustify, MoreHorizontal } from 'lucide-react';
 
 const SecaoTexto = ({ configuracoes, atualizarConfiguracao }) => {
   const aumentarTamanhoFonte = () => {
-    atualizarConfiguracao('tamanhoFonte', Math.min(configuracoes.tamanhoFonte + 5, 130));
+    atualizarConfiguracao('tamanhoFonte', Math.min(configuracoes.tamanhoFonte + 0.5, 130));
   };
 
   const diminuirTamanhoFonte = () => {
-    atualizarConfiguracao('tamanhoFonte', Math.max(configuracoes.tamanhoFonte - 5, 80));
+    atualizarConfiguracao('tamanhoFonte', Math.max(configuracoes.tamanhoFonte - 0.5, 80));
   };
 
   const redefinirTamanhoFonte = () => {
