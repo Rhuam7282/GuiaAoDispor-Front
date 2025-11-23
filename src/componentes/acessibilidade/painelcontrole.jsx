@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { PersonStanding, X, Type, AlignJustify, MoreHorizontal, Eye, Contrast, Moon, Image, Heading, LinkIcon, BookOpen, Pause, MousePointer } from 'lucide-react';
 import { useConfiguracaoAcessibilidade } from './ganchos/useconfiguracaoacessibilidade.jsx';
 import { useGuiasLeitura } from './ganchos/useguiasleitura';
-// import VLibrasWidgetHibrido from 'VLibrasWidget/VLibrasWidgetHibrido';
 import SecaoTexto from './secaotexto/secaotexto';
 import SecaoVisao from './secaovisao/secaovisao';
 import SecaoConteudo from './secaoconteudo/secaoconteudo';
@@ -15,28 +14,40 @@ import './painelcontrole.css';
 
 const PainelControle = () => {
   const [estaAberto, setEstaAberto] = useState(false);
-
   const [maskLeituraAtiva, setMaskLeituraAtiva] = useState(false);
   const [guiaLeituraAtiva, setGuiaLeituraAtiva] = useState(false);
 
   const { configuracoes, atualizarConfiguracao } = useConfiguracaoAcessibilidade();
   useGuiasLeitura(configuracoes.guiaLeitura);
 
+  // Aplicar estilos de texto em TODOS os elementos
   useEffect(() => {
     const aplicarEstilosTexto = () => {
       let estiloDinamico = document.getElementById('estiloAcessibilidadeTexto');
       const conteudoEstilo = `
-      :root {
-        --fatorEscala: ${configuracoes.tamanhoFonte / 100};
-        --espacamentoLetras: ${configuracoes.espacamentoLetras}px;
-        --alturaLinha: ${configuracoes.alturaLinha};
-      }
-      body:not(.painelAcessibilidade):not(.painelAcessibilidade *) {
-        font-size: calc(16px * var(--fatorEscala)) !important; 
-        letter-spacing: var(--espacamentoLetras) !important;
-        line-height: var(--alturaLinha) !important;
-      }
-    `;
+        :root {
+          --fatorEscala: ${configuracoes.tamanhoFonte / 100};
+          --espacamentoLetras: ${configuracoes.espacamentoLetras}px;
+          --alturaLinha: ${configuracoes.alturaLinha};
+        }
+        
+        /* Aplicar a TODOS os elementos, incluindo headers, buttons, inputs, etc */
+        *:not(.painelAcessibilidade):not(.painelAcessibilidade *) {
+          font-size: calc(var(--tamanho-fonte-base, 16px) * var(--fatorEscala)) !important; 
+          letter-spacing: var(--espacamentoLetras) !important;
+          line-height: var(--alturaLinha) !important;
+        }
+        
+        /* Garantir que elementos específicos herdem corretamente */
+        h1, h2, h3, h4, h5, h6 {
+          font-size: calc(var(--tamanho-fonte-base, 16px) * var(--fatorEscala) * 1.2) !important;
+        }
+        
+        button, input, textarea, select {
+          font-size: calc(var(--tamanho-fonte-base, 16px) * var(--fatorEscala)) !important;
+          letter-spacing: var(--espacamentoLetras) !important;
+        }
+      `;
 
       if (!estiloDinamico) {
         const style = document.createElement('style');
@@ -50,29 +61,70 @@ const PainelControle = () => {
     aplicarEstilosTexto();
   }, [configuracoes.tamanhoFonte, configuracoes.espacamentoLetras, configuracoes.alturaLinha]);
 
+  // Aplicar modo de contraste
   useEffect(() => {
     const raiz = document.documentElement;
     raiz.classList.remove('contrasteLeve', 'contrasteIntenso');
+    
     switch (configuracoes.modoContraste) {
-      case 1: raiz.classList.add('contrasteLeve'); break;
-      case 2: raiz.classList.add('contrasteIntenso'); break;
-      default: break;
+      case 1: 
+        raiz.classList.add('contrasteLeve');
+        break;
+      case 2: 
+        raiz.classList.add('contrasteIntenso');
+        // Forçar contraste máximo
+        document.body.style.setProperty('--corNeutraClara', '#000000', 'important');
+        document.body.style.setProperty('--corMarromEscuro', '#ffffff', 'important');
+        document.body.style.setProperty('--corAzulDestaque', '#ffff00', 'important');
+        break;
+      default: 
+        // Reset para cores originais
+        document.body.style.removeProperty('--corNeutraClara');
+        document.body.style.removeProperty('--corMarromEscuro');
+        document.body.style.removeProperty('--corAzulDestaque');
+        break;
     }
   }, [configuracoes.modoContraste]);
 
+  // Aplicar modo escuro com contraste adequado
   useEffect(() => {
     const raiz = document.documentElement;
-    raiz.classList.toggle('temaEscuro', configuracoes.modoEscuro === 1);
+    
+    if (configuracoes.modoEscuro === 1) {
+      raiz.classList.add('temaEscuro');
+      // Garantir contraste no modo escuro
+      document.body.style.setProperty('--corNeutraClara', '#1a1a1a', 'important');
+      document.body.style.setProperty('--corMarromEscuro', '#e8e8e8', 'important');
+      document.body.style.setProperty('--corMarromDestaque', '#bb86fc', 'important');
+      document.body.style.setProperty('--corAzulDestaque', '#03dac6', 'important');
+    } else {
+      raiz.classList.remove('temaEscuro');
+      // Restaurar cores originais
+      document.body.style.removeProperty('--corNeutraClara');
+      document.body.style.removeProperty('--corMarromEscuro');
+      document.body.style.removeProperty('--corMarromDestaque');
+      document.body.style.removeProperty('--corAzulDestaque');
+    }
   }, [configuracoes.modoEscuro]);
 
+  // Aplicar outras configurações
   useEffect(() => {
     const raiz = document.documentElement;
+    
     raiz.classList.toggle('removerImagens', configuracoes.removerImagens);
     raiz.classList.toggle('removerCabecalhos', configuracoes.removerCabecalhos);
-    raiz.classList.toggle('destacarLinks', configuracoes.destacarLinks);
     raiz.classList.toggle('pausarAnimacoes', configuracoes.pausarAnimacoes);
     raiz.classList.toggle('cursorGrande', configuracoes.cursorGrande);
 
+    // Destacar elementos clicáveis baseado no modo
+    raiz.classList.remove('destacarLinks1', 'destacarLinks2');
+    if (configuracoes.destacarLinks === 1) {
+      raiz.classList.add('destacarLinks1');
+    } else if (configuracoes.destacarLinks === 2) {
+      raiz.classList.add('destacarLinks2');
+    }
+
+    // Modos daltônicos
     raiz.classList.remove('daltonicoProtanopia', 'daltonicoDeuteranopia', 'daltonicoTritanopia');
     switch (configuracoes.modoDaltonico) {
       case 1: raiz.classList.add('daltonicoProtanopia'); break;
@@ -80,9 +132,16 @@ const PainelControle = () => {
       case 3: raiz.classList.add('daltonicoTritanopia'); break;
       default: break;
     }
-  }, [configuracoes.removerImagens, configuracoes.removerCabecalhos, configuracoes.destacarLinks,
-  configuracoes.modoDaltonico, configuracoes.pausarAnimacoes, configuracoes.cursorGrande]);
+  }, [
+    configuracoes.removerImagens, 
+    configuracoes.removerCabecalhos, 
+    configuracoes.destacarLinks,
+    configuracoes.modoDaltonico, 
+    configuracoes.pausarAnimacoes, 
+    configuracoes.cursorGrande
+  ]);
 
+  // Atalhos de teclado
   useEffect(() => {
     const manipularTeclaPressionada = (evento) => {
       if (evento.altKey && evento.key === 'a') {
@@ -133,10 +192,7 @@ const PainelControle = () => {
             </div>
           </div>
 
-
           <div className="conteudo-painel">
-            {/* <VLibrasWidgetHibrido /> */}
-
             <div className="grupo-opcoes">
               <h4 className="titulo-grupo">Texto</h4>
               <SecaoTexto
@@ -217,6 +273,12 @@ const PainelControle = () => {
                   atualizarConfiguracao('cursorGrande', false);
                   setMaskLeituraAtiva(false);
                   setGuiaLeituraAtiva(false);
+                  
+                  // Resetar estilos forçados
+                  document.body.style.removeProperty('--corNeutraClara');
+                  document.body.style.removeProperty('--corMarromEscuro');
+                  document.body.style.removeProperty('--corAzulDestaque');
+                  document.body.style.removeProperty('--corMarromDestaque');
                 }}
               >
                 Redefinir Tudo
